@@ -282,7 +282,7 @@ function setupUI(){
   try{const data=JSON.parse(await f.text());const key=await keyOf(c1);const FB=window.FB;const names=Object.keys(data);let i=0;
    for(const n of names){m.textContent=`מעלה ${++i} מתוך ${names.length}...`;await FB.setDoc(FB.doc(FB.db,'noya',key,'layers',n),data[n])}
    await FB.setDoc(FB.doc(FB.db,'noya',key),{layers:names,createdAt:Date.now()},{merge:true});
-   m.innerHTML='✅ הכול עלה! עכשיו אפשר <a href="./">להיכנס למשחק</a> עם הקוד.';
+   m.innerHTML='✅ הכול עלה! עכשיו אפשר <a href="./" onclick="history.replaceState(null,\'\',location.pathname);location.reload();return false">להיכנס למשחק</a> עם הקוד.';
   }catch(err){m.textContent='משהו נכשל: '+err.message;$('#sbtn').disabled=false}};
 }
 function confirmLeave(){return true}

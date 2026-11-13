@@ -211,6 +211,7 @@ body.locked>header,body.locked>main,body.locked>nav{display:none}
 .lmsg{min-height:22px;margin:12px 0 0;font-size:14.5px;font-weight:600;color:#9b2a22}
 .lmsg a{color:var(--green)}
 .lart{font-size:44px;margin-bottom:8px}
+.lsetup{display:inline-block;margin-top:14px;font-size:13.5px;color:var(--muted);text-decoration:underline}
 /* mobile */
 @media (max-width:860px){
  .grid{grid-template-columns:1fr;gap:14px}
@@ -267,7 +268,7 @@ body.locked>header,body.locked>main,body.locked>nav{display:none}
 </nav>
 <div id="toast" class="toast"></div>
 <div id="guide" class="modal" hidden></div>
-<div id="login" class="login" hidden><div class="lbox" id="lbox"><div class="lart">🌀💄</div><div class="logo"><span class="no">אני לא</span> <span class="ch">צ'אחלה!</span></div><p class="lsub">מתאמנים ללשון ושומרים על התלתלים.<br>הקלידי את הקוד שלך כדי להיכנס.</p><form id="lform"><input id="lcode" type="password" autocomplete="current-password" placeholder="הקוד שלך" dir="ltr"><button class="btn" id="lbtn">כניסה</button></form><p id="lmsg" class="lmsg"></p></div></div>
+<div id="login" class="login" hidden><div class="lbox" id="lbox"><div class="lart">🌀💄</div><div class="logo"><span class="no">אני לא</span> <span class="ch">צ'אחלה!</span></div><p class="lsub">מתאמנים ללשון ושומרים על התלתלים.<br>הקלידי את הקוד שלך כדי להיכנס.</p><form id="lform"><input id="lcode" type="password" autocomplete="current-password" placeholder="הקוד שלך" dir="ltr"><button class="btn" id="lbtn">כניסה</button></form><p id="lmsg" class="lmsg"></p><a class="lsetup" href="#setup" onclick="setTimeout(()=>location.reload(),0)">פעם ראשונה? יצירת קוד והגדרה ראשונית</a></div></div>
 <script>
 /*__SCRIPTS__*/
 </script>

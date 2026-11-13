@@ -14,11 +14,15 @@ const CHANGES=[
 ];
 const PHRASES=['אין על עומר אדם – חולה עליו!','אה כפרה!','שומעעעת – מה נראה לך!','יא מאמי!','וואלה? אין מצב!','די, אני מתה!','אחותי, תני כבוד!','נשמה שלי!','יאללה ביי!','מה את אומרת?! אמאלה!','תכלס? לא מעניין אותי!','איזה באסה, נשמה'];
 const FRIENDS=[
- {name:'ליאור',hair:'#5a3a24',skin:'#eec3a0',top:'#3b82c4',style:'bob'},
- {name:'מיי',hair:'#1c1412',skin:'#e8b892',top:'#8b5cf6',style:'pony'},
- {name:'ליה',hair:'#a2461f',skin:'#f3cfb3',top:'#10a37f',style:'wavy'},
- {name:'יעל',hair:'#7a5233',skin:'#e9bd98',top:'#f59e0b',style:'long'},
- {name:'הילה',hair:'#d9b56a',skin:'#f1c9a8',top:'#ef4444',style:'braid'}
+ {name:'ליאור',skin:'#ecc19f',hair:'#3b2416',eyes:'#4a2c19',style:'wavy',glasses:1,smile:'big',lashes:1,top:'#3b82c4'},
+ {name:'מיי',skin:'#e8b892',hair:'#1c1412',eyes:'#3a2416',style:'bangs',piercings:{brow:1,lip:1,nose:1},top:'#8b5cf6'},
+ {name:'ליה',skin:'#f0cbae',hair:'#5a3a24',eyes:'#4a2c19',style:'straightLong',thickBrows:1,fullLips:1,top:'#10a37f'},
+ {name:'יעל',skin:'#e9bd98',hair:'#4a2e1c',eyes:'#4a2c19',style:'curlsLong',glasses:1,top:'#f59e0b'},
+ {name:'הילה',skin:'#8a5a3c',hair:'#0f0b0a',eyes:'#2a1a10',style:'straight',fullLips:1,smallNose:1,noseRing:1,top:'#ef4444'},
+ {name:'ליאור ז.',skin:'#efc6a6',hair:'#4b3020',eyes:'#4a2c19',style:'veryLong',roundFace:1,braces:1,smile:'big',top:'#0ea5e9'},
+ {name:'כרמל',skin:'#c99372',hair:'#121010',eyes:'#2a1a10',style:'messy',top:'#14b8a6'},
+ {name:'מאיה',skin:'#f6d5bd',hair:'#d98a45',eyes:'#3f8f4e',style:'wavyLong',braces:1,smile:'big',top:'#ec4899'},
+ {name:'אריאל',skin:'#e6b894',hair:'#5a3a24',eyes:'#4a2c19',style:'wavy',noseHoopBlue:1,top:'#6366f1'}
 ];
 
 // ===== פרסים =====

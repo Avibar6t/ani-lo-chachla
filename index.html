@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>אני לא צ'אחלה!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Frank+Ruhl+Libre:wght@500;700;900&family=Secular+One&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#f7f1e8;--paper:#fffdf9;--ink:#1d1a17;--muted:#7a7068;--line:#ebe2d6;
+ --green:#1f5a3d;--green2:#2f7a54;--mint:#e3f2e8;
+ --pink:#ff3d8b;--pink2:#ffd6e7;--coral:#ff6b57;--gold:#e9ad3c;--red:#d9463b;
+ --r:22px;--sh:0 1px 2px rgba(40,30,20,.05),0 10px 30px -12px rgba(40,30,20,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Rubik,system-ui,sans-serif;color:var(--ink);background:var(--bg);
+ background-image:radial-gradient(1200px 600px at 100% -10%,#fde7d3 0,transparent 60%),radial-gradient(900px 500px at -10% 110%,#e5efe6 0,transparent 60%);
+ min-height:100vh;padding-bottom:calc(84px + env(safe-area-inset-bottom));-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+.hw,.sent,.opts.big .opt,.stem .hw{font-family:'Frank Ruhl Libre',serif}
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:20;padding:calc(10px + env(safe-area-inset-top)) 18px 10px;
+ background:rgba(247,241,232,.82);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(0,0,0,.04)}
+.hrow{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{font-family:'Secular One',Rubik,sans-serif;font-size:26px;letter-spacing:-.3px;line-height:1;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo .no{position:relative;color:var(--green)}
+.logo .ch{color:var(--pink);position:relative}
+.logo .ch:after{content:"";position:absolute;inset:52% -4px auto -4px;height:4px;border-radius:4px;background:var(--ink);transform:rotate(-4deg)}
+.logo small{font-family:Rubik;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0;margin-inline-start:4px}
+#count{display:flex;gap:6px;flex-wrap:wrap;margin-inline-start:auto}
+.cd{font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:999px;background:var(--paper);border:1px solid var(--line);white-space:nowrap}
+.cd.hot{background:#fff1e6;border-color:#ffc9a3;color:#b4471c}
+/* ---------- layout ---------- */
+main{max-width:1180px;margin:0 auto;padding:18px}
+.grid{display:grid;grid-template-columns:380px 1fr;gap:22px;align-items:start}
+.card{background:var(--paper);border-radius:var(--r);box-shadow:var(--sh);border:1px solid rgba(0,0,0,.03)}
+/* ---------- avatar card ---------- */
+.side{position:sticky;top:78px}
+#stage{--lvl:0;position:relative;border-radius:var(--r) var(--r) 0 0;overflow:hidden;padding:18px 18px 0;
+ background:radial-gradient(120% 90% at 50% 18%,color-mix(in oklab,#fff8ee calc(100% - var(--lvl)*100%),#ffb3d3) 0,color-mix(in oklab,#efe2d0 calc(100% - var(--lvl)*100%),#ff6fae) 100%);transition:background .8s}
+#stage:before{content:"";position:absolute;inset:auto 0 0 0;height:38%;background:linear-gradient(transparent,rgba(0,0,0,.06))}
+#stage.chachla:after{content:"";position:absolute;inset:0;pointer-events:none;background:
+ radial-gradient(3px 3px at 14% 22%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 82% 30%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 74% 12%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 22% 64%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 88% 70%,#fff 50%,transparent 51%);opacity:calc(var(--lvl)*1.2)}
+.avatar{position:relative;width:min(100%,300px);margin:0 auto;aspect-ratio:1200/1732;isolation:isolate}
+.ly{position:absolute;height:auto;opacity:0;transition:opacity .8s ease;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.ly-BASE{opacity:1}
+.c-hair .ly-BASE{opacity:0}
+.c-hair .ly-BASE_nohair,.c-hair .ly-hair_back,.c-hair .ly-shoulder,.c-hair .ly-hair_front,
+.c-floral .ly-floral,.c-makeup .ly-makeup,.c-lips .ly-lips,.c-hoops .ly-hoops,.c-nails .ly-nails,.c-vape .ly-vape,.c-tan .ly-tan{opacity:1}
+.ly-tan{mix-blend-mode:multiply}
+#stage.pop .avatar{animation:pop .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(1)}30%{transform:scale(1.04) rotate(-1deg)}60%{transform:scale(.99) rotate(.6deg)}100%{transform:none}}
+.bubble{position:absolute;top:16px;inset-inline-start:12px;z-index:3;max-width:55%;background:#fff;border-radius:18px;padding:10px 13px;font-weight:700;font-size:14px;line-height:1.3;
+ box-shadow:0 8px 20px -8px rgba(0,0,0,.3);transform:rotate(-3deg);border:2px solid var(--pink)}
+.bubble:after{content:"";position:absolute;bottom:-11px;inset-inline-end:26px;border:10px solid transparent;border-top-color:var(--pink);border-bottom:0}
+.info{padding:14px 18px 18px}
+#status{display:flex;flex-direction:column;gap:2px}
+#status b{font-size:18px;font-weight:800}
+#status span{font-size:13px;color:var(--muted)}
+#meter{height:8px;border-radius:9px;background:#f1e8de;margin:10px 0 8px;overflow:hidden}
+#meter i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--gold),var(--pink));transition:width .7s}
+#changes{display:flex;flex-wrap:wrap;gap:5px;min-height:0}
+.chip{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:#f3ede6}
+.chip.bad{background:var(--pink2);color:#a3164f}
+#streak{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:13px;color:#4c443d;background:#faf5ee;border-radius:14px;padding:9px 12px}
+.dots{display:flex;gap:5px}
+.dots i{width:14px;height:14px;border-radius:50%;background:#e8ddd0;box-shadow:inset 0 1px 2px rgba(0,0,0,.12);transition:.3s}
+.dots i.on{background:linear-gradient(135deg,#46b37b,#1f7a4f);box-shadow:0 0 0 3px #d7f0e1}
+.ftitle{font-size:12px;color:var(--muted);font-weight:600;margin:14px 0 6px}
+#friends{display:flex;justify-content:space-between;gap:6px}
+.fr{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;font-weight:600;color:#5d544c;flex:1}
+.fr svg{width:100%;max-width:52px;height:auto;filter:drop-shadow(0 3px 6px rgba(0,0,0,.12));transition:transform .4s}
+.fr.ch svg{transform:rotate(-6deg) scale(1.05)}
+.fr.ch span{color:var(--pink)}
+/* ---------- question card ---------- */
+#q{padding:26px 28px 24px}
+#q.in{animation:qin .45s ease}
+@keyframes qin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.qhead{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.tag{font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:999px;background:var(--mint);color:var(--green)}
+.tag.ghost{background:#f4efe8;color:#6d635a;font-weight:600}
+.stem{font-size:21px;line-height:1.6;font-weight:500}
+.stem .hw{font-weight:900;font-size:1.32em;color:var(--green);background:linear-gradient(transparent 62%,#ffe6a7 62%);padding:0 3px}
+.sent{font-size:1.08em;margin:8px 0 2px;line-height:1.9}
+.blank{display:inline-block;min-width:80px;border-bottom:2.5px dashed var(--gold);color:transparent}
+.pair{display:grid;gap:8px;margin-bottom:12px}
+.pair>div{background:#faf6f0;border-radius:14px;padding:12px 14px;font-family:'Frank Ruhl Libre',serif;font-size:1.02em;line-height:1.8}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.opts.chips{grid-template-columns:repeat(auto-fill,minmax(122px,1fr))}
+.opt{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;font-size:16.5px;font-weight:600;text-align:start;transition:transform .12s,border-color .2s,background .2s,box-shadow .2s;line-height:1.45}
+.opts.chips .opt{text-align:center;padding:13px 8px}
+.opts.big .opt{font-size:20px;font-weight:700}
+.opt:hover:not(:disabled){border-color:#cbbba8;box-shadow:0 6px 16px -10px rgba(0,0,0,.35);transform:translateY(-1px)}
+.opt:active:not(:disabled){transform:scale(.98)}
+.opt:disabled{cursor:default}
+.opt.right{background:#e6f6ec;border-color:#3aa66d;color:#145a35;box-shadow:0 0 0 3px #cdeedb}
+.opt.wrong{background:#fdeceb;border-color:#e0574d;color:#9b2a22;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(5px)}50%{transform:translateX(-5px)}75%{transform:translateX(3px)}}
+.typed{display:flex;gap:10px;margin-top:20px}
+.typed input{flex:1;font:inherit;font-size:24px;font-weight:700;padding:12px 16px;border-radius:16px;border:1.5px solid var(--line);background:#fff;letter-spacing:2px;outline:none;min-width:0}
+.typed input:focus{border-color:var(--green2);box-shadow:0 0 0 4px #d9efe2}
+.typed input.right{border-color:#3aa66d;background:#e6f6ec}.typed input.wrong{border-color:#e0574d;background:#fdeceb}
+.btn{border:0;border-radius:14px;padding:13px 20px;font-weight:700;font-size:16px;background:var(--green);color:#fff;box-shadow:0 8px 18px -10px rgba(31,90,61,.8);transition:transform .12s,background .2s}
+.btn:hover{background:#174a31}.btn:active{transform:scale(.97)}
+.btn.ghost{background:#efe8de;color:var(--ink);box-shadow:none}.btn.danger{background:var(--red)}
+.btn:disabled{opacity:.5}
+.tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+.link{background:none;border:0;padding:7px 11px;border-radius:10px;font-size:14px;font-weight:600;color:#5c5248}
+.link:hover{background:#f3ede5}.link.dim{color:#a0958a;font-weight:500;margin-inline-start:auto}
+.hint{margin-top:10px;background:#fff8e6;border:1px solid #f6e2ad;border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.7;color:#5a4a20}
+.verdict{margin-top:20px;font-size:19px;font-weight:800;padding:12px 16px;border-radius:14px}
+.verdict.ok{background:#e6f6ec;color:#145a35}.verdict.no{background:#fdeceb;color:#9b2a22}
+.verdict b{font-family:'Frank Ruhl Libre',serif}
+.note{margin-top:8px;font-size:14px;background:#eef6ff;border-radius:12px;padding:10px 12px}
+.event{margin-top:10px;font-weight:700;font-size:15.5px;padding:12px 16px;border-radius:14px;display:flex;align-items:center;gap:8px}
+.event.bad{background:linear-gradient(90deg,#ffe0ee,#fff0f6);color:#a3164f}
+.event.good{background:linear-gradient(90deg,#dff5e8,#f1fbf5);color:#145a35}
+.explain{margin-top:14px;background:#faf7f2;border-radius:16px;padding:16px 18px;font-size:15.5px;line-height:1.85;border:1px solid #f0e8dd}
+.explain h4{margin:0 0 6px;font-size:15px}
+.explain .hw{font-weight:900;color:var(--green)}
+.tip{margin-top:10px;padding-top:10px;border-top:1px dashed #e4d9cb;font-size:14.5px;color:#4f463e}
+.ans{color:var(--green)}
+.next{width:100%;margin-top:16px;font-size:17px;padding:15px}
+/* prizes */
+.prizes{margin-top:14px;border-radius:18px;padding:14px;background:linear-gradient(135deg,#fff4dc,#ffe9f2)}
+.ptitle{font-weight:800;font-size:15px;margin-bottom:10px}
+.prow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.prize{background:#fff;border:2px solid transparent;border-radius:16px;padding:8px 6px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12.5px;font-weight:600;line-height:1.3;text-align:center;transition:.2s;box-shadow:0 4px 12px -8px rgba(0,0,0,.3)}
+.prize svg{width:74px;height:74px}
+.prize:hover{transform:translateY(-2px) rotate(-1deg);border-color:var(--gold)}
+.prizes.done .prize:not(.taken){opacity:.35;transform:none;filter:grayscale(.6)}
+.prize.taken{border-color:var(--gold);box-shadow:0 0 0 4px #ffe5a8;transform:scale(1.04)}
+/* other views */
+.view{animation:qin .35s ease}
+.panel{padding:24px 26px}
+.panel h3{margin:0 0 8px;font-size:24px;font-family:'Secular One',Rubik}
+.panel h4{margin:22px 0 8px;font-size:16px}
+.muted{color:var(--muted);font-size:14px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-top:12px}
+.citem{position:relative;background:#fff;border-radius:18px;padding:12px 8px;text-align:center;font-size:13px;font-weight:600;box-shadow:var(--sh)}
+.citem svg{width:86px;height:86px;display:block;margin:0 auto 4px}
+.cnt{position:absolute;top:8px;inset-inline-start:10px;background:var(--gold);color:#fff;border-radius:999px;font-size:12px;padding:2px 7px}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.kpis div{background:#faf6f0;border-radius:16px;padding:14px;text-align:center}
+.kpis b{display:block;font-size:26px;font-weight:800}.kpis span{font-size:12.5px;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl th{font-size:12.5px;color:var(--muted);font-weight:600;text-align:start;padding:6px 8px;border-bottom:1px solid var(--line)}
+.tbl td{padding:9px 8px;border-bottom:1px solid #f3ece3}
+.bar{height:8px;background:#f1e8de;border-radius:8px;overflow:hidden;min-width:80px}.bar i{display:block;height:100%}
+.days{display:flex;align-items:flex-end;gap:5px;height:120px;padding-top:6px}
+.days div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.days i{display:block;width:100%;max-width:26px;background:linear-gradient(var(--green2),var(--green));border-radius:6px 6px 2px 2px;min-height:2px}
+.days span{font-size:10px;color:var(--muted)}
+.rep{padding:0;margin:0;list-style:none}.rep li{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f3ece3;font-size:14px}
+.confirm{margin-top:10px;background:#fdeceb;border-radius:12px;padding:12px;font-size:14px}
+.summary{text-align:center}.summary .big{font-size:72px;font-weight:900;color:var(--green);line-height:1}
+.summary table{margin:14px auto;font-size:15px}.summary td{padding:4px 12px}
+.examintro ul{line-height:1.9;font-size:15px;padding-inline-start:20px}
+/* nav */
+nav{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;justify-content:center;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+ background:rgba(255,253,249,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+nav button{position:relative;border:0;background:none;padding:8px 18px;border-radius:14px;font-size:13px;font-weight:600;color:#7b7066;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:74px}
+nav button .ic{font-size:20px;line-height:1}
+nav button.on{background:var(--mint);color:var(--green)}
+#collBadge:not(:empty){position:absolute;top:2px;inset-inline-end:14px;background:var(--pink);color:#fff;border-radius:999px;font-size:10.5px;padding:1px 6px}
+.toast{position:fixed;left:50%;top:84px;transform:translate(-50%,-20px);opacity:0;z-index:50;pointer-events:none;background:#1d1a17;color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;font-size:14.5px;max-width:min(92vw,520px);text-align:center;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);transition:.35s}
+.toast.show{opacity:1;transform:translate(-50%,0)}.toast.bad{background:#b0175a}.toast.good{background:#1f6b45}
+.foot{max-width:1180px;margin:8px auto 0;padding:0 18px;color:#a0958a;font-size:12px;text-align:center}
+
+/* guide */
+.helpbtn{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:5px}
+.modal{position:fixed;inset:0;z-index:60;background:rgba(29,26,23,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;animation:qin .3s}
+.modal[hidden]{display:none}
+.guide{background:var(--paper);border-radius:26px;max-width:640px;width:100%;max-height:min(92vh,900px);overflow:auto;box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
+.ghead{padding:26px 26px 14px;background:linear-gradient(135deg,#e3f2e8,#ffe3ef);border-radius:26px 26px 0 0;position:relative}
+.ghead h2{margin:0;font-family:'Secular One',Rubik;font-size:27px;line-height:1.2}
+.ghead p{margin:6px 0 0;color:#4f463e;font-size:15px;line-height:1.6}
+.gclose{position:absolute;top:14px;inset-inline-end:14px;border:0;background:#fff;width:34px;height:34px;border-radius:50%;font-size:18px;box-shadow:var(--sh)}
+.gsteps{padding:8px 22px 4px;display:grid;gap:10px}
+.gs{display:grid;grid-template-columns:46px 1fr;gap:12px;align-items:start;padding:12px;border-radius:18px;background:#faf6f0}
+.gs .gi{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;background:#fff;box-shadow:0 4px 10px -6px rgba(0,0,0,.25)}
+.gs h4{margin:2px 0 3px;font-size:16px}
+.gs p{margin:0;font-size:14.5px;line-height:1.65;color:#4a423b}
+.gs.good{background:#ecf7f0}.gs.bad{background:#fff0f5}.gs.back{background:#fff7e6}
+.gfr{display:flex;gap:6px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.gfr svg{width:38px;height:38px}
+.gfr .arr{font-size:18px;color:#a3164f;margin:0 2px}
+.gdots{display:inline-flex;gap:4px;vertical-align:middle;margin:0 3px}.gdots i{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,#46b37b,#1f7a4f)}
+.gfoot{padding:14px 22px 22px}
+.gfoot .btn{width:100%;padding:15px;font-size:17px}
+
+/* login */
+body.locked>header,body.locked>main,body.locked>nav{display:none}
+.login{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;z-index:70}
+.login[hidden]{display:none}
+.lbox{background:var(--paper);border-radius:28px;box-shadow:var(--sh);padding:34px 28px;max-width:420px;width:100%;text-align:center}
+.lbox .logo{justify-content:center;font-size:34px;margin-bottom:6px}
+.lbox h2{font-family:'Secular One',Rubik;margin:0 0 6px}
+.lsub{color:var(--muted);font-size:15px;margin:0 0 22px;line-height:1.6}
+#lform,.sform{display:flex;flex-direction:column;gap:12px}
+#lform[hidden]{display:none}
+.lbox input{font:inherit;font-size:22px;text-align:center;letter-spacing:3px;padding:14px;border-radius:16px;border:1.5px solid var(--line);background:#fff;outline:none;width:100%}
+.lbox input::placeholder{letter-spacing:0;font-size:18px}
+.lbox input:focus{border-color:var(--green2);box-shadow:0 0 0 4px #d9efe2}
+.sform label{display:flex;flex-direction:column;gap:6px;text-align:start;font-size:14px;font-weight:600}
+.sform input{font-size:16px;letter-spacing:0;text-align:start}
+.lmsg{min-height:22px;margin:12px 0 0;font-size:14.5px;font-weight:600;color:#9b2a22}
+.lmsg a{color:var(--green)}
+.lart{font-size:44px;margin-bottom:8px}
+/* mobile */
+@media (max-width:860px){
+ .grid{grid-template-columns:1fr;gap:14px}
+ .side{position:relative;top:0}
+ .sidecard{display:grid;grid-template-columns:44% 1fr;align-items:stretch}
+ #stage{border-radius:var(--r) 0 0 var(--r);padding:10px 6px 0;display:flex;align-items:flex-end}
+ html[dir=rtl] #stage{border-radius:0 var(--r) var(--r) 0}
+ .avatar{width:100%}
+ .bubble{font-size:12px;padding:7px 9px;max-width:92%;top:6px;inset-inline-start:6px}
+ .info{padding:12px 12px 12px}
+ #status b{font-size:15.5px}#status span{font-size:12px}
+ #streak{font-size:12px;padding:7px 9px;gap:7px}.dots i{width:11px;height:11px}
+ .fr{font-size:10px}.ftitle{margin:10px 0 4px}
+ #changes{display:none}
+ #stage{align-items:center}
+ #q{padding:20px 16px}
+ .stem{font-size:18.5px}
+ .opts{grid-template-columns:1fr}
+ .opts.chips{grid-template-columns:repeat(2,1fr)}
+ .opt{font-size:16px;padding:13px 14px}.opts.big .opt{font-size:19px}
+ .logo{font-size:21px}.logo small{display:none}
+ #count{margin-inline-start:0;width:100%;overflow-x:auto;flex-wrap:nowrap;order:3}
+ .helpbtn{margin-inline-start:auto;font-size:12px;padding:5px 10px}
+ .cd{font-size:11.5px;padding:5px 9px}
+ main{padding:12px}
+ .prize svg{width:58px;height:58px}.prize{font-size:11.5px}
+ .kpis{grid-template-columns:repeat(2,1fr)}
+ .panel{padding:20px 16px}
+}
+</style>
+</head>
+<body class="locked">
+<header><div class="hrow"><div class="logo"><span class="no">אני לא</span> <span class="ch">צ'אחלה!</span><small>לשון לבגרות · נויה</small></div><div id="count"></div><button class="helpbtn" id="helpB">❓ איך משחקים</button></div></header>
+<main>
+ <section id="v-play" class="view">
+  <div class="grid">
+   <aside class="side"><div class="card sidecard">
+    <div id="stage"><div id="bubble" class="bubble" hidden></div><div id="avatar" class="avatar"></div></div>
+    <div class="info"><div id="status"></div><div id="meter"></div><div id="changes"></div><div id="streak"></div><div class="ftitle">החבורה</div><div id="friends"></div></div>
+   </div></aside>
+   <div class="card" id="q"></div>
+  </div>
+ </section>
+ <section id="v-coll" class="view" hidden><div class="card panel"><h3>האוסף שלי 🎁</h3><div id="coll"></div></div></section>
+ <section id="v-exam" class="view" hidden><div class="card panel examintro"><h3>מבחן תרגול</h3><p class="muted">20 שאלות ברצף, מכל הנושאים: גזרות ושורשים, בניינים, בינוני, דרכי תצורה ושם המספר. בסוף מקבלים ציון ופירוט לפי נושא.</p><ul><li>המשחק ממשיך כרגיל – טעות משנה את נויה, ושלוש תשובות נכונות ברצף מבטלות שינוי.</li><li>אפשר לבקש רמז והסבר בכל שאלה.</li></ul><button class="btn" id="examGo">יאללה, מתחילות</button></div></section>
+ <section id="v-parent" class="view" hidden><div class="card panel" id="par"></div></section>
+ <p class="foot">התוכן מבוסס על תוכנית הלימודים בלשון ועל בחינות הבגרות של משרד החינוך. מצאת טעות? 🚩 בכל שאלה.</p>
+</main>
+<nav>
+ <button data-v="play" class="on"><span class="ic">✏️</span>תרגול</button>
+ <button data-v="exam"><span class="ic">⏱️</span>מבחן</button>
+ <button data-v="coll"><span class="ic">🎁</span>אוסף<span id="collBadge"></span></button>
+ <button data-v="parent"><span class="ic">📊</span>המצב שלי</button>
+</nav>
+<div id="toast" class="toast"></div>
+<div id="guide" class="modal" hidden></div>
+<div id="login" class="login" hidden><div class="lbox" id="lbox"><div class="lart">🌀💄</div><div class="logo"><span class="no">אני לא</span> <span class="ch">צ'אחלה!</span></div><p class="lsub">מתאמנים ללשון ושומרים על התלתלים.<br>הקלידי את הקוד שלך כדי להיכנס.</p><form id="lform"><input id="lcode" type="password" autocomplete="current-password" placeholder="הקוד שלך" dir="ltr"><button class="btn" id="lbtn">כניסה</button></form><p id="lmsg" class="lmsg"></p></div></div>
+<script>
+// ===== מאגר התוכן – "אני לא צ'אחלה!" =====
+// סימון בניינים: Q=פעל (קל), N=נפעל, P=פיעל, PU=פועל, H=הפעיל, HU=הופעל, T=התפעל
+// סימון גזרות: S=שלמים, M=מרובעים, PN=חפ"ן, PY=נפי"ו, AY=נעו"י, LY=נל"י, LA=נל"א
+// שורש: אותיות מופרדות במקף, כמו בפתרונות משרד החינוך (נל"י נכתב ב־י, למשל ב-נ-י).
+// פורמט פועל: צורה|שורש|בניין|גזרה|זמן|גוף|הערה (אופציונלית)
+
+const VERBS = `
+כָּתַבְתִּי|כ-ת-ב|Q|S|עבר|מדבר
+נִכְתְּבוּ|כ-ת-ב|N|S|עבר|נסתרים
+הִכְתִּיבָה|כ-ת-ב|H|S|עבר|נסתרת
+מְסַפֵּר|ס-פ-ר|P|S|הווה|יחיד
+סֻפְּרָה|ס-פ-ר|PU|S|עבר|נסתרת
+הִסְתַּפַּרְתִּי|ס-פ-ר|T|S|עבר|מדבר|בהתפעל, כשהשורש מתחיל ב־ס, ש או שׂ – ה־ת של הבניין מתחלפת איתה במקום (הִתְסַפַּרְתִּי ← הִסְתַּפַּרְתִּי). ה־ת איננה אות שורש.
+הִשְׁתַּמַּשְׁנוּ|ש-מ-ש|T|S|עבר|מדברים|בהתפעל, כשהשורש מתחיל ב־ש – ה־ת של הבניין מתחלפת איתה במקום (הִתְשַׁמַּשְׁנוּ ← הִשְׁתַּמַּשְׁנוּ).
+הִצְטַלַּמְנוּ|צ-ל-ם|T|S|עבר|מדברים|בהתפעל, כשהשורש מתחיל ב־צ – ה־ת של הבניין מתחלפת איתה במקום והופכת ל־ט (הִתְצַלַּמְנוּ ← הִצְטַלַּמְנוּ). ה־ט איננה אות שורש.
+הִזְדַּמֵּן|ז-מ-ן|T|S|עבר|נסתר|בהתפעל, כשהשורש מתחיל ב־ז – ה־ת של הבניין מתחלפת איתה במקום והופכת ל־ד (הִתְזַמֵּן ← הִזְדַּמֵּן). ה־ד איננה אות שורש.
+הִתְלַבְּשָׁה|ל-ב-ש|T|S|עבר|נסתרת
+מִתְכַּתְּבִים|כ-ת-ב|T|S|הווה|רבים
+תַּרְגִּישִׁי|ר-ג-ש|H|S|עתיד|נוכחת
+הֻלְבַּשׁ|ל-ב-ש|HU|S|עבר|נסתר
+מֻגְדָּל|ג-ד-ל|HU|S|הווה|יחיד
+יְלַמְּדוּ|ל-מ-ד|P|S|עתיד|נסתרים
+לֻמַּדְנוּ|ל-מ-ד|PU|S|עבר|מדברים
+יִשָּׁמֵר|ש-מ-ר|N|S|עתיד|נסתר|הדגש ב־ש בא במקום ה־נ של בניין נפעל (יִנְשָׁמֵר ← יִשָּׁמֵר). זו לא נ' של השורש – לכן זו לא גזרת חפ"ן.
+שָׁמַרְתְּ|ש-מ-ר|Q|S|עבר|נוכחת
+הִשְׁאַרְתֶּם|ש-א-ר|H|S|עבר|נוכחים
+נִפְגַּשְׁנוּ|פ-ג-ש|N|S|עבר|מדברים|ה־נ בהתחלה היא תחילית של בניין נפעל, לא אות שורש.
+נִכְנַס|כ-נ-ס|N|S|עבר|נסתר|ה־נ הראשונה היא תחילית של בניין נפעל. ה־נ השנייה היא אות שורש.
+מְבַקֶּשֶׁת|ב-ק-ש|P|S|הווה|יחידה
+הִתְרַגְּשׁוּ|ר-ג-ש|T|S|עבר|נסתרים
+מַזְמִינִים|ז-מ-ן|H|S|הווה|רבים
+הֻזְמַנְתֶּן|ז-מ-ן|HU|S|עבר|נוכחות
+לְהַסְבִּיר|ס-ב-ר|H|S|שם הפועל|—
+סֻדַּר|ס-ד-ר|PU|S|עבר|נסתר
+נִגְמְרָה|ג-מ-ר|N|S|עבר|נסתרת
+מַתְחִיל|ת-ח-ל|H|S|הווה|יחיד|כאן ה־ת היא אות שורש (ת-ח-ל). התחילית של הבניין היא ה־מ.
+תִּלְבְּשׁוּ|ל-ב-ש|Q|S|עתיד|נוכחים
+אֶזְכֹּר|ז-כ-ר|Q|S|עתיד|מדבר
+הִתְגַּבְּרוּ|ג-ב-ר|T|S|עבר|נסתרים
+לְהִתְאַמֵּן|א-מ-ן|T|S|שם הפועל|—
+הִצְטָרְפוּ|צ-ר-ף|T|S|עבר|נסתרים|בהתפעל, כשהשורש מתחיל ב־צ – ה־ת מתחלפת איתה במקום והופכת ל־ט (הִתְצָרְפוּ ← הִצְטָרְפוּ).
+מַדְלִיקָה|ד-ל-ק|H|S|הווה|יחידה
+נִשְׁלְחוּ|ש-ל-ח|N|S|עבר|נסתרים
+שִׁלַּמְתִּי|ש-ל-ם|P|S|עבר|מדבר
+שֻׁלַּם|ש-ל-ם|PU|S|עבר|נסתר
+תִּרְגַּלְנוּ|ת-ר-ג-ל|P|M|עבר|מדברים
+מְתֻרְגָּל|ת-ר-ג-ל|PU|M|הווה|יחיד
+הִתְגַּלְגֵּל|ג-ל-ג-ל|T|M|עבר|נסתר
+מְצַלְצֶלֶת|צ-ל-צ-ל|P|M|הווה|יחידה
+יְטַלְפְּנוּ|ט-ל-פ-ן|P|M|עתיד|נסתרים
+שִׁכְפַּלְתִּי|ש-כ-פ-ל|P|M|עבר|מדבר
+שֻׁכְפְּלוּ|ש-כ-פ-ל|PU|M|עבר|נסתרים
+הִשְׁתַּכְנַעְתְּ|ש-כ-נ-ע|T|M|עבר|נוכחת|גם במרובעים: כשהשורש מתחיל ב־ש, ה־ת של התפעל מתחלפת איתה במקום (הִתְשַׁכְנַעְתְּ ← הִשְׁתַּכְנַעְתְּ).
+מְשֻׁכְנָעִים|ש-כ-נ-ע|PU|M|הווה|רבים
+תְּאַרְגְּנִי|א-ר-ג-ן|P|M|עתיד|נוכחת
+הִתְאַרְגְּנוּ|א-ר-ג-ן|T|M|עבר|נסתרים
+מְבֻלְבָּלוֹת|ב-ל-ב-ל|PU|M|הווה|רבות
+לְבַזְבֵּז|ב-ז-ב-ז|P|M|שם הפועל|—
+הִתְפַּרְסְמָה|פ-ר-ס-ם|T|M|עבר|נסתרת
+פֻּרְסַם|פ-ר-ס-ם|PU|M|עבר|נסתר
+יְתַכְנֵן|ת-כ-נ-ן|P|M|עתיד|נסתר|השורש ת-כ-נ-ן (מן "תוכנית"). ה־ת בהתחלה היא אות שורש ולא תחילית עתיד – התחילית כאן היא ה־י.
+תֻּכְנַת|ת-כ-נ-ת|PU|M|עבר|נסתר|השורש ת-כ-נ-ת (מן "תוכנה"). שימי לב: שונה מ־ת-כ-נ-ן (תכנן).
+מְחַשְׁמֵל|ח-ש-מ-ל|P|M|הווה|יחיד
+הִתְאַקְלֵם|א-ק-ל-ם|T|M|עבר|נסתר
+מְטַשְׁטֵשׁ|ט-ש-ט-ש|P|M|הווה|יחיד
+סִמְסְמָה|ס-מ-ס-ם|P|M|עבר|נסתרת
+אִבְחֲנוּ|א-ב-ח-ן|P|M|עבר|נסתרים
+גִּמְגְּמָה|ג-מ-ג-ם|P|M|עבר|נסתרת
+מְעֻדְכָּן|ע-ד-כ-ן|PU|M|הווה|יחיד
+עִדְכַּנְתֶּם|ע-ד-כ-ן|P|M|עבר|נוכחים
+יִתְבַּלְבְּלוּ|ב-ל-ב-ל|T|M|עתיד|נסתרים
+מְקַשְׁקֶשֶׁת|ק-ש-ק-ש|P|M|הווה|יחידה
+סֻבְסַד|ס-ב-ס-ד|PU|M|עבר|נסתר
+הִתְמַקְצְעָה|מ-ק-צ-ע|T|M|עבר|נסתרת
+הִפַּלְתָּ|נ-פ-ל|H|PN|עבר|נוכח
+יִפְּלוּ|נ-פ-ל|Q|PN|עתיד|נסתרים
+נִצַּל|נ-צ-ל|N|PN|עבר|נסתר|ה־נ בהתחלה היא תחילית נפעל. נ' השורש נבלעה – והדגש ב־צ מעיד עליה.
+הִצִּילָה|נ-צ-ל|H|PN|עבר|נסתרת
+מַבִּיטִים|נ-ב-ט|H|PN|הווה|רבים
+יַגִּיעוּ|נ-ג-ע|H|PN|עתיד|נסתרים
+הִגַּעְנוּ|נ-ג-ע|H|PN|עבר|מדברים
+לָגַעַת|נ-ג-ע|Q|PN|שם הפועל|—|נ' השורש נשמטה, ובסוף נוספה ת (כמו לָתֵת, לָשֶׁבֶת).
+יִסַּע|נ-ס-ע|Q|PN|עתיד|נסתר
+לִנְסֹעַ|נ-ס-ע|Q|PN|שם הפועל|—|כאן נ' השורש נשמרה – בחפ"ן ה־נ לא תמיד נעלמת.
+מַכִּירָה|נ-כ-ר|H|PN|הווה|יחידה
+הֻכַּר|נ-כ-ר|HU|PN|עבר|נסתר
+הֻפְּצָה|נ-פ-ץ|HU|PN|עבר|נסתרת
+מֻכָּרִים|נ-כ-ר|HU|PN|הווה|רבים
+הִתְנַצְּלוּ|נ-צ-ל|T|PN|עבר|נסתרים|בהתפעל נ' השורש נשמרת – אבל הגזרה עדיין חפ"ן, כי השורש מתחיל ב־נ.
+יִתֵּן|נ-ת-ן|Q|PN|עתיד|נסתר
+לָתֵת|נ-ת-ן|Q|PN|שם הפועל|—|שתי ה־נ של השורש נשמטו. מזהים לפי צורות אחרות: נָתַן, נוֹתֵן.
+נִתַּן|נ-ת-ן|N|PN|עבר|נסתר
+נָחֲתוּ|נ-ח-ת|Q|PN|עבר|נסתרים|בבניין קל בעבר נ' השורש נשמרת.
+מַפִּילִים|נ-פ-ל|H|PN|הווה|רבים
+אַבִּיט|נ-ב-ט|H|PN|עתיד|מדבר
+נוֹגַעַת|נ-ג-ע|Q|PN|הווה|יחידה
+הִשִּׂיגָה|נ-ש-ג|H|PN|עבר|נסתרת
+מֻשָּׂג|נ-ש-ג|HU|PN|הווה|יחיד
+הִגַּשְׁתֶּם|נ-ג-ש|H|PN|עבר|נוכחים
+הִצַּבְנוּ|נ-צ-ב|H|PN|עבר|מדברים
+נוֹלַדְתִּי|י-ל-ד|N|PY|עבר|מדבר|בנפעל של נפי"ו ה־י של השורש הופכת ל־ו (נִיְלַד ← נוֹלַד).
+מוֹלִידָה|י-ל-ד|H|PY|הווה|יחידה
+יָשַׁבְנוּ|י-ש-ב|Q|PY|עבר|מדברים
+תֵּשְׁבִי|י-ש-ב|Q|PY|עתיד|נוכחת
+לָשֶׁבֶת|י-ש-ב|Q|PY|שם הפועל|—|ה־י של השורש נשמטה ובסוף נוספה ת.
+הוֹשִׁיבָה|י-ש-ב|H|PY|עבר|נסתרת
+נוֹדַע|י-ד-ע|N|PY|עבר|נסתר
+הוֹדַעְתִּי|י-ד-ע|H|PY|עבר|מדבר
+לָדַעַת|י-ד-ע|Q|PY|שם הפועל|—
+יֵדְעוּ|י-ד-ע|Q|PY|עתיד|נסתרים
+מוֹעִילִים|י-ע-ל|H|PY|הווה|רבים
+תּוֹעִיל|י-ע-ל|H|PY|עתיד|נסתרת
+הוֹשִׁיט|י-ש-ט|H|PY|עבר|נסתר
+נוֹסְפוּ|י-ס-ף|N|PY|עבר|נסתרים
+הוֹסַפְתֶּן|י-ס-ף|H|PY|עבר|נוכחות
+יָרַד|י-ר-ד|Q|PY|עבר|נסתר
+תֵּרְדוּ|י-ר-ד|Q|PY|עתיד|נוכחים
+מוֹרִידָה|י-ר-ד|H|PY|הווה|יחידה
+הוּרְדוּ|י-ר-ד|HU|PY|עבר|נסתרים
+נוֹתַר|י-ת-ר|N|PY|עבר|נסתר
+מְיַשֶּׁבֶת|י-ש-ב|P|PY|הווה|יחידה|בפיעל ה־י של השורש נשמרת כעיצור.
+הִתְיַשַּׁבְתֶּם|י-ש-ב|T|PY|עבר|נוכחים
+מוֹדִיעִים|י-ד-ע|H|PY|הווה|רבים
+מוֹכִיחָה|י-כ-ח|H|PY|הווה|יחידה
+קַמְתִּי|ק-ו-ם|Q|AY|עבר|מדבר
+יָקוּמוּ|ק-ו-ם|Q|AY|עתיד|נסתרים
+הֵקַמְנוּ|ק-ו-ם|H|AY|עבר|מדברים
+מְקִימָה|ק-ו-ם|H|AY|הווה|יחידה
+הוּקַם|ק-ו-ם|HU|AY|עבר|נסתר
+רַצְתִּי|ר-ו-ץ|Q|AY|עבר|מדבר|השוואה: רַצְתִּי (ר-ו-ץ) מול רָצִיתִי (ר-צ-י).
+הֵרִיצָה|ר-ו-ץ|H|AY|עבר|נסתרת
+יָשִׁירוּ|ש-י-ר|Q|AY|עתיד|נסתרים
+שַׂמְתָּ|ש-י-ם|Q|AY|עבר|נוכח
+נְפוֹצָה|פ-ו-ץ|N|AY|עבר|נסתרת
+הֵפִיצוּ|פ-ו-ץ|H|AY|עבר|נסתרים
+מוּפָץ|פ-ו-ץ|HU|AY|הווה|יחיד
+הִתְעוֹרַרְתִּי|ע-ו-ר|T|AY|עבר|מדבר|בנעו"י, במקום התפעל רגיל מופיעה תבנית "הִתְפּוֹלֵל": האות האחרונה של השורש מוכפלת (ע-ו-ר ← הִתְעוֹרֵר). הבניין: התפעל.
+מְעוֹרֶרֶת|ע-ו-ר|P|AY|הווה|יחידה|בנעו"י, במקום פיעל רגיל מופיעה תבנית "פּוֹלֵל": האות האחרונה מוכפלת (מְעוֹרֵר). הבניין: פיעל.
+גַּרְנוּ|ג-ו-ר|Q|AY|עבר|מדברים
+יָגוּרוּ|ג-ו-ר|Q|AY|עתיד|נסתרים
+הֵטַסְנוּ|ט-ו-ס|H|AY|עבר|מדברים
+טָסָה|ט-ו-ס|Q|AY|עבר|נסתרת
+חָשָׁה|ח-ו-ש|Q|AY|עבר|נסתרת
+הִתְכּוֹנַנּוּ|כ-ו-ן|T|AY|עבר|מדברים|תבנית "הִתְפּוֹלֵל" של נעו"י: האות האחרונה מוכפלת. הבניין: התפעל.
+הֵכִין|כ-ו-ן|H|AY|עבר|נסתר
+מוּכָנִים|כ-ו-ן|HU|AY|הווה|רבים
+לָגוּר|ג-ו-ר|Q|AY|שם הפועל|—
+תָּשׁוּבִי|ש-ו-ב|Q|AY|עתיד|נוכחת
+הֵשִׁיבוּ|ש-ו-ב|H|AY|עבר|נסתרים
+מְרוֹמֵם|ר-ו-ם|P|AY|הווה|יחיד|תבנית "פּוֹלֵל" של נעו"י (האות האחרונה מוכפלת). הבניין: פיעל.
+בָּנִינוּ|ב-נ-י|Q|LY|עבר|מדברים
+נִבְנָה|ב-נ-י|N|LY|עבר|נסתר
+לִבְנוֹת|ב-נ-י|Q|LY|שם הפועל|—|בשם הפועל של נל"י האות השלישית מתחלפת ב־ות (לִבְנוֹת).
+קָנְתָה|ק-נ-י|Q|LY|עבר|נסתרת
+יִקְנוּ|ק-נ-י|Q|LY|עתיד|נסתרים
+רָאִיתָ|ר-א-י|Q|LY|עבר|נוכח
+הִרְאֲתָה|ר-א-י|H|LY|עבר|נסתרת
+מַרְאִים|ר-א-י|H|LY|הווה|רבים
+שִׁנְּתָה|ש-נ-י|P|LY|עבר|נסתרת
+שֻׁנָּה|ש-נ-י|PU|LY|עבר|נסתר
+הִשְׁתַּנּוּ|ש-נ-י|T|LY|עבר|נסתרים|שני דברים יחד: ה־ת של התפעל מתחלפת עם ה־ש (הִתְשַׁנּוּ ← הִשְׁתַּנּוּ), ו־י' השורש נעלמת.
+מִשְׁתַּנָּה|ש-נ-י|T|LY|הווה|יחיד
+זִהִינוּ|ז-ה-י|P|LY|עבר|מדברים
+הִזְדַּהֲתָה|ז-ה-י|T|LY|עבר|נסתרת|ה־ת של התפעל מתחלפת עם ה־ז והופכת ל־ד (הִתְזַהֲתָה ← הִזְדַּהֲתָה).
+רָצִיתִי|ר-צ-י|Q|LY|עבר|מדבר|השוואה: רָצִיתִי (ר-צ-י, "לרצות") מול רַצְתִּי (ר-ו-ץ, "לרוץ").
+עָשׂוּ|ע-ש-י|Q|LY|עבר|נסתרים
+נַעֲשָׂה|ע-ש-י|N|LY|עבר|נסתר
+הִפְנְתָה|פ-נ-י|H|LY|עבר|נסתרת
+מֻפְנֶה|פ-נ-י|HU|LY|הווה|יחיד
+פָּנוּ|פ-נ-י|Q|LY|עבר|נסתרים
+גִּלָּה|ג-ל-י|P|LY|עבר|נסתר
+הִתְגַּלְּתָה|ג-ל-י|T|LY|עבר|נסתרת
+לְשַׁנּוֹת|ש-נ-י|P|LY|שם הפועל|—
+תִּשְׁתֶּה|ש-ת-י|Q|LY|עתיד|נסתרת
+שָׁתִינוּ|ש-ת-י|Q|LY|עבר|מדברים
+מְחַכָּה|ח-כ-י|P|LY|הווה|יחיד
+חִכִּיתֶם|ח-כ-י|P|LY|עבר|נוכחים
+מְכֻסֶּה|כ-ס-י|PU|LY|הווה|יחיד
+הִתְכַּסִּינוּ|כ-ס-י|T|LY|עבר|מדברים
+הֶעֱלוּ|ע-ל-י|H|LY|עבר|נסתרים
+מָצָאתִי|מ-צ-א|Q|LA|עבר|מדבר|ה־א בסוף השורש נשמרת בכתב, גם כשלא שומעים אותה.
+נִמְצְאוּ|מ-צ-א|N|LA|עבר|נסתרים
+מַמְצִיאָה|מ-צ-א|H|LA|הווה|יחידה
+הֻמְצָא|מ-צ-א|HU|LA|עבר|נסתר
+קָרָאנוּ|ק-ר-א|Q|LA|עבר|מדברים
+נִקְרָא|ק-ר-א|N|LA|עבר|נסתר
+יִקְרְאוּ|ק-ר-א|Q|LA|עתיד|נסתרים
+רִפֵּא|ר-פ-א|P|LA|עבר|נסתר
+רֻפְּאָה|ר-פ-א|PU|LA|עבר|נסתרת
+הִתְרַפְּאוּ|ר-פ-א|T|LA|עבר|נסתרים
+מִתְמַלֵּא|מ-ל-א|T|LA|הווה|יחיד
+מִלְּאוּ|מ-ל-א|P|LA|עבר|נסתרים
+הִקְפֵּאנוּ|ק-פ-א|H|LA|עבר|מדברים
+קָפְאוּ|ק-פ-א|Q|LA|עבר|נסתרים
+הִתְחַבְּאָה|ח-ב-א|T|LA|עבר|נסתרת
+מַחְבִּיאִים|ח-ב-א|H|LA|הווה|רבים
+בִּטֵּא|ב-ט-א|P|LA|עבר|נסתר
+הִתְבַּטְּאָה|ב-ט-א|T|LA|עבר|נסתרת
+שָׂנְאוּ|ש-נ-א|Q|LA|עבר|נסתרים
+לִקְרֹא|ק-ר-א|Q|LA|שם הפועל|—
+מִתְמַצֵּאת|מ-צ-א|T|LA|הווה|יחידה
+הֻקְפְּאוּ|ק-פ-א|HU|LA|עבר|נסתרים
+`;
+
+// ===== בינוני: משפט|מילה מודגשת|חלק דיבר (verb/noun/adj)|בניין|שורש
+const BEINONI = `
+הַשּׁוֹמֵר עוֹמֵד לְיַד הַשַּׁעַר.|הַשּׁוֹמֵר|noun|Q|ש-מ-ר
+דָּנָה שׁוֹמֶרֶת עַל הַכֶּלֶב שֶׁל הַשְּׁכֵנִים.|שׁוֹמֶרֶת|verb|Q|ש-מ-ר
+הוּא תַּלְמִיד מְנֻמָּס מְאוֹד.|מְנֻמָּס|adj|PU|נ-מ-ס
+הַמְּנַהֵל נִכְנַס לַכִּתָּה.|הַמְּנַהֵל|noun|P|נ-ה-ל
+הִיא מְנַהֶלֶת אֶת הַפְּרוֹיֶקְט לְבַד.|מְנַהֶלֶת|verb|P|נ-ה-ל
+רָאִינוּ סֶרֶט מְרַגֵּשׁ בַּקּוֹלְנוֹעַ.|מְרַגֵּשׁ|adj|P|ר-ג-ש
+הַמּוֹרָה מַסְבִּירָה אֶת הַחֹמֶר שׁוּב.|מַסְבִּירָה|verb|H|ס-ב-ר
+הַמַּדְרִיךְ הוֹבִיל אֶת הַקְּבוּצָה בַּטִּיּוּל.|הַמַּדְרִיךְ|noun|H|ד-ר-ך
+שָׁמַעְנוּ שִׁיר מֻכָּר בָּרַדְיוֹ.|מֻכָּר|adj|HU|נ-כ-ר
+הַמּוֹכֵר בַּחֲנוּת עָזַר לָנוּ לִבְחֹר.|הַמּוֹכֵר|noun|Q|מ-כ-ר
+אַבָּא מוֹכֵר אֶת הַמְּכוֹנִית הַיְּשָׁנָה.|מוֹכֵר|verb|Q|מ-כ-ר
+יֵשׁ לִי חָבֵר נֶאֱמָן.|נֶאֱמָן|adj|N|א-מ-ן
+הַשּׁוֹפֵט קָרָא אֶת פְּסַק הַדִּין.|הַשּׁוֹפֵט|noun|Q|ש-פ-ט
+הַמְּאַמֵּן צָעַק עַל הַשַּׂחְקָנִים.|הַמְּאַמֵּן|noun|P|א-מ-ן
+הִיא מְאַמֶּנֶת קְבוּצַת כַּדּוּרְסַל.|מְאַמֶּנֶת|verb|P|א-מ-ן
+הַמְּבַקְּרִים נִכְנְסוּ לַמּוּזֵאוֹן.|הַמְּבַקְּרִים|noun|P|ב-ק-ר
+הַשּׁוֹטֵר מְבַקֵּשׁ לִרְאוֹת תְּעוּדָה.|מְבַקֵּשׁ|verb|P|ב-ק-ש
+הַנּוֹסְעִים יָרְדוּ מֵהָאוֹטוֹבּוּס.|הַנּוֹסְעִים|noun|Q|נ-ס-ע
+אֲנַחְנוּ נוֹסְעִים לְאֵילַת מָחָר.|נוֹסְעִים|verb|Q|נ-ס-ע
+נוֹיָה הִיא תַּלְמִידָה מִצְטַיֶּנֶת.|מִצְטַיֶּנֶת|adj|T|צ-י-ן
+הַקּוֹרְאִים כָּתְבוּ תְּגוּבוֹת לַכַּתָּבָה.|הַקּוֹרְאִים|noun|Q|ק-ר-א
+הַיְּלָדִים קוֹרְאִים סֵפֶר בַּסִּפְרִיָּה.|קוֹרְאִים|verb|Q|ק-ר-א
+הַחֶדֶר הַמְּסֻדָּר נִרְאֶה נֶהְדָּר.|הַמְּסֻדָּר|adj|PU|ס-ד-ר
+הַמַּזְכִּירָה עָנְתָה לַטֶּלֶפוֹן.|הַמַּזְכִּירָה|noun|H|ז-כ-ר
+הִיא מַזְכִּירָה לִי לְהָבִיא מַחְבֶּרֶת.|מַזְכִּירָה|verb|H|ז-כ-ר
+הַמְּנַצַּחַת קִבְּלָה גָּבִיעַ.|הַמְּנַצַּחַת|noun|P|נ-צ-ח
+הַקְּבוּצָה מְנַצַּחַת כִּמְעַט בְּכָל מִשְׂחָק.|מְנַצַּחַת|verb|P|נ-צ-ח
+הָיָה זֶה שִׁעוּר מְשַׁעֲמֵם בִּמְיֻחָד.|מְשַׁעֲמֵם|adj|P|ש-ע-מ-ם
+הַמְּלַמֵּד הַוָּתִיק פָּרַשׁ לְגִמְלָאוֹת.|הַמְּלַמֵּד|noun|P|ל-מ-ד
+הִיא מְלַמֶּדֶת אֶת אָחִיהָ לִרְכֹּב עַל אוֹפַנַּיִם.|מְלַמֶּדֶת|verb|P|ל-מ-ד
+קִבַּלְנוּ הֶסְבֵּר מְבַלְבֵּל.|מְבַלְבֵּל|adj|P|ב-ל-ב-ל
+הַמִּשְׁתַּתְּפִים בַּסֶּקֶר עָנוּ עַל עֶשֶׂר שְׁאֵלוֹת.|הַמִּשְׁתַּתְּפִים|noun|T|ש-ת-ף
+`;
+
+// ===== שמות פעולה: שם|שורש|בניין|גזרה
+const ACTION_NOUNS = `
+כְּתִיבָה|כ-ת-ב|Q|S
+שְׁמִירָה|ש-מ-ר|Q|S
+בְּנִיָּה|ב-נ-י|Q|LY
+קְנִיָּה|ק-נ-י|Q|LY
+מְרִיחָה|מ-ר-ח|Q|S
+הִכָּנְסוּת|כ-נ-ס|N|S
+הִשָּׁבְרוּת|ש-ב-ר|N|S
+הִפָּגְשׁוּת|פ-ג-ש|N|S
+הִמָּצְאוּת|מ-צ-א|N|LA
+סִפּוּר|ס-פ-ר|P|S
+בִּטּוּל|ב-ט-ל|P|S
+שִׁנּוּי|ש-נ-י|P|LY
+קַבָּלָה|ק-ב-ל|P|S
+תִּרְגּוּל|ת-ר-ג-ל|P|M
+אִרְגּוּן|א-ר-ג-ן|P|M
+פִּרְסוּם|פ-ר-ס-ם|P|M
+הַזְמָנָה|ז-מ-ן|H|S
+הַסְבָּרָה|ס-ב-ר|H|S
+הַרְגָּשָׁה|ר-ג-ש|H|S
+הוֹדָעָה|י-ד-ע|H|PY
+הוֹסָפָה|י-ס-ף|H|PY
+הוֹכָחָה|י-כ-ח|H|PY
+הֲקָמָה|ק-ו-ם|H|AY
+הַגָּעָה|נ-ג-ע|H|PN
+הַצָּלָה|נ-צ-ל|H|PN
+הַפְנָיָה|פ-נ-י|H|LY
+הִתְנַצְּלוּת|נ-צ-ל|T|PN
+הִתְרַגְּשׁוּת|ר-ג-ש|T|S
+הִתְעוֹרְרוּת|ע-ו-ר|T|AY
+הִתְלַבְּטוּת|ל-ב-ט|T|S
+הִשְׁתַּלְּבוּת|ש-ל-ב|T|S
+הִתְאַרְגְּנוּת|א-ר-ג-ן|T|M
+`;
+
+// ===== שורש ומשקל: שם|שורש|משקל
+const MISHKAL = `
+כְּתִיבָה|כ-ת-ב|קְטִילָה
+שְׁמִירָה|ש-מ-ר|קְטִילָה
+מְרִיחָה|מ-ר-ח|קְטִילָה
+מִכְתָּב|כ-ת-ב|מִקְטָל
+מִשְׂחָק|ש-ח-ק|מִקְטָל
+מִגְרָשׁ|ג-ר-ש|מִקְטָל
+מִסְפָּר|ס-פ-ר|מִקְטָל
+מַבָּט|נ-ב-ט|מִקְטָל
+מַחְשֵׁב|ח-ש-ב|מַקְטֵל
+מַפְתֵּחַ|פ-ת-ח|מַקְטֵל
+מַסְרֵק|ס-ר-ק|מַקְטֵל
+מְלוּכָה|מ-ל-ך|קְטוּלָּה
+שְׁמוּעָה|ש-מ-ע|קְטוּלָּה
+תְּרוּמָה|ת-ר-ם|קְטוּלָּה
+גְּדֻלָּה|ג-ד-ל|קְטוּלָּה
+סַפָּר|ס-פ-ר|קַטָּל
+נַגָּר|נ-ג-ר|קַטָּל
+טַבָּח|ט-ב-ח|קַטָּל
+צַלָּם|צ-ל-ם|קַטָּל
+מִסְפָּרָה|ס-פ-ר|מִקְטָלָה
+מִכְבָּסָה|כ-ב-ס|מִקְטָלָה
+מִסְעָדָה|ס-ע-ד|מִקְטָלָה
+מִרְפָּאָה|ר-פ-א|מִקְטָלָה
+אַדֶּמֶת|א-ד-ם|קַטֶּלֶת
+נַזֶּלֶת|נ-ז-ל|קַטֶּלֶת
+דַּלֶּקֶת|ד-ל-ק|קַטֶּלֶת
+צַהֶבֶת|צ-ה-ב|קַטֶּלֶת
+תַּרְגִּיל|ר-ג-ל|תַּקְטִיל
+תַּקְצִיר|ק-צ-ר|תַּקְטִיל
+תַּסְרִיט|ס-ר-ט|תַּקְטִיל
+תַּפְרִיט|פ-ר-ט|תַּקְטִיל
+תַּכְשִׁיט|כ-ש-ט|תַּקְטִיל
+מַצְלֵמָה|צ-ל-ם|מַקְטֵלָה
+מַזְכֶּרֶת|ז-כ-ר|מַקְטֶלֶת
+מַחְבֶּרֶת|ח-ב-ר|מַקְטֶלֶת
+פָּקִיד|פ-ק-ד|קָטִיל
+שָׁלִיחַ|ש-ל-ח|קָטִיל
+קָצִיר|ק-צ-ר|קָטִיל
+סִפּוּר|ס-פ-ר|קִטּוּל
+בִּטּוּל|ב-ט-ל|קִטּוּל
+הַזְמָנָה|ז-מ-ן|הַקְטָלָה
+הַדְלָקָה|ד-ל-ק|הַקְטָלָה
+הִתְלַבְּטוּת|ל-ב-ט|הִתְקַטְּלוּת
+הִתְרַגְּשׁוּת|ר-ג-ש|הִתְקַטְּלוּת
+הִכָּנְסוּת|כ-נ-ס|הִקָּטְלוּת
+הִשָּׁבְרוּת|ש-ב-ר|הִקָּטְלוּת
+`;
+
+// ===== בסיס וצורן: מילה|בסיס|צורן|משמעות הצורן|סוג צורן (g=גזירה, n=נטייה)
+const SUFFIX = `
+יַלְדוּת|יֶלֶד|וּת|שם עצם מופשט|g
+יְדִידוּת|יָדִיד|וּת|שם עצם מופשט|g
+שְׁכֵנוּת|שָׁכֵן|וּת|שם עצם מופשט|g
+אִיכוּת|אֵיךְ|וּת|שם עצם מופשט|g
+כַּמּוּת|כַּמָּה|וּת|שם עצם מופשט|g
+אַכְפַּתִּיּוּת|אִכְפַּתִּי|וּת|שם עצם מופשט|g
+סִפְרוֹן|סֵפֶר|וֹן|הקטנה|g
+דֻּבּוֹן|דֹּב|וֹן|הקטנה|g
+צְרִיפוֹן|צְרִיף|וֹן|הקטנה|g
+כַּפִּית|כַּף|ִית|הקטנה|g
+אֲרוֹנִית|אָרוֹן|ִית|הקטנה|g
+צְלוֹחִית|צְלוֹחָה|ִית|הקטנה|g
+עִבְרִית|עִבְרִי|ִית|שפה|g
+צָרְפָתִית|צָרְפָת|ִית|שפה|g
+סְפָרַדִּית|סְפָרַד|ִית|שפה|g
+חֲלָלִית|חָלָל|ִית|כלי רכב|g
+מַשָּׂאִית|מַשָּׂא|ִית|כלי רכב|g
+עִתּוֹנַאי|עִתּוֹן|אַי|בעל מקצוע|g
+חַשְׁמַלַּאי|חַשְׁמַל|אַי|בעל מקצוע|g
+סַפְרָן|סֵפֶר|ָן|בעל מקצוע|g
+שַׁקְרָן|שֶׁקֶר|ָן|בעל תכונה|g
+פַּחְדָן|פַּחַד|ָן|בעל תכונה|g
+סִפְרִיָּה|סֵפֶר|ִיָּה|מקום|g
+נַגָּרִיָּה|נַגָּר|ִיָּה|מקום|g
+מַאֲפִיָּה|מַאֲפֶה|ִיָּה|מקום|g
+בֵּיתִי|בַּיִת|ִי|שם תואר|g
+אֱנוֹשִׁי|אֱנוֹשׁ|ִי|שם תואר|g
+יוֹמִי|יוֹם|ִי|שם תואר|g
+שְׂמָלוֹת|שִׂמְלָה|וֹת|ריבוי בנקבה|n
+תְּמוּנוֹת|תְּמוּנָה|וֹת|ריבוי בנקבה|n
+מַחְבָּרוֹת|מַחְבֶּרֶת|וֹת|ריבוי בנקבה|n
+`;
+
+// ===== הלחם בסיסים: מילה|בסיס1|בסיס2
+const BLENDS = `
+מִגְדַּלּוֹר|מִגְדָּל|אוֹר
+רַמְזוֹר|רֶמֶז|אוֹר
+שְׁמַרְטַף|שׁוֹמֵר|טַף
+כַּדּוּרֶגֶל|כַּדּוּר|רֶגֶל
+כַּדּוּרְסַל|כַּדּוּר|סַל
+קוֹלְנוֹעַ|קוֹל|נוֹעַ
+אוֹפַנּוֹעַ|אוֹפַן|נוֹעַ
+קַטְנוֹעַ|קָטָן|נוֹעַ
+מִדְרְחוֹב|מִדְרָכָה|רְחוֹב
+מַחֲזֶמֶר|מַחֲזֶה|זֶמֶר
+חַיְדַּק|חַי|דַּק
+תַּפּוּז|תַּפּוּחַ|זָהָב
+קַרְנַף|קֶרֶן|אַף
+רַמְקוֹל|רָם|קוֹל
+דַּחְפּוֹר|דּוֹחֵף|חוֹפֵר
+`;
+
+// ===== ראשי תיבות: קיצור|פירוש
+const ACRONYMS = `
+צה"ל|צבא הגנה לישראל
+דו"ח|דין וחשבון
+סכו"ם|סכין, כף ומזלג
+אח"מ|אישיות חשובה מאוד
+רמטכ"ל|ראש המטה הכללי
+מנכ"ל|מנהל כללי
+ח"כ|חבר כנסת
+תנ"ך|תורה, נביאים, כתובים
+מד"א|מגן דוד אדום
+מע"מ|מס ערך מוסף
+בג"ץ|בית דין גבוה לצדק
+אחה"צ|אחר הצהריים
+`;
+
+// ===== שאילה מלעז
+const LOANS = `טֶלֶפוֹן,רַדְיוֹ,אוֹטוֹבּוּס,פִּיצָה,בּוֹט,אַלְגּוֹרִיתְם,טֶכְנוֹלוֹגְיָה,פְּסִיכוֹלוֹגְיָה,דֶּמוֹקְרַטְיָה,סְטוּדֶנְט,גִּיטָרָה,גִּ'ינְס,פּוֹסְטֶר,קוֹמִיקְס,וִידֵאוֹ,אָקָדֶמְיָה,בִּיוֹלוֹגְיָה,פְּלַסְטִיק,סֶנְדְּוִיץ',מוּזֵאוֹן,קָפֶה,אִינְטֶרְנֶט`;
+
+// ===== שם המספר
+// פורמט: משפט עם [[]] במקום המספר|תשובה נכונה|מסיח1;מסיח2;...|כלל (מפתח מ-NUMRULES)
+const NUMBERS = `
+בַּכִּתָּה יֵשׁ [[]] תַּלְמִידִים חֲדָשִׁים.|שְׁלוֹשָׁה|שָׁלוֹשׁ;שְׁלוֹשֶׁת|r1m
+בַּכִּתָּה יֵשׁ [[]] תַּלְמִידוֹת חֲדָשׁוֹת.|שָׁלוֹשׁ|שְׁלוֹשָׁה;שְׁלוֹשֶׁת|r1f
+קָנִיתִי [[]] מַחְבָּרוֹת לַבְּגְרוּת.|חָמֵשׁ|חֲמִשָּׁה;חֲמֵשֶׁת|r1f
+בַּבַּיִת יֵשׁ [[]] חַלּוֹנוֹת.|אַרְבָּעָה|אַרְבַּע;אַרְבַּעַת|r1trapm
+טִיַּלְנוּ בְּצָפוֹן [[]] לֵילוֹת.|שִׁבְעָה|שֶׁבַע;שִׁבְעַת|r1trapm
+הִיא גָּרָה בְּאֵילַת כְּבָר [[]] שָׁנִים.|חָמֵשׁ|חֲמִשָּׁה;חֲמֵשֶׁת|r1trapf
+בַּחִבּוּר צָרִיךְ לְהוֹסִיף עוֹד [[]] מִלִּים.|שֵׁשׁ|שִׁשָּׁה;שֵׁשֶׁת|r1f
+סִדַּרְנוּ [[]] כִּסְאוֹת בַּשּׁוּרָה.|שְׁמוֹנָה|שְׁמוֹנֶה;שְׁמוֹנַת|r1trapm
+הַקּוּרְס נִמְשַׁךְ [[]] שָׁבוּעוֹת.|אַרְבָּעָה|אַרְבַּע;אַרְבַּעַת|r1trapm
+אָסַפְנוּ [[]] אֲבָנִים יָפוֹת בַּחוֹף.|תֵּשַׁע|תִּשְׁעָה;תִּשְׁעַת|r1trapf
+בַּסַּל הָיוּ [[]] בֵּיצִים.|עֶשֶׂר|עֲשָׂרָה;עֲשֶׂרֶת|r1f
+לְאַחוֹתִי יֵשׁ [[]] בָּנוֹת.|שְׁתֵּי|שְׁתַּיִם;שְׁנֵי|r2f
+בַּתַּחֲרוּת זָכוּ [[]] יְלָדִים.|שְׁנֵי|שְׁנַיִם;שְׁתֵּי|r2m
+כַּמָּה עוּגוֹת אָפִית? אָפִיתִי [[]].|שְׁתַּיִם|שְׁתֵּי;שְׁנַיִם|r2alone
+בַּמִּשְׂחָק הִשְׁתַּתְּפוּ [[]] שַׂחְקָנִים.|שְׁלוֹשָׁה עָשָׂר|שְׁלוֹשׁ עֶשְׂרֵה;שְׁלוֹשָׁה עֶשְׂרֵה|r3m
+בַּמַּקְהֵלָה שָׁרוֹת [[]] זַמָּרוֹת.|שְׁלוֹשׁ עֶשְׂרֵה|שְׁלוֹשָׁה עָשָׂר;שְׁלוֹשׁ עָשָׂר|r3f
+הַשָּׁנָה מְחֻלֶּקֶת לִ[[]] חֳדָשִׁים.|שְׁנֵים עָשָׂר|שְׁתֵּים עֶשְׂרֵה;שְׁנֵי עָשָׂר|r3m
+הַיְּמָמָה מְחֻלֶּקֶת לְעֶשְׂרִים וְאַרְבַּע שָׁעוֹת; עָבַדְתִּי [[]] שָׁעוֹת בִּרְצִיפוּת.|שְׁתֵּים עֶשְׂרֵה|שְׁנֵים עָשָׂר;שְׁתֵּי עֶשְׂרֵה|r3f
+בַּטִּיּוּל הִשְׁתַּתְּפוּ [[]] בָּנוֹת.|אַחַת עֶשְׂרֵה|אַחַד עָשָׂר;אַחַת עָשָׂר|r3f
+בַּנִּסּוּי הִשְׁתַּתְּפוּ [[]] חוֹקְרִים.|חֲמִשָּׁה עָשָׂר|חֲמֵשׁ עֶשְׂרֵה;חֲמֵשֶׁת עָשָׂר|r3m
+בַּשִּׁכְבָה יֵשׁ [[]] תַּלְמִידִים.|עֶשְׂרִים וּשְׁלוֹשָׁה|עֶשְׂרִים וְשָׁלוֹשׁ;עֶשְׂרִים וּשְׁלוֹשֶׁת|r4m
+בַּסֵּפֶר יֵשׁ [[]] מְשִׂימוֹת.|שְׁלוֹשִׁים וְאַרְבַּע|שְׁלוֹשִׁים וְאַרְבָּעָה;שְׁלוֹשִׁים וְאַרְבַּעַת|r4f
+לַהוֹפָעָה הִגִּיעוּ [[]] אֲנָשִׁים.|עֶשְׂרִים וּשְׁנַיִם|עֶשְׂרִים וּשְׁנֵי;עֶשְׂרִים וּשְׁתַּיִם|r4two
+בַּמִּבְחָן הָיוּ [[]] שְׁאֵלוֹת.|עֶשְׂרִים וּשְׁתַּיִם|עֶשְׂרִים וּשְׁתֵּי;עֶשְׂרִים וּשְׁנַיִם|r4two
+[[]] הַסְּפָרִים שֶׁקָּנִיתִי מוּנָחִים עַל הַשֻּׁלְחָן.|שְׁלוֹשֶׁת|שְׁלוֹשָׁה;שָׁלוֹשׁ|r5m
+[[]] הַיְּלָדִים שֶׁל הַשְּׁכֵנִים יָצְאוּ לְטַיֵּל.|חֲמֵשֶׁת|חֲמִשָּׁה;חָמֵשׁ|r5m
+[[]] הַבָּנוֹת שֶׁלִּי לוֹמְדוֹת בְּאוֹתוֹ בֵּית סֵפֶר.|שְׁתֵּי|שְׁתַּיִם;שְׁנֵי|r5f2
+[[]] הַחֲשָׁשׁוֹת הָעִקָּרִיִּים הָיוּ מֻצְדָּקִים.|שְׁלוֹשֶׁת|שְׁלוֹשָׁה;שָׁלוֹשׁ|r5trap
+[[]] הַיָּמִים הָאַחֲרוֹנִים הָיוּ חַמִּים.|שִׁבְעַת|שִׁבְעָה;שֶׁבַע|r5m
+הַחֹק נִכְנַס לְתֹקֶף בִּשְׁנַת אַלְפַּיִם [[]].|עֶשְׂרִים וְשָׁלוֹשׁ|עֶשְׂרִים וּשְׁלוֹשָׁה;עֶשְׂרִים וּשְׁלוֹשֶׁת|r6year
+נוֹיָה נוֹלְדָה בִּשְׁנַת אַלְפַּיִם [[]].|תֵּשַׁע|תִּשְׁעָה;תִּשְׁעַת|r6year
+הַמּוֹרָה בִּקְּשָׁה לִפְתֹּחַ בְּעַמּוּד מִסְפָּר [[]].|אַרְבַּע|אַרְבָּעָה;אַרְבַּעַת|r6num
+קִרְאוּ אֶת מַאֲמָר מִסְפָּר [[]].|שְׁתַּיִם|שְׁנַיִם;שְׁנֵי|r6num
+הַקַּו הַזֶּה הוּא קַו מִסְפָּר [[]].|שֵׁשׁ|שִׁשָּׁה;שֵׁשֶׁת|r6num
+בַּתַּחֲרוּת הִשְׁתַּתְּפוּ [[]] רָצִים.|שְׁלוֹשׁ מֵאוֹת|שְׁלוֹשׁ מֵאָה;שְׁלוֹשָׁה מֵאוֹת|r7h
+בָּעִיר נִבְנוּ [[]] דִּירוֹת חֲדָשׁוֹת.|שְׁלוֹשֶׁת אֲלָפִים|שְׁלוֹשָׁה אֲלָפִים;שְׁלוֹשׁ אֲלָפִים|r7k
+בָּאֲתָר נִרְשְׁמוּ [[]] מִשְׁתַּמְּשִׁים.|עֲשֶׂרֶת אֲלָפִים|עֲשָׂרָה אֲלָפִים;עֶשֶׂר אֲלָפִים|r7k
+בַּמִּפְעָל עוֹבְדִים [[]] אִישׁ.|מָאתַיִם|שְׁתֵּי מֵאוֹת;שְׁנֵי מֵאוֹת|r7two
+[[]] אֲחוּזִים מִן הַתַּלְמִידִים עָבְרוּ אֶת הַמִּבְחָן.|שִׁבְעִים וַחֲמִשָּׁה|שִׁבְעִים וְחָמֵשׁ;שִׁבְעִים וַחֲמֵשֶׁת|r8
+רַק [[]] אֲחוּזִים מִן הַמִּשְׁתַּתְּפִים בָּחֲרוּ בַּמִּלָּה.|שִׁבְעָה|שֶׁבַע;שִׁבְעַת|r8
+אָחִי הַקָּטָן בֶּן [[]].|שֵׁשׁ|שִׁשָּׁה;שֵׁשֶׁת|r9
+בְּנֵי [[]] יְכוֹלִים לְהַצְבִּיעַ בַּבְּחִירוֹת.|שְׁמוֹנֶה עֶשְׂרֵה|שְׁמוֹנָה עָשָׂר;שְׁמוֹנַת עָשָׂר|r9
+הַהוֹפָעָה תִּתְקַיֵּם בַּ[[]] בְּדֶצֶמְבֶּר.|חֲמִשָּׁה|חָמֵשׁ;חֲמֵשֶׁת|r10
+הַמִּבְחָן יִתְקַיֵּם בְּ[[]] בְּיָנוּאָר.|אַרְבָּעָה|אַרְבַּע;אַרְבַּעַת|r10
+זֹאת הַפַּעַם הַ[[]] שֶׁאֲנִי מַסְבִּירָה לָךְ!|שְׁלִישִׁית|שְׁלִישִׁי;שָׁלוֹשׁ|r11f
+הִיא סִיְּמָה בַּמָּקוֹם הַ[[]] בַּתַּחֲרוּת.|שֵׁנִי|שְׁנִיָּה;שְׁנַיִם|r11m
+אֲנַחְנוּ גָּרִים בַּקּוֹמָה הַ[[]].|שְׁבִיעִית|שְׁבִיעִי;שֶׁבַע|r11f
+בַּמֵּאָה הָ[[]] הַטֶּכְנוֹלוֹגְיָה מִשְׁתַּנָּה מַהֵר.|עֶשְׂרִים וְאַחַת|עֶשְׂרִים וְאֶחָד;עֶשְׂרִים וְרִאשׁוֹנָה|r11big
+הַבִּנְיָן הֶחָדָשׁ גָּבוֹהַּ פִּי [[]] מִן הַבִּנְיָן הַיָּשָׁן.|שְׁנַיִם|שְׁתַּיִם;שְׁנֵי|r12
+הַמְּחִיר עָלָה פִּי [[]].|שְׁלוֹשָׁה|שָׁלוֹשׁ;שְׁלוֹשֶׁת|r12
+לַכֶּנֶס הִגִּיעוּ [[]] מוֹרוֹת וּמוֹרִים.|שִׁשָּׁה|שֵׁשׁ;שֵׁשֶׁת|r13
+בַּצֶּוֶת יֵשׁ [[]] מְתַכְנְתוֹת וּמְתַכְנְתִים.|אַרְבָּעָה|אַרְבַּע;אַרְבַּעַת|r13
+בַּתּוֹר חִכְּתָה רַק יַלְדָּה [[]].|אַחַת|אֶחָד;אַחַד|r14
+`;
+
+const NUMRULES = {
+  r1m: 'מספר 3–10 לפני שם עצם בזכר בא בצורה עם ה בסוף: שְׁלוֹשָׁה תַּלְמִידִים, חֲמִשָּׁה סְפָרִים. "צורה עם ה" ← זכר, "צורה בלי ה" ← נקבה (הפוך ממה שמצפים!).',
+  r1f: 'מספר 3–10 לפני שם עצם בנקבה בא בצורה בלי ה: שָׁלוֹשׁ תַּלְמִידוֹת, חָמֵשׁ מַחְבָּרוֹת.',
+  r1trapm: 'מלכודת! קובעים את מין שם העצם לפי היחיד, לא לפי סיומת הרבים. חַלּוֹן, לַיְלָה, כִּסֵּא, שָׁבוּעַ – כולם בזכר (חלון אחד, לילה אחד), גם כשהרבים מסתיים ב־ות. לכן: מספר עם ה.',
+  r1trapf: 'מלכודת! קובעים את המין לפי היחיד: שָׁנָה, אֶבֶן – נקבה (שנה אחת, אבן אחת), גם כשהרבים מסתיים ב־ים. לכן: מספר בלי ה.',
+  r2f: 'לפני שם עצם בנקבה – "שְׁתֵּי" (שתי בנות). לפני שם עצם בזכר – "שְׁנֵי" (שני ילדים).',
+  r2m: 'לפני שם עצם בזכר – "שְׁנֵי" (שני ילדים). לפני שם עצם בנקבה – "שְׁתֵּי".',
+  r2alone: 'כשהמספר עומד לבדו (בלי שם עצם אחריו) – "שְׁתַּיִם" לנקבה ו"שְׁנַיִם" לזכר. כאן הכוונה לעוגות (נקבה) ← שְׁתַּיִם.',
+  r3m: 'מספרים 11–19 בזכר: היחידות בצורה עם ה + "עָשָׂר": שְׁלוֹשָׁה עָשָׂר, חֲמִשָּׁה עָשָׂר. חריגים: אַחַד עָשָׂר, שְׁנֵים עָשָׂר.',
+  r3f: 'מספרים 11–19 בנקבה: היחידות בצורה בלי ה + "עֶשְׂרֵה": שְׁלוֹשׁ עֶשְׂרֵה, אַחַת עֶשְׂרֵה, שְׁתֵּים עֶשְׂרֵה.',
+  r4m: 'בעשרות (20, 30...) אין הבדל בין זכר לנקבה, אבל היחידות מתאימות למין: עֶשְׂרִים וּשְׁלוֹשָׁה תַּלְמִידִים (זכר).',
+  r4f: 'העשרות זהות לשני המינים, והיחידות מתאימות למין: שְׁלוֹשִׁים וְאַרְבַּע מְשִׂימוֹת (נקבה ← בלי ה).',
+  r4two: 'במספר מורכב (22, 32...) כותבים "וּשְׁנַיִם" (זכר) או "וּשְׁתַּיִם" (נקבה) – ולא "ושני"/"ושתי": עֶשְׂרִים וּשְׁנַיִם אֲנָשִׁים, עֶשְׂרִים וּשְׁתַּיִם שְׁאֵלוֹת.',
+  r5m: 'כששם העצם מיודע (בא אחריו ה הידיעה), המספר בא בצורת סמיכות: שְׁלוֹשֶׁת הַסְּפָרִים, חֲמֵשֶׁת הַיְּלָדִים, שִׁבְעַת הַיָּמִים.',
+  r5f2: 'מספר לפני שם עצם מיודע בא בצורת סמיכות. בנקבה: שְׁתֵּי הַבָּנוֹת (וגם שְׁלוֹשׁ הַבָּנוֹת).',
+  r5trap: 'חֲשָׁשׁ הוא בזכר (חשש אחד), גם כשהרבים מסתיים ב־ות. שם העצם מיודע ← סמיכות בזכר: שְׁלוֹשֶׁת הַחֲשָׁשׁוֹת.',
+  r6year: 'שנה, ומספר שמשמש כמו שם או כמו מספור, נכתבים בצורת הנקבה: בִּשְׁנַת אַלְפַּיִם עֶשְׂרִים וְשָׁלוֹשׁ.',
+  r6num: 'מספר שבא אחרי המילה "מספר" (עמוד מספר, חדר מספר, מאמר מספר) נכתב בצורת הנקבה: עַמּוּד מִסְפָּר אַרְבַּע, מַאֲמָר מִסְפָּר אַחַת.',
+  r7: '100 = מֵאָה (בכל מין).',
+  r7h: '"מֵאָה" היא בנקבה, ולכן: שְׁלוֹשׁ מֵאוֹת, אַרְבַּע מֵאוֹת (צורה בלי ה).',
+  r7k: '"אֶלֶף" הוא בזכר, ולכן בצורת סמיכות: שְׁלוֹשֶׁת אֲלָפִים, עֲשֶׂרֶת אֲלָפִים.',
+  r7two: '200 = מָאתַיִם, 2,000 = אַלְפַּיִם (צורת הזוגי).',
+  r8: '"אָחוּז" הוא בזכר ← מספר בצורת הזכר: שִׁבְעָה אֲחוּזִים, שִׁבְעִים וַחֲמִשָּׁה אֲחוּזִים.',
+  r9: 'גיל (בן/בת + מספר): המספר בצורת הנקבה, כי הכוונה לשנים (שָׁנָה – נקבה): בֶּן שֵׁשׁ, בְּנֵי שְׁמוֹנֶה עֶשְׂרֵה.',
+  r9b: 'עשרות (20, 30... 80) זהות בזכר ובנקבה: שְׁמוֹנִים.',
+  r10: 'תאריך (יום בחודש): המספר בצורת הזכר, כי הכוונה ליום (יוֹם – זכר): בַּחֲמִשָּׁה בְּדֶצֶמְבֶּר, בְּאַרְבָּעָה בְּיָנוּאָר.',
+  r11f: 'מספר סודר (ראשון, שני, שלישי... עד עשירי) מתאים במין לשם העצם: הַפַּעַם הַשְּׁלִישִׁית, הַקּוֹמָה הַשְּׁבִיעִית (נקבה).',
+  r11m: 'מספר סודר מתאים במין לשם העצם: הַמָּקוֹם הַשֵּׁנִי (מָקוֹם – זכר).',
+  r11big: 'מעל 10 אין צורת סודר מיוחדת – משתמשים במספר היסודי עם ה הידיעה, במין של שם העצם: הַמֵּאָה (נקבה) ← הָעֶשְׂרִים וְאַחַת.',
+  r12: 'אחרי "פִּי" המספר בא בצורת הזכר: פִּי שְׁנַיִם, פִּי שְׁלוֹשָׁה.',
+  r13: 'כשמונים יחד זכרים ונקבות – משתמשים בצורת הזכר: שִׁשָּׁה מוֹרוֹת וּמוֹרִים.',
+  r14: 'המספר אחד/אחת בא אחרי שם העצם ומתאים לו במין: יַלְדָּה אַחַת, יֶלֶד אֶחָד.'
+};
+
+// ===== מספרים בספרות → כתיבה במילים: משפט עם {{}}|ספרות|תשובה|מסיח1;מסיח2|כלל
+const NUMWORDS = `
+בָּאֲתָר הִתְפַּרְסְמוּ יוֹתֵר מִ־{{}} תְּגוּבוֹת.|5,044|חֲמֵשֶׁת אֲלָפִים אַרְבָּעִים וְאַרְבַּע|חֲמִשָּׁה אֲלָפִים אַרְבָּעִים וְאַרְבָּעָה;חָמֵשׁ אֲלָפִים אַרְבָּעִים וְאַרְבַּע|r7k
+בַּמֵּאָה הַ־{{}} הָיוּ שִׁנּוּיִים רַבִּים.|19|תְּשַׁע עֶשְׂרֵה|תִּשְׁעָה עָשָׂר;תְּשִׁיעִית עֶשְׂרֵה|r11big
+בַּכִּתָּה לוֹמְדִים {{}} תַּלְמִידִים.|32|שְׁלוֹשִׁים וּשְׁנַיִם|שְׁלוֹשִׁים וּשְׁנֵי;שְׁלוֹשִׁים וּשְׁתַּיִם|r4two
+הַסֵּפֶר כּוֹלֵל {{}} פְּרָקִים.|12|שְׁנֵים עָשָׂר|שְׁתֵּים עֶשְׂרֵה;שְׁנֵי עָשָׂר|r3m
+בַּמַּחֲנֶה הָיוּ {{}} חֲנִיכוֹת.|17|שְׁבַע עֶשְׂרֵה|שִׁבְעָה עָשָׂר;שִׁבְעָה עֶשְׂרֵה|r3f
+{{}} מִן הַמְּשִׁיבִים לֹא הִסְכִּימוּ.|15%|חֲמִשָּׁה עָשָׂר אֲחוּזִים|חֲמֵשׁ עֶשְׂרֵה אֲחוּזִים;חֲמִשָּׁה עֶשְׂרֵה אֲחוּזִים|r8
+הַכַּרְטִיסִים נִמְכְּרוּ בְּ־{{}} שְׁקָלִים.|300|שְׁלוֹשׁ מֵאוֹת|שְׁלוֹשָׁה מֵאוֹת;שְׁלוֹשׁ מֵאָה|r7h
+בָּאִירוּעַ הִשְׁתַּתְּפוּ {{}} אִישׁ.|2,000|אַלְפַּיִם|שְׁנֵי אֲלָפִים;שְׁתֵּי אֲלָפִים|r7two
+סַבָּא נוֹלַד בִּשְׁנַת {{}}.|1951|אֶלֶף תְּשַׁע מֵאוֹת חֲמִשִּׁים וְאַחַת|אֶלֶף תִּשְׁעָה מֵאוֹת חֲמִשִּׁים וְאֶחָד;אֶלֶף תְּשַׁע מֵאוֹת חֲמִשִּׁים וְאֶחָד|r6year
+`;
+
+// ===== זוגות דומים: משפט1|צורה1|משפט2|צורה2|היגד נכון;;שגוי;;שגוי;;שגוי|הסבר
+const PAIRS = `
+הַמְּפַקֶּדֶת תִּדְרְכָה אֶת הַחַיָּלִים לִפְנֵי הַמְּשִׂימָה.|תִּדְרְכָה|אַתְּ תַּדְרִיכִי אוֹתָנוּ בַּדֶּרֶךְ?|תַּדְרִיכִי|הפועל הראשון גזור משורש מרובע, והשני משורש של גזרת השלמים;;שני הפעלים באותו זמן;;לשני הפעלים אותו שורש;;שני הפעלים באותו בניין|תִּדְרְכָה: השורש ת-ד-ר-ך (מן "תדריך"), בניין פיעל, עבר, נסתרת – ה־ת היא אות שורש. תַּדְרִיכִי: השורש ד-ר-ך, בניין הפעיל, עתיד, נוכחת – ה־ת היא תחילית של עתיד.
+הַמְּפַקֶּדֶת תִּדְרְכָה אֶת הַחַיָּלִים לִפְנֵי הַמְּשִׂימָה.|תִּדְרְכָה|אַתְּ תַּדְרִיכִי אוֹתָנוּ בַּדֶּרֶךְ?|תַּדְרִיכִי|הפועל הראשון בזמן עבר, והשני בזמן עתיד;;הפועל השני בבניין פיעל;;בשני הפעלים ה־ת היא תחילית של זמן עתיד;;השורש של הפועל הראשון הוא ד-ר-ך|תִּדְרְכָה: השורש ת-ד-ר-ך (מן "תדריך"), בניין פיעל, עבר, נסתרת – ה־ת היא אות שורש. תַּדְרִיכִי: השורש ד-ר-ך, בניין הפעיל, עתיד, נוכחת – ה־ת היא תחילית של עתיד.
+הַבַּמַּאי תִּזְמֵן אֶת הַצִּלּוּם לִשְׁעַת הַשְּׁקִיעָה.|תִּזְמֵן|מָתַי תְּזַמֵּן אֶת כֻּלָּם לַמְּסִבָּה?|תְּזַמֵּן|שני הפעלים באותו בניין;;לשני הפעלים אותו שורש;;שני הפעלים באותו זמן;;שני הפעלים גזורים משורשים מרובעים|תִּזְמֵן: השורש ת-ז-מ-ן (מן "תזמון"), בניין פיעל, עבר, נסתר. תְּזַמֵּן: השורש ז-מ-ן, בניין פיעל, עתיד – ה־ת היא תחילית של עתיד. שני הפעלים בפיעל, אבל השורשים והזמנים שונים.
+הַבַּמַּאי תִּזְמֵן אֶת הַצִּלּוּם לִשְׁעַת הַשְּׁקִיעָה.|תִּזְמֵן|מָתַי תְּזַמֵּן אֶת כֻּלָּם לַמְּסִבָּה?|תְּזַמֵּן|השורש של הפועל הראשון הוא ת-ז-מ-ן;;השורש של הפועל השני הוא ת-ז-מ-ן;;הפועל השני בזמן עבר;;הפועל הראשון בבניין התפעל|תִּזְמֵן: השורש ת-ז-מ-ן (מן "תזמון"), בניין פיעל, עבר, נסתר. תְּזַמֵּן: השורש ז-מ-ן, בניין פיעל, עתיד – ה־ת היא תחילית של עתיד.
+הַתַּלְמִידִים תִּקְשְׁרוּ זֶה עִם זֶה בִּשְׂפַת סִימָנִים.|תִּקְשְׁרוּ|אִם תִּקְשְׁרוּ אֶת הַחֶבֶל הֵיטֵב, הָאֹהֶל לֹא יָעוּף.|תִּקְשְׁרוּ|הפעלים שונים בזמן, בגוף, בבניין ובשורש;;אין שום הבדל בין הפעלים;;הפעלים שונים רק בזמן ובגוף;;הפעלים שונים רק בשורש|במשפט הראשון: תִּקְשְׁרוּ – השורש ת-ק-ש-ר (מן "תקשורת"), בניין פיעל, עבר, נסתרים. במשפט השני: תִּקְשְׁרוּ – השורש ק-ש-ר, בניין פעל (קל), עתיד, נוכחים. כתובים אותו דבר, אבל שונים בהכול.
+הַתַּלְמִידִים תִּקְשְׁרוּ זֶה עִם זֶה בִּשְׂפַת סִימָנִים.|תִּקְשְׁרוּ|אִם תִּקְשְׁרוּ אֶת הַחֶבֶל הֵיטֵב, הָאֹהֶל לֹא יָעוּף.|תִּקְשְׁרוּ|הפועל השני בבניין פעל (קל);;שני הפעלים בבניין פיעל;;לשני הפעלים אותו שורש;;הפועל הראשון בזמן עתיד|במשפט הראשון: תִּקְשְׁרוּ – השורש ת-ק-ש-ר (מן "תקשורת"), בניין פיעל, עבר, נסתרים. במשפט השני: תִּקְשְׁרוּ – השורש ק-ש-ר, בניין פעל (קל), עתיד, נוכחים.
+בַּבַּיִת שֶׁלָּנוּ מִחְזַרְנוּ אֶת כָּל הַבַּקְבּוּקִים.|מִחְזַרְנוּ|אֲנַחְנוּ מְחַזְּרִים אַחֲרֵי הַשַּׂחְקָנִית שֶׁתִּצְטָרֵף לַקְּבוּצָה.|מְחַזְּרִים|שני הפעלים באותו בניין, אבל השורשים שונים;;לשני הפעלים אותו שורש;;שני הפעלים בזמן הווה;;שני הפעלים גזורים משורשים מרובעים|מִחְזַרְנוּ: השורש מ-ח-ז-ר (מן "מחזור"), בניין פיעל, עבר, מדברים – ה־מ היא אות שורש. מְחַזְּרִים: השורש ח-ז-ר, בניין פיעל, הווה, רבים – ה־מ היא תחילית של הווה.
+בַּבַּיִת שֶׁלָּנוּ מִחְזַרְנוּ אֶת כָּל הַבַּקְבּוּקִים.|מִחְזַרְנוּ|אֲנַחְנוּ מְחַזְּרִים אַחֲרֵי הַשַּׂחְקָנִית שֶׁתִּצְטָרֵף לַקְּבוּצָה.|מְחַזְּרִים|בפועל הראשון ה־מ היא אות שורש;;בשני הפעלים ה־מ היא תחילית של הווה;;הפועל הראשון בזמן הווה;;השורש של הפועל השני הוא מ-ח-ז-ר|מִחְזַרְנוּ: השורש מ-ח-ז-ר (מן "מחזור"), בניין פיעל, עבר, מדברים – ה־מ היא אות שורש. מְחַזְּרִים: השורש ח-ז-ר, בניין פיעל, הווה, רבים – ה־מ היא תחילית של הווה.
+הֵם נִפְגְּשׁוּ בַּקַּנְיוֹן אַחֲרֵי בֵּית הַסֵּפֶר.|נִפְגְּשׁוּ|כָּל הַדַּיָּרִים נִצְּלוּ מִן הַשְּׂרֵפָה.|נִצְּלוּ|שני הפעלים בבניין נפעל, אבל מגזרות שונות;;שני הפעלים מגזרת חפ"ן;;שני הפעלים מגזרת השלמים;;הפעלים בבניינים שונים|נִפְגְּשׁוּ: השורש פ-ג-ש, גזרת השלמים, נפעל – ה־נ היא תחילית הבניין. נִצְּלוּ: השורש נ-צ-ל, גזרת חפ"ן, נפעל – נ' השורש נבלעה, והדגש ב־צ מעיד עליה.
+הֵם נִפְגְּשׁוּ בַּקַּנְיוֹן אַחֲרֵי בֵּית הַסֵּפֶר.|נִפְגְּשׁוּ|כָּל הַדַּיָּרִים נִצְּלוּ מִן הַשְּׂרֵפָה.|נִצְּלוּ|בפועל השני נ' השורש נבלעה, והדגש ב־צ מעיד עליה;;בפועל הראשון ה־נ היא אות שורש;;השורש של הפועל הראשון הוא נ-פ-ג-ש;;בשני הפעלים ה־נ היא אות שורש|נִפְגְּשׁוּ: השורש פ-ג-ש, גזרת השלמים, נפעל – ה־נ היא תחילית הבניין. נִצְּלוּ: השורש נ-צ-ל, גזרת חפ"ן, נפעל – נ' השורש נבלעה, והדגש ב־צ מעיד עליה.
+הַגַּנֶּנֶת הוֹשִׁיבָה אֶת הַיְּלָדִים בְּמַעְגָּל.|הוֹשִׁיבָה|הִיא הֵשִׁיבָה לִי תְּשׁוּבָה מְהִירָה.|הֵשִׁיבָה|שני הפעלים באותו בניין, באותו זמן ובאותו גוף, אבל משורשים שונים;;לשני הפעלים אותו שורש;;שני הפעלים מגזרת נפי"ו;;הפעלים בבניינים שונים|הוֹשִׁיבָה: השורש י-ש-ב, גזרת נפי"ו, הפעיל, עבר, נסתרת – ה־י הפכה ל־ו. הֵשִׁיבָה: השורש ש-ו-ב, גזרת נעו"י, הפעיל, עבר, נסתרת.
+הַגַּנֶּנֶת הוֹשִׁיבָה אֶת הַיְּלָדִים בְּמַעְגָּל.|הוֹשִׁיבָה|הִיא הֵשִׁיבָה לִי תְּשׁוּבָה מְהִירָה.|הֵשִׁיבָה|הפועל הראשון מגזרת נפי"ו, והשני מגזרת נעו"י;;שני הפעלים מגזרת נעו"י;;הפועל הראשון מגזרת נעו"י, והשני מגזרת נפי"ו;;שני הפעלים מגזרת השלמים|הוֹשִׁיבָה: השורש י-ש-ב, גזרת נפי"ו, הפעיל – ה־י הפכה ל־ו. הֵשִׁיבָה: השורש ש-ו-ב, גזרת נעו"י, הפעיל.
+רַצְתִּי לַתַּחֲנָה כְּדֵי לְהַסְפִּיק אֶת הָאוֹטוֹבּוּס.|רַצְתִּי|רָצִיתִי לְהַסְפִּיק אֶת הָאוֹטוֹבּוּס.|רָצִיתִי|שני הפעלים באותו בניין, באותו זמן ובאותו גוף, אבל מגזרות שונות;;לשני הפעלים אותו שורש;;שני הפעלים מגזרת נל"י;;שני הפעלים מגזרת נעו"י|רַצְתִּי: השורש ר-ו-ץ (לרוץ), גזרת נעו"י – ה־ו לא נראית בעבר. רָצִיתִי: השורש ר-צ-י (לרצות), גזרת נל"י – ה־י נראית בעבר בגוף מדבר. שניהם בפעל (קל), עבר, מדבר.
+רַצְתִּי לַתַּחֲנָה כְּדֵי לְהַסְפִּיק אֶת הָאוֹטוֹבּוּס.|רַצְתִּי|רָצִיתִי לְהַסְפִּיק אֶת הָאוֹטוֹבּוּס.|רָצִיתִי|שורש הפועל הראשון ר-ו-ץ, ושורש הפועל השני ר-צ-י;;שורש שני הפעלים ר-ו-ץ;;שורש שני הפעלים ר-צ-י;;שורש הפועל הראשון ר-צ-י, ושורש הפועל השני ר-ו-ץ|רַצְתִּי: השורש ר-ו-ץ (לרוץ), גזרת נעו"י. רָצִיתִי: השורש ר-צ-י (לרצות), גזרת נל"י.
+`;
+
+// ===== יוצא דופן בגזרה: מילה:שורש:גזרה, ... (בדיוק אחת שונה)
+const ODD = `
+רַצְתִּי:ר-ו-ץ:AY,שַׂמְתָּ:ש-י-ם:AY,גַּרְנוּ:ג-ו-ר:AY,רָצִיתִי:ר-צ-י:LY
+נוֹלַד:י-ל-ד:PY,נוֹדַע:י-ד-ע:PY,נוֹגַעַת:נ-ג-ע:PN,נוֹתַר:י-ת-ר:PY
+הִצִּיל:נ-צ-ל:PN,הִכִּיר:נ-כ-ר:PN,הִבִּיט:נ-ב-ט:PN,הֵקִים:ק-ו-ם:AY
+מֵעִיד:ע-ו-ד:AY,מוֹעִיל:י-ע-ל:PY,מוֹרִיד:י-ר-ד:PY,מוֹדִיעַ:י-ד-ע:PY
+בִּטֵּא:ב-ט-א:LA,מִלֵּא:מ-ל-א:LA,רִפֵּא:ר-פ-א:LA,גִּלָּה:ג-ל-י:LY
+תִּרְגֵּל:ת-ר-ג-ל:M,תִּכְנֵן:ת-כ-נ-ן:M,תִּדְרֵךְ:ת-ד-ר-ך:M,תְּסַפֵּר:ס-פ-ר:S
+מְסַפֶּרֶת:ס-פ-ר:S,מְשַׁכְפֶּלֶת:ש-כ-פ-ל:M,מְטַלְפֶּנֶת:ט-ל-פ-ן:M,מְצַלְצֶלֶת:צ-ל-צ-ל:M
+נִפְגַּשׁ:פ-ג-ש:S,נִכְנַס:כ-נ-ס:S,נִשְׁמַר:ש-מ-ר:S,נִצַּל:נ-צ-ל:PN
+מַגִּיעַ:נ-ג-ע:PN,מַבִּיט:נ-ב-ט:PN,מַפִּיל:נ-פ-ל:PN,מַזְמִין:ז-מ-ן:S
+יָשַׁב:י-ש-ב:PY,יָרַד:י-ר-ד:PY,יָדַע:י-ד-ע:PY,יָקוּם:ק-ו-ם:AY
+הִשְׁתַּנָּה:ש-נ-י:LY,הִתְגַּלָּה:ג-ל-י:LY,הִזְדַּהָה:ז-ה-י:LY,הִשְׁתַּמֵּשׁ:ש-מ-ש:S
+הוֹסִיף:י-ס-ף:PY,הוֹשִׁיט:י-ש-ט:PY,הוֹרִיד:י-ר-ד:PY,הֵשִׁיב:ש-ו-ב:AY
+קָרָא:ק-ר-א:LA,מָצָא:מ-צ-א:LA,שָׂנֵא:ש-נ-א:LA,קָנָה:ק-נ-י:LY
+יִפֹּל:נ-פ-ל:PN,יִסַּע:נ-ס-ע:PN,יִתֵּן:נ-ת-ן:PN,יִשָּׁבֵר:ש-ב-ר:S
+סִפּוּר:ס-פ-ר:S,תִּרְגּוּל:ת-ר-ג-ל:M,אִרְגּוּן:א-ר-ג-ן:M,פִּרְסוּם:פ-ר-ס-ם:M
+הַזְמָנָה:ז-מ-ן:S,הַצָּלָה:נ-צ-ל:PN,הַגָּעָה:נ-ג-ע:PN,הַכָּרָה:נ-כ-ר:PN
+`;
+
+// ===== ציורים וקטוריים: נויה, החברות והפרסים =====
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+
+const CHANGES=[
+ {id:'lips',name:'שפתיים בבוטוקס',on:'אוי! השפתיים של נויה קיבלו בוטוקס 💋',off:'השפתיים חזרו לגודל הטבעי!'},
+ {id:'hair',name:'החלקה לתלתלים',on:'אוי לא! התלתלים עברו החלקה 😱',off:'התלתלים חזרו! 🌀'},
+ {id:'makeup',name:'איפור מוגזם',on:'שלוש שכבות איפור, ריסים עד השמיים 💄',off:'האיפור ירד, חזרנו לפרצוף הטבעי!'},
+ {id:'nails',name:'ציפורניים ארוכות',on:'צצו לה ציפורניים באורך של מטר 💅',off:'הציפורניים נגזרו!'},
+ {id:'vape',name:'וייפ',on:'מה זה בידיים שלה? וייפ?! 💨',off:'הווייפ הלך לפח!'},
+ {id:'floral',name:'ביגוד פרחוני',on:'הגופייה הירוקה הפכה לחולצה פרחונית 🌺',off:'הגופייה הירוקה חזרה!'},
+ {id:'bubble',name:'דיבור צ\'אחלה',on:'שומעים? היא התחילה לדבר כמו צ\'אחלה 🗯️',off:'הדיבור חזר לנורמלי!'},
+ {id:'hoops',name:'עגילי חישוק ענקיים',on:'עגילי חישוק בגודל של צמיד 🟡',off:'החישוקים הענקיים הוסרו!'},
+ {id:'tan',name:'שיזוף בספריי',on:'שיזוף בספריי בגוון כתום 🍊',off:'השיזוף הכתום נשטף!'}
+];
+const PHRASES=['אין על עומר אדם – חולה עליו!','אה כפרה!','שומעעעת – מה נראה לך!','יא מאמי!','וואלה? אין מצב!','די, אני מתה!','אחותי, תני כבוד!','נשמה שלי!','יאללה ביי!','מה את אומרת?! אמאלה!','תכלס? לא מעניין אותי!','איזה באסה, נשמה'];
+const FRIENDS=[
+ {name:'ליאור',hair:'#5a3a24',skin:'#eec3a0',top:'#3b82c4',style:'bob'},
+ {name:'מיי',hair:'#1c1412',skin:'#e8b892',top:'#8b5cf6',style:'pony'},
+ {name:'ליה',hair:'#a2461f',skin:'#f3cfb3',top:'#10a37f',style:'wavy'},
+ {name:'יעל',hair:'#7a5233',skin:'#e9bd98',top:'#f59e0b',style:'long'},
+ {name:'הילה',hair:'#d9b56a',skin:'#f1c9a8',top:'#ef4444',style:'braid'}
+];
+
+// ===== פרסים =====
+function bandText(b,x,y,fs){const w=b.split(' ');if(w.length===1)return `<text x="${x}" y="${y}" font-size="${fs+1}" text-anchor="middle" fill="#fff" font-weight="800" font-family="Rubik,sans-serif">${b}</text>`;return w.map((t,i)=>`<text x="${x}" y="${y-6+i*11}" font-size="${fs}" text-anchor="middle" fill="#fff" font-weight="800" font-family="Rubik,sans-serif">${t}</text>`).join('')}
+const PRIZES=[
+ {w:'lego',n:'סט לגו – חללית'},{w:'lego',n:'סט לגו – בית קפה בעיר'},{w:'lego',n:'סט לגו – זר פרחים'},{w:'lego',n:'דלי ענק של קוביות לגו'},
+ {w:'marvel',n:'כרטיסים לסרט מארוול הבא'},{w:'marvel',n:'מרתון מארוול בסלון'},{w:'marvel',n:'דלי פופקורן ענק לסרט מארוול'},
+ {w:'series',n:'ערב בינג׳ של סדרת נוער'},{w:'series',n:'עונה חדשה של הסדרה האהובה'},{w:'series',n:'שמיכה, פיג׳מה ופרק חדש'},
+ {w:'bands',n:'פוסטר של Coldplay',b:'COLDPLAY',kind:'poster'},{w:'bands',n:'פוסטר של Arctic Monkeys',b:'ARCTIC MONKEYS',kind:'poster'},
+ {w:'bands',n:'כרטיס להופעה של Coldplay',b:'COLDPLAY',kind:'ticket'},{w:'bands',n:'כרטיס להופעה של Arctic Monkeys',b:'ARCTIC MONKEYS',kind:'ticket'},
+ {w:'bands',n:'תקליט ויניל של Arctic Monkeys',b:'ARCTIC MONKEYS',kind:'vinyl'},
+ {w:'steak',n:'סטייק עם שעועית ירוקה'},{w:'steak',n:'אנטריקוט מדיום עם שעועית ירוקה'},{w:'steak',n:'סטייק על הגריל של אבא'},
+ {w:'curls',n:'קרם לעיצוב תלתלים'},{w:'curls',n:'ג׳ל לתלתלים מושלמים'},{w:'curls',n:'מסכת לחות לתלתלים'},{w:'curls',n:'מפזר חום לפן לתלתלים'}
+];
+const WORLD_NAMES={lego:'לגו',marvel:'מארוול',series:'סדרות',bands:'להקות',steak:'סטייק',curls:'תלתלים'};
+
+
+// ===== איורים מלוטשים: חברות ופרסים =====
+let _uid=0;
+function friendSVG(f,ch){
+ const u='f'+(++_uid);
+ const skin=f.skin;
+ const hair=ch?['#f3d58a','#eec46a','#f6e0a5','#e3b766','#f8e6b5'][FRIENDS.indexOf(f)%5]:f.hair;
+ const hairDark=ch?'#6b4a2a':shade(f.hair,-.35);
+ let s=`<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><defs>
+ <radialGradient id="${u}s" cx=".45" cy=".4" r=".65"><stop offset="0" stop-color="${shade(skin,.08)}"/><stop offset=".75" stop-color="${skin}"/><stop offset="1" stop-color="${shade(skin,-.18)}"/></radialGradient>
+ <linearGradient id="${u}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${ch?'#5a3a22':shade(hair,.15)}"/><stop offset="${ch?.35:.5}" stop-color="${hair}"/><stop offset="1" stop-color="${ch?shade(hair,.12):hairDark}"/></linearGradient>
+ <linearGradient id="${u}t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${shade(f.top,.15)}"/><stop offset="1" stop-color="${shade(f.top,-.25)}"/></linearGradient>
+ <radialGradient id="${u}b" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="${ch?'#ff3d8b':'#f08f7a'}" stop-opacity="${ch?.6:.35}"/><stop offset="1" stop-color="#f08f7a" stop-opacity="0"/></radialGradient>
+ <linearGradient id="${u}l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0569a"/><stop offset="1" stop-color="#b8155a"/></linearGradient>
+ <pattern id="${u}p" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#ff4f9a"/><circle cx="5" cy="5" r="2.6" fill="#fff59d"/><circle cx="5" cy="5" r="1" fill="#f97316"/><circle cx="13" cy="12" r="2.2" fill="#fff"/><circle cx="13" cy="12" r=".8" fill="#facc15"/></pattern>
+ <clipPath id="${u}c"><circle cx="60" cy="60" r="58"/></clipPath></defs>
+ <g clip-path="url(#${u}c)"><circle cx="60" cy="60" r="58" fill="${ch?'#ffe1ef':'#eef2f7'}"/>`;
+ // שיער אחורי
+ if(ch) s+=`<path d="M24,124 C16,70 22,20 60,17 C98,20 104,70 96,124Z" fill="url(#${u}h)"/>`;
+ else if(f.style==='long') s+=`<path d="M26,118 C18,66 26,20 60,18 C94,20 102,66 94,118Z" fill="url(#${u}h)"/>`;
+ else if(f.style==='wavy') s+=`<path d="M22,104 C10,84 18,66 16,52 C14,26 36,14 60,15 C84,14 106,26 104,52 C102,66 110,84 98,104 C88,96 32,96 22,104Z" fill="url(#${u}h)"/>`;
+ else if(f.style==='pony') s+=`<path d="M82,30 C108,34 110,76 94,94 C100,70 94,50 80,42Z" fill="url(#${u}h)"/>`;
+ else if(f.style==='braid') s+=`<g fill="url(#${u}h)"><ellipse cx="88" cy="70" rx="7" ry="8"/><ellipse cx="90" cy="84" rx="6.5" ry="7.5"/><ellipse cx="91" cy="97" rx="6" ry="7"/></g>`;
+ else if(f.style==='bob') s+=`<path d="M28,82 C20,40 34,18 60,18 C86,18 100,40 92,82 C80,86 40,86 28,82Z" fill="url(#${u}h)"/>`;
+ // כתפיים וחולצה
+ s+=`<path d="M10,124 C12,100 34,90 60,90 C86,90 108,100 110,124Z" fill="${ch?`url(#${u}p)`:`url(#${u}t)`}"/><path d="M48,90 Q60,104 72,90" fill="${shade(skin,-.08)}"/>
+ <path d="M51,74 L69,74 L70,92 Q60,99 50,92Z" fill="${shade(skin,-.12)}"/>`;
+ // אוזניים ופנים
+ s+=`<ellipse cx="35" cy="58" rx="4.5" ry="7" fill="${shade(skin,-.1)}"/><ellipse cx="85" cy="58" rx="4.5" ry="7" fill="${shade(skin,-.1)}"/>
+ <path d="M36,54 C36,32 46,24 60,24 C74,24 84,32 84,54 C84,72 74,84 60,85 C46,84 36,72 36,54Z" fill="url(#${u}s)"/>
+ <ellipse cx="46" cy="64" rx="8" ry="5" fill="url(#${u}b)"/><ellipse cx="74" cy="64" rx="8" ry="5" fill="url(#${u}b)"/>`;
+ // עיניים
+ for(const x of [49,71]){
+  if(ch) s+=`<ellipse cx="${x}" cy="50" rx="8" ry="5" fill="#b05bd6" opacity=".55"/>`;
+  s+=`<path d="M${x-6},55 Q${x},49 ${x+6},55 Q${x},58.5 ${x-6},55Z" fill="#fff"/><circle cx="${x}" cy="54.6" r="2.6" fill="#4a2c19"/><circle cx="${x}" cy="54.6" r="1.2" fill="#140b06"/><circle cx="${x+.9}" cy="53.8" r=".7" fill="#fff"/>
+  <path d="M${x-6.5},55 Q${x},48.5 ${x+6.5},55" stroke="#1d120c" stroke-width="${ch?1.8:1.1}" fill="none" stroke-linecap="round"/>`;
+  if(ch){const d=x<60?-1:1;s+=`<path d="M${x+6.3*d},54.6 l${3.5*d},-2.4" stroke="#000" stroke-width="1.4" stroke-linecap="round"/>`}
+  s+=`<path d="M${x-6},${ch?45:46.5} Q${x},${ch?41.5:44} ${x+6},${ch?45.5:47}" stroke="${ch?'#2a160c':shade(f.hair,-.2)}" stroke-width="${ch?1.3:2}" fill="none" stroke-linecap="round"/>`;
+ }
+ // אף ופה
+ s+=`<path d="M60,57 C59,63 57,66 58.5,67.5 C59.8,68.3 61.2,68.3 62.5,67" stroke="${shade(skin,-.22)}" stroke-width="1.1" fill="none" stroke-linecap="round"/>`;
+ s+= ch?`<path d="M51.5,73 C55,69 58.5,70.5 60,71.5 C61.5,70.5 65,69 68.5,73 C66,79.5 54,79.5 51.5,73Z" fill="url(#${u}l)"/><ellipse cx="57" cy="76.2" rx="3" ry="1" fill="#fff" opacity=".6"/>`
+  :`<path d="M53.5,73.5 Q60,78.5 66.5,73.5 Q60,75.4 53.5,73.5Z" fill="#c4615e"/><path d="M54,73.4 Q60,72 66,73.4" stroke="#b25a57" stroke-width=".8" fill="none"/>`;
+ // שיער קדמי
+ if(ch) s+=`<path d="M60,22 C44,22 34,32 33,52 L31,108 L40,108 C39,82 39,58 42,42 C45,32 52,27 60,26Z M60,22 C76,22 86,32 87,52 L89,108 L80,108 C81,82 81,58 78,42 C75,32 68,27 60,26Z" fill="url(#${u}h)"/><path d="M36,60 L35,104 M84,60 L85,104" stroke="#fff6d6" stroke-width="1.4" opacity=".5"/>
+  <circle cx="35" cy="72" r="5.5" stroke="#f2c14e" stroke-width="1.8" fill="none"/><circle cx="85" cy="72" r="5.5" stroke="#f2c14e" stroke-width="1.8" fill="none"/>`;
+ else if(f.style==='bob') s+=`<path d="M34,52 C32,30 44,21 60,21 C76,21 88,30 86,52 C80,40 72,34 60,33 C48,34 40,40 34,52Z" fill="url(#${u}h)"/><path d="M34,52 L32,74 L38,70Z M86,52 L88,74 L82,70Z" fill="url(#${u}h)"/>`;
+ else if(f.style==='wavy') s+=`<path d="M34,54 C30,30 46,20 60,21 C74,20 90,30 86,54 C82,42 76,36 70,34 C64,40 52,40 46,34 C40,38 36,44 34,54Z" fill="url(#${u}h)"/>`;
+ else s+=`<path d="M35,52 C34,30 46,21 60,21 C74,21 86,30 85,52 C80,38 70,33 60,32 C50,33 40,38 35,52Z" fill="url(#${u}h)"/>`;
+ if(!ch) s+=`<path d="M46,28 Q56,24 64,27 M70,29 Q78,32 82,40" stroke="${shade(hair,.3)}" stroke-width="1" fill="none" opacity=".6"/>`;
+ return s+`</g><circle cx="60" cy="60" r="57.5" fill="none" stroke="${ch?'#ff4f9a':'#ffffff'}" stroke-width="3"/></svg>`;
+}
+function shade(hex,amt){const n=parseInt(hex.slice(1),16);let r=n>>16,g=(n>>8)&255,b=n&255;const f=v=>Math.max(0,Math.min(255,Math.round(amt>0?v+(255-v)*amt:v*(1+amt))));return '#'+[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}
+
+function prizeSVG(p){
+ const u='p'+(++_uid);
+ const v=`viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"`;
+ const shadow=`<ellipse cx="60" cy="108" rx="38" ry="6" fill="#000" opacity=".12"/>`;
+ const g=(id,a,b,x2=0,y2=1)=>`<linearGradient id="${u}${id}" x1="0" y1="0" x2="${x2}" y2="${y2}"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`;
+ switch(p.w){
+  case 'lego':{
+   const brick=(x,y,c,id)=>`<g transform="translate(${x},${y})"><path d="M0,10 L44,10 L44,30 L0,30Z" fill="url(#${u}${id}f)"/><path d="M44,10 L52,4 L52,24 L44,30Z" fill="${shade(c,-.35)}"/><path d="M0,10 L8,4 L52,4 L44,10Z" fill="${shade(c,.25)}"/>${[10,30].map(sx=>`<g transform="translate(${sx},2)"><ellipse cx="4" cy="6" rx="6" ry="2.6" fill="${shade(c,-.15)}"/><rect x="-2" y="0" width="12" height="6" fill="${shade(c,-.05)}"/><ellipse cx="4" cy="0" rx="6" ry="2.6" fill="${shade(c,.35)}"/></g>`).join('')}</g>`;
+   return `<svg ${v}><defs>${g('rf','#ef4444','#b91c1c')}${g('bf','#3b82f6','#1d4ed8')}${g('yf','#facc15','#ca8a04')}${g('gf','#22c55e','#15803d')}</defs>${shadow}${brick(8,74,'#ef4444','r')}${brick(58,74,'#3b82f6','b')}${brick(33,48,'#facc15','y')}${brick(33,22,'#22c55e','g')}</svg>`}
+  case 'marvel': return `<svg ${v}><defs>${g('t','#e11d48','#7f1d1d',1,1)}${g('s','#fde68a','#f59e0b')}</defs>${shadow}<g transform="rotate(-8 60 60)"><path d="M10,34 h100 v12 a6,6 0 0 0 0,12 v14 h-100 v-14 a6,6 0 0 0 0,-12z" fill="url(#${u}t)"/><path d="M10,34 h100 v6 h-100z" fill="#fff" opacity=".15"/><line x1="84" y1="36" x2="84" y2="70" stroke="#fff" stroke-dasharray="3 3" opacity=".7"/><text x="47" y="52" font-size="12" text-anchor="middle" fill="#fff" font-weight="800" font-family="Rubik,sans-serif">סרט</text><text x="47" y="65" font-size="10" text-anchor="middle" fill="url(#${u}s)" font-weight="700" font-family="Rubik,sans-serif">מארוול</text><path d="M97,46 l2.6,5.4 5.9,.8 -4.3,4.1 1,5.9 -5.2,-2.8 -5.2,2.8 1,-5.9 -4.3,-4.1 5.9,-.8z" fill="url(#${u}s)"/></g></svg>`;
+  case 'series': return `<svg ${v}><defs>${g('sc','#818cf8','#4338ca',1,1)}${g('fr','#374151','#111827')}</defs>${shadow}<rect x="14" y="22" width="92" height="62" rx="8" fill="url(#${u}fr)"/><rect x="20" y="28" width="80" height="50" rx="4" fill="url(#${u}sc)"/><path d="M20,62 Q50,48 100,58 L100,78 L20,78Z" fill="#312e81" opacity=".5"/><circle cx="60" cy="53" r="12" fill="#fff" opacity=".92"/><path d="M56,47 L67,53 L56,59Z" fill="#4338ca"/><rect x="50" y="86" width="20" height="6" fill="#1f2937"/><rect x="38" y="92" width="44" height="5" rx="2.5" fill="#1f2937"/><path d="M22,30 L50,30 L26,50Z" fill="#fff" opacity=".12"/></svg>`;
+  case 'bands':
+   if(p.kind==='vinyl') return `<svg ${v}><defs><radialGradient id="${u}v"><stop offset=".25" stop-color="#2a2a2a"/><stop offset=".26" stop-color="#111"/><stop offset="1" stop-color="#050505"/></radialGradient>${g('lb','#f472b6','#7c3aed',1,1)}</defs>${shadow}<circle cx="60" cy="56" r="46" fill="url(#${u}v)"/>${[40,34,28,22].map(r=>`<circle cx="60" cy="56" r="${r}" fill="none" stroke="#2b2b2b" stroke-width=".8"/>`).join('')}<path d="M30,30 A42,42 0 0 1 72,16" stroke="#fff" stroke-width="3" opacity=".18" fill="none"/><circle cx="60" cy="56" r="13" fill="url(#${u}lb)"/><circle cx="60" cy="56" r="2" fill="#111"/><text x="60" y="114" font-size="8" text-anchor="middle" fill="#111" font-weight="800" font-family="Rubik,sans-serif">${p.b}</text></svg>`;
+   if(p.kind==='ticket') return `<svg ${v}><defs>${p.b==='COLDPLAY'?g('t','#fbbf24','#ea580c',1,1):g('t','#334155','#020617',1,1)}</defs>${shadow}<g transform="rotate(6 60 60)"><path d="M8,36 h104 v12 a6,6 0 0 0 0,12 v14 h-104 v-14 a6,6 0 0 0 0,-12z" fill="url(#${u}t)"/><line x1="88" y1="38" x2="88" y2="72" stroke="#fff" stroke-dasharray="3 3" opacity=".7"/>${bandText(p.b,48,57,10)}<text x="48" y="${p.b.includes(' ')?74:68}" font-size="7.5" text-anchor="middle" fill="#fff" opacity=".9" font-family="Rubik,sans-serif">LIVE · כרטיס להופעה</text><text x="100" y="58" font-size="9" text-anchor="middle" fill="#fff" font-family="Rubik,sans-serif" transform="rotate(90 100 58)">ADMIT 1</text></g></svg>`;
+   return `<svg ${v}><defs>${p.b==='COLDPLAY'?g('p','#38bdf8','#6d28d9',.4,1):g('p','#1f2937','#000000',.4,1)}</defs>${shadow}<rect x="24" y="8" width="72" height="96" rx="3" fill="url(#${u}p)"/>${[...Array(18)].map((_,i)=>`<circle cx="${30+((i*37)%60)}" cy="${14+((i*23)%52)}" r="${.8+(i%3)*.6}" fill="#fff" opacity="${.5+(i%3)*.2}"/>`).join('')}<path d="M34,58 L86,58" stroke="#fff" stroke-width="1" opacity=".4"/>${bandText(p.b,60,80,11)}<rect x="24" y="8" width="72" height="96" rx="3" fill="none" stroke="#fff" stroke-width="1.5" opacity=".25"/></svg>`;
+  case 'steak': return `<svg ${v}><defs><radialGradient id="${u}pl"><stop offset=".7" stop-color="#ffffff"/><stop offset="1" stop-color="#d1d5db"/></radialGradient><radialGradient id="${u}m" cx=".4" cy=".4"><stop offset="0" stop-color="#9a3412"/><stop offset="1" stop-color="#431407"/></radialGradient>${g('gb','#4ade80','#15803d')}</defs>${shadow}<ellipse cx="60" cy="66" rx="54" ry="36" fill="url(#${u}pl)"/><ellipse cx="60" cy="66" rx="42" ry="27" fill="none" stroke="#e5e7eb" stroke-width="1.5"/><path d="M26,62 C24,44 50,38 64,46 C80,54 78,76 60,80 C42,84 28,76 26,62Z" fill="url(#${u}m)"/><path d="M34,54 L62,74 M42,48 L70,66 M32,64 L52,78" stroke="#1c0a03" stroke-width="3" stroke-linecap="round" opacity=".7"/><path d="M30,58 C34,50 46,46 54,48" stroke="#fdba74" stroke-width="2" fill="none" opacity=".6"/>${[0,1,2,3,4,5].map(i=>`<rect x="${70+i*2}" y="${50+i*4.5}" width="30" height="4.5" rx="2.2" transform="rotate(-24 ${85+i*2} ${52+i*4.5})" fill="url(#${u}gb)"/>`).join('')}</svg>`;
+  case 'curls': return `<svg ${v}><defs>${g('b','#fbcfe8','#ec4899',1,0)}${g('c','#a78bfa','#6d28d9')}</defs>${shadow}<rect x="36" y="30" width="48" height="76" rx="14" fill="url(#${u}b)"/><rect x="46" y="12" width="28" height="22" rx="5" fill="url(#${u}c)"/><rect x="42" y="50" width="36" height="34" rx="6" fill="#fff" opacity=".95"/><path d="M48,74 q5,-12 10,0 q5,12 10,0" stroke="#7c3aed" stroke-width="2.6" fill="none" stroke-linecap="round"/><text x="60" y="63" font-size="8" text-anchor="middle" fill="#6d28d9" font-weight="800" font-family="Rubik,sans-serif">CURLS</text><rect x="40" y="34" width="6" height="66" rx="3" fill="#fff" opacity=".35"/></svg>`;
+ }
+}
+
+// ===== לוגיקת המשחק =====
+const BIN={Q:'פעל (קל)',N:'נפעל',P:'פיעל',PU:'פועל',H:'הפעיל',HU:'הופעל',T:'התפעל'};
+const BIN_ORDER=['Q','N','P','PU','H','HU','T'];
+const GIZ={S:'השלמים',M:'המרובעים',PN:'חפ"ן',PY:'נפי"ו',AY:'נעו"י',LY:'נל"י',LA:'נל"א'};
+const GIZ_ORDER=['S','M','PN','PY','AY','LY','LA'];
+const GIZ_TIP={
+ S:'שלוש אותיות שורש שנשמרות בכל הצורות. אחרי שמורידים תחיליות וסיומות נשארות שלוש אותיות. זהירות: גם ה, נ, מ, ת, י יכולות להיות אותיות שורש (נִכְנַס, מַתְחִיל).',
+ M:'ארבע אותיות שורש. פעלים מרובעים נוטים רק בבניינים פיעל, פועל והתפעל. סוגים נפוצים: שורש עם הכפלה (גִּלְגֵּל, צִלְצֵל), אות מאש"ת + שלוש אותיות (שִׁכְפֵּל, תִּרְגֵּל, אִבְחֵן), הכפלת האות האחרונה, ושורש שנגזר משם (טִלְפֵּן מ"טלפון", תִּכְנֵת מ"תוכנה").',
+ PN:'השורש מתחיל ב־נ. ה־נ נבלעת כשהיא אמורה לבוא בלי תנועה אחרי תחילית – ובמקומה יש דגש באות הבאה (הִפִּיל, יִפֹּל, נִצַּל, הֻכַּר). בצורות אחרות ה־נ נשמרת (נָפַל, נוֹפֵל, הִתְנַצֵּל).',
+ PY:'השורש מתחיל ב־י. בנפעל, בהפעיל ובהופעל ה־י הופכת ל־ו (נוֹלַד, הוֹשִׁיב, הוּרַד). בבניין קל, בעתיד ובשם הפועל, היא לפעמים נשמטת (יֵשֵׁב, לָשֶׁבֶת, לָדַעַת). בפיעל ובהתפעל היא נשמרת (מְיַשֵּׁב, הִתְיַשֵּׁב).',
+ AY:'אות השורש האמצעית היא ו או י. בעבר בבניין קל היא לא נראית (קַמְתִּי, רַצְתִּי), ובעתיד ובשם הפועל היא מופיעה (יָקוּם, לָשִׁיר). בהפעיל: הֵקִים / מֵקִים, בהופעל: הוּקַם. במקום פיעל והתפעל מופיעות התבניות פּוֹלֵל / הִתְפּוֹלֵל (מְעוֹרֵר, הִתְעוֹרֵר).',
+ LY:'האות האחרונה של השורש היא י. בכתב היא מופיעה כ־ה בסוף המילה (בָּנָה), כ־י (בָּנִיתִי), כ־ת (בָּנְתָה, לִבְנוֹת) – או נעלמת לגמרי (בָּנוּ, יִבְנוּ).',
+ LA:'השורש מסתיים ב־א. ה־א נשמרת בכתב בכל הצורות, גם כשלא שומעים אותה (מָצָאתִי, נִקְרָא, מִלְּאוּ).'
+};
+const GIZ_FIND='שלבי זיהוי הגזרה: (1) מוצאים את השורש. (2) שורש של 4 אותיות ← מרובעים. מתחיל ב־נ ← חפ"ן. מתחיל ב־י ← נפי"ו. האמצעית ו/י ← נעו"י. האחרונה י ← נל"י. האחרונה א ← נל"א. אחרת ← שלמים.';
+const BIN_TIP={
+ Q:'פעל (קל): בעבר אין תוספת (כָּתַב), בהווה תבנית קוֹטֵל (כּוֹתֵב), בעתיד יִקְטֹל (יִכְתֹּב), שם הפועל לִקְטֹל.',
+ N:'נפעל: נ בתחילת העבר וההווה (נִכְתַּב). בעתיד ובשם הפועל יש במקומה דגש באות השורש הראשונה (יִכָּתֵב, לְהִכָּתֵב).',
+ P:'פיעל: דגש באות השורש השנייה. עבר קִטֵּל (סִפֵּר), הווה מְקַטֵּל, עתיד יְקַטֵּל, שם הפועל לְקַטֵּל.',
+ PU:'פועל: קובוץ ודגש באות השנייה – קֻטַּל (סֻפַּר), הווה מְקֻטָּל. זה הבניין הסביל של פיעל, ואין לו שם פועל.',
+ H:'הפעיל: ה בעבר (הִקְטִיל), מ בהווה (מַקְטִיל), ולרוב י לפני האות האחרונה. שם הפועל לְהַקְטִיל.',
+ HU:'הופעל: ה עם קובוץ בעבר (הֻקְטַל), מ עם קובוץ בהווה (מֻקְטָל). זה הבניין הסביל של הפעיל, ואין לו שם פועל.',
+ T:'התפעל: הִתְ־ בעבר, מִתְ־ בהווה, יִתְ־/תִּתְ־ בעתיד, לְהִתְ־ בשם הפועל, ודגש באות השורש השנייה.'
+};
+function binNote(b,g){
+ if(g==='PY'&&['N','H','HU'].includes(b))return 'בגזרת נפי"ו הבניין נראה כך: נוֹ־ (נפעל), הוֹ־ / מוֹ־ (הפעיל), הוּ־ / מוּ־ (הופעל) – ה־י של השורש הפכה ל־ו.';
+ if(g==='AY'&&b==='H')return 'בגזרת נעו"י הפעיל נראה כך: הֵקִים, מֵקִים, יָקִים.';
+ if(g==='AY'&&b==='HU')return 'בגזרת נעו"י הופעל נראה כך: הוּקַם, מוּקָם.';
+ if(g==='AY'&&b==='P')return 'בגזרת נעו"י במקום פיעל רגיל מופיעה תבנית פּוֹלֵל (מְעוֹרֵר) – והיא שייכת לבניין פיעל.';
+ if(g==='AY'&&b==='T')return 'בגזרת נעו"י במקום התפעל רגיל מופיעה תבנית הִתְפּוֹלֵל (הִתְעוֹרֵר) – והיא שייכת לבניין התפעל.';
+ if(g==='PN'&&['N','H','HU'].includes(b))return 'בגזרת חפ"ן ה־נ של השורש נבלעת ובמקומה יש דגש: נִפַּל, הִפִּיל, הֻפַּל.';
+ if(g==='M')return 'פעלים מרובעים נוטים רק בפיעל, בפועל ובהתפעל.';
+ return '';
+}
+const ACTIVE={Q:1,P:1,H:1,PU:0,HU:0,N:0};
+const N_PASSIVE=['נִכְתְּבוּ','נִשְׁלְחוּ','נִבְנָה','נַעֲשָׂה','נִתַּן','נִקְרָא','נוֹסְפוּ','יִשָּׁמֵר'];
+const POS={verb:'פועל',noun:'שם עצם',adj:'שם תואר'};
+const WAYS={root:'שורש ומשקל',suf:'בסיס וצורן',blend:'הלחם בסיסים',acr:'ראשי תיבות',loan:'שאילה מלעז'};
+const WAY_TIP='חמש דרכי התצורה: <b>שורש ומשקל</b> – אותיות השורש בתבנית קבועה (מִכְתָּב = מִקְטָל). <b>בסיס וצורן</b> – מילה שלמה + סיומת (סִפְרוֹן = סֵפֶר + וֹן). <b>הלחם בסיסים</b> – שתי מילים שהתחברו למילה אחת (רַמְזוֹר = רֶמֶז + אוֹר). <b>ראשי תיבות</b> – האותיות הראשונות של כמה מילים (צה"ל). <b>שאילה מלעז</b> – מילה שנלקחה משפה אחרת (טֶלֶפוֹן).';
+const TOPICS={gizra:'גזרות ושורשים',binyan:'בניינים',beinoni:'בינוני',tzura:'דרכי תצורה',numbers:'שם המספר'};
+const TOPIC_W={gizra:1.5,binyan:1,beinoni:1,tzura:1,numbers:1};
+
+// ---------- עזרים ----------
+const strip=s=>s.replace(/[֑-ׇ]/g,'');
+const FIN={'ך':'כ','ם':'מ','ן':'נ','ף':'פ','ץ':'צ'};
+const nf=s=>s.replace(/[ךםןףץ]/g,c=>FIN[c]);
+const letters=s=>nf(strip(s)).replace(/[^א-ת]/g,'');
+const toFinal={'כ':'ך','מ':'ם','נ':'ן','פ':'ף','צ':'ץ'};
+const fmtRoot=arr=>arr.map((c,i)=>i===arr.length-1&&toFinal[c]?toFinal[c]:c).join('-');
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const hw=t=>`<span class="hw">${t}</span>`;
+const lines=s=>s.trim().split('\n').filter(Boolean);
+
+// ---------- פירוק הנתונים ----------
+const D={};
+D.verbs=lines(VERBS).map(l=>{const f=l.split('|');return {form:f[0],root:f[1],b:f[2],g:f[3],tense:f[4],person:f[5],note:f[6]||''}});
+D.bein=lines(BEINONI).map(l=>{const f=l.split('|');return {sent:f[0],word:f[1],pos:f[2],b:f[3],root:f[4]}});
+D.action=lines(ACTION_NOUNS).map(l=>{const f=l.split('|');return {word:f[0],root:f[1],b:f[2],g:f[3]}});
+D.mishkal=lines(MISHKAL).map(l=>{const f=l.split('|');return {word:f[0],root:f[1],m:f[2]}});
+D.suffix=lines(SUFFIX).map(l=>{const f=l.split('|');return {word:f[0],base:f[1],suf:f[2],mean:f[3],type:f[4]}});
+D.blends=lines(BLENDS).map(l=>{const f=l.split('|');return {word:f[0],a:f[1],b:f[2]}});
+D.acr=lines(ACRONYMS).map(l=>{const f=l.split('|');return {word:f[0],full:f[1]}});
+D.loans=LOANS.split(',');
+D.nums=lines(NUMBERS).map(l=>{const f=l.split('|');return {sent:f[0],ans:f[1],wrong:f[2].split(';'),rule:f[3]}});
+D.numw=lines(NUMWORDS).map(l=>{const f=l.split('|');return {sent:f[0],dig:f[1],ans:f[2],wrong:f[3].split(';'),rule:f[4]}});
+D.pairs=lines(PAIRS).map(l=>{const f=l.split('|');const st=f[4].split(';;');return {s1:f[0],w1:f[1],s2:f[2],w2:f[3],ok:st[0],bad:st.slice(1),ex:f[5]}});
+D.odd=lines(ODD).map(l=>l.split(',').map(x=>{const [w,r,g]=x.split(':');return {w,r,g}}));
+D.mishkalNames=[...new Set(D.mishkal.map(m=>m.m))];
+D.meanings=[...new Set(D.suffix.map(s=>s.mean))];
+
+// ---------- מסיחים לשורש ----------
+function rootDistractors(form,root){
+ const R=letters(root).split('');const n=R.length;
+ const sk=letters(form).split('');
+ const cands=new Map();
+ const add=(arr,score)=>{const k=arr.join('');if(k===R.join('')||arr.length!==n)return;cands.set(k,Math.max(cands.get(k)||0,score))};
+ const idx=[...Array(sk.length).keys()];
+ const combos=(start,k,acc)=>{if(acc.length===k){add(acc.map(i=>sk[i]),acc.map(i=>sk[i]).filter(c=>R.includes(c)).length);return}for(let i=start;i<sk.length;i++)combos(i+1,k,[...acc,i])};
+ if(sk.length<=9)combos(0,n,[]);
+ const sw={'נ':['י','ו'],'י':['נ','ו','ה'],'ו':['ה'],'א':['ה']};
+ R.forEach((c,i)=>{(sw[c]||[]).forEach(r=>{if(i===1&&'וי'.includes(c)&&'וי'.includes(r))return;if(i===n-1&&c==='י'&&r==='ה')return;const a=R.slice();a[i]=r;add(a,n)})});
+ // סדר
+ const list=[...cands.entries()].sort((a,b)=>b[1]-a[1]+(Math.random()-.5)*.8).map(e=>e[0]);
+ const out=[];for(const k of list){if(out.length>=3)break;out.push(fmtRoot(k.split('')))}
+ while(out.length<3){const v=pick(D.verbs);const r=fmtRoot(letters(v.root).split(''));if(r!==fmtRoot(R)&&!out.includes(r))out.push(r)}
+ return out;
+}
+
+// ---------- מחוללי שאלות ----------
+const G={};
+const opt=(t,ok)=>({t,ok:!!ok});
+const verbSummary=v=>`${hw(v.form)} – השורש <b>${v.root}</b>, בניין <b>${BIN[v.b]}</b>, גזרת <b>${GIZ[v.g]}</b>, ${v.tense}${v.person&&v.person!=='—'?', '+v.person:''}${v.tense==='עתיד'&&['נוכח','נסתרת'].includes(v.person)?' (בעתיד צורת הנוכח וצורת הנסתרת זהות)':''}${v.tense==='עבר'&&v.person==='מדבר'?' (בעבר הצורה זהה למדבר ולמדברת)':''}.`;
+const rootHint=v=>`הורידי תחיליות (ה, נ, מ, ת, י, א, הת־, ל־) וסיומות (־תי, ־ת, ־נו, ־תם, ־ו, ־ה, ־ים, ־ות). אם נשארו פחות משלוש אותיות – חסרה אות שורש: חפשי דגש שבא במקום נ, ו שבאה במקום י, או צורה אחרת של אותו פועל שבה האות מופיעה. (הפועל בבניין ${BIN[v.b]}, ${v.tense}.)`;
+
+G.vroot=i=>{const v=D.verbs[i];return {topic:'gizra',title:'מצאי את השורש',stem:`מהו השורש של הפועל ${hw(v.form)}?`,
+ options:shuffle([opt(v.root,1),...rootDistractors(v.form,v.root).map(r=>opt(r))]),
+ explain:`${verbSummary(v)}${v.note?'<br>'+v.note:''}<div class="tip"><b>גזרת ${GIZ[v.g]}:</b> ${GIZ_TIP[v.g]}</div>`,hint:rootHint(v)}};
+G.vtype=i=>{const v=D.verbs[i];return {topic:'gizra',title:'כתבי את השורש',stem:`הקלידי את השורש של הפועל ${hw(v.form)}`,typed:{root:v.root,g:v.g},
+ explain:`${verbSummary(v)}${v.note?'<br>'+v.note:''}<div class="tip"><b>גזרת ${GIZ[v.g]}:</b> ${GIZ_TIP[v.g]}</div>`,hint:rootHint(v)}};
+G.vgiz=i=>{const v=D.verbs[i];return {topic:'gizra',title:'זיהוי גזרה',stem:`לאיזו גזרה שייך הפועל ${hw(v.form)}?`,
+ options:GIZ_ORDER.map(g=>opt(GIZ[g],g===v.g)),chips:true,
+ explain:`${verbSummary(v)}${v.note?'<br>'+v.note:''}<div class="tip"><b>גזרת ${GIZ[v.g]}:</b> ${GIZ_TIP[v.g]}</div>`,hint:GIZ_FIND}};
+G.odd=i=>{const set=D.odd[i];const cnt={};set.forEach(x=>cnt[x.g]=(cnt[x.g]||0)+1);const odd=set.find(x=>cnt[x.g]===1);const other=set.find(x=>cnt[x.g]>1);
+ return {topic:'gizra',title:'יוצא דופן',stem:`איזו מילה <b>יוצאת דופן בגזרתה</b>?`,options:shuffle(set.map(x=>opt(x.w,x===odd))),big:true,
+ explain:set.map(x=>`${hw(x.w)} – ${x.r}, גזרת ${GIZ[x.g]}${x===odd?' ← <b>יוצאת דופן</b>':''}`).join('<br>')+`<div class="tip">${GIZ_FIND}</div>`,
+ hint:`מצאי לכל מילה את השורש. שלוש מהמילים מגזרת ${GIZ[other.g]}.`}};
+const TENSES=['עבר','הווה','עתיד'];const PERS_PAST=['מדבר','נוכח','נוכחת','נסתר','נסתרת','מדברים','נוכחים','נוכחות','נסתרים'];
+G.combo=i=>{const v=D.verbs[i];if(v.tense==='שם הפועל')return null;
+ const fmt=(t,p,b,r)=>`${t} · ${p} · ${BIN[b]} · ${r}`;const right=fmt(v.tense,v.person,v.b,v.root);
+ const ambT=(v.b==='N'&&v.tense==='עבר'&&v.person==='נסתר')||(v.g==='AY'&&v.b==='Q'&&v.tense==='עבר'&&v.person.startsWith('נסתר'));
+ const outs=new Set();const tries=[];
+ const rd=rootDistractors(v.form,v.root);
+ tries.push(()=>fmt(v.tense,v.person,v.b,rd[0]));tries.push(()=>fmt(v.tense,v.person,v.b,rd[1]));
+ const binAlt=BIN_ORDER.filter(b=>b!==v.b);tries.push(()=>fmt(v.tense,v.person,pick(binAlt),v.root));tries.push(()=>fmt(v.tense,v.person,pick(binAlt),rd[0]));
+ if(!ambT&&v.tense!=='הווה')tries.push(()=>fmt(pick(TENSES.filter(t=>t!==v.tense&&t!=='הווה')),v.person,v.b,v.root));
+ if(v.tense==='עבר')tries.push(()=>fmt(v.tense,pick(PERS_PAST.filter(p=>p!==v.person)),v.b,v.root));
+ for(const f of shuffle(tries)){if(outs.size>=3)break;const x=f();if(x!==right)outs.add(x)}
+ return {topic:'gizra',title:'ניתוח מלא',stem:`קבעי את <b>הזמן, הגוף, הבניין והשורש</b> של הפועל ${hw(v.form)}`,options:shuffle([opt(right,1),...[...outs].map(x=>opt(x))]),
+ explain:verbSummary(v)+(v.note?'<br>'+v.note:'')+`<div class="tip">${BIN_TIP[v.b]} ${binNote(v.b,v.g)}</div>`,hint:'ציירי לעצמך טבלה: זמן | גוף | בניין | שורש, ונתחי כל פרט בנפרד. '+rootHint(v)}};
+G.vbin=i=>{const v=D.verbs[i];return {topic:'binyan',title:'זיהוי בניין',stem:`באיזה בניין נוטה הפועל ${hw(v.form)}?`,options:BIN_ORDER.map(b=>opt(BIN[b],b===v.b)),chips:true,
+ explain:`${verbSummary(v)}<div class="tip">${BIN_TIP[v.b]} ${binNote(v.b,v.g)}</div>`,hint:'חפשי את סימני הבניין: תחילית (נִ־, הִ־/הֻ־/הוֹ־, הִתְ־, מְ־/מַ־/מֻ־/מִתְ־), תנועות, ודגש באות השורש השנייה (פיעל, פועל, התפעל).'}};
+G.vact=i=>{const v=D.verbs[i];if(v.b==='T'||(v.b==='N'&&!N_PASSIVE.includes(v.form)))return null;const act=ACTIVE[v.b]===1;
+ return {topic:'binyan',title:'פעיל או סביל',stem:`האם הפועל ${hw(v.form)} הוא פועל <b>פעיל</b> או <b>סביל</b>?`,options:[opt('פעיל',act),opt('סביל',!act)],
+ explain:`${hw(v.form)} בבניין <b>${BIN[v.b]}</b> – בניין ${act?'פעיל':'סביל'}.<div class="tip">בניינים פעילים: פעל, פיעל, הפעיל. בניינים סבילים: נפעל (הסביל של פעל), פועל (הסביל של פיעל), הופעל (הסביל של הפעיל). התפעל מציין לרוב פעולה חוזרת או הדדית.</div>`,
+ hint:'קבעי קודם את הבניין. בפועל סביל הנושא לא עושה את הפעולה – הפעולה נעשית לו (הספר נִכְתַּב).'}};
+const PASS=[['Q','N'],['P','PU'],['H','HU']];
+G.pass=i=>{const [a,p]=PASS[i%3];const rev=i>=3;const ask=rev?p:a,ans=rev?a:p;
+ return {topic:'binyan',title:'פעיל וסביל',stem:rev?`בניין <b>${BIN[ask]}</b> הוא בניין סביל. מהו הבניין הפעיל שהוא מקביל לו?`:`מהו הבניין הסביל של בניין <b>${BIN[ask]}</b>?`,
+ options:BIN_ORDER.filter(b=>b!==ask).map(b=>opt(BIN[b],b===ans)),chips:true,
+ explain:'הזוגות: פעל ↔ נפעל, פיעל ↔ פועל, הפעיל ↔ הופעל. התפעל לרוב לא סביל – הוא מציין פעולה חוזרת או הדדית.',hint:'שימי לב לדמיון בצורה: פִּיעֵל–פּוּעַל, הִפְעִיל–הוּפְעַל.'}};
+G.abin=i=>{const a=D.action[i];return {topic:'binyan',title:'שם פעולה',stem:`באיזה בניין נוטה שם הפעולה ${hw(a.word)}?`,options:BIN_ORDER.map(b=>opt(BIN[b],b===a.b)),chips:true,
+ explain:`${hw(a.word)} – השורש ${a.root}, גזרת ${GIZ[a.g]}, שם פעולה של בניין <b>${BIN[a.b]}</b>.<div class="tip">משקלי שמות הפעולה: פעל – קְטִילָה (כְּתִיבָה). נפעל – הִקָּטְלוּת (הִכָּנְסוּת). פיעל – קִטּוּל (סִפּוּר), ולפעמים קַטָּלָה (קַבָּלָה). הפעיל – הַקְטָלָה (הַזְמָנָה; בנפי"ו: הוֹדָעָה; בנעו"י: הֲקָמָה; בחפ"ן: הַגָּעָה). התפעל – הִתְקַטְּלוּת (הִתְרַגְּשׁוּת). לבניינים הסבילים פועל והופעל אין שם פעולה.</div>`,
+ hint:'זהי את התבנית: הַ־...ָה ← הפעיל, הִתְ־...וּת ← התפעל, הִ־...וּת עם דגש ← נפעל, קִטּוּל ← פיעל, קְטִילָה ← פעל.'}};
+G.pairs=i=>{const p=D.pairs[i];return {topic:'binyan',title:'פעלים דומים',stem:`<div class="pair"><div>1. ${p.s1.replace(p.w1,hw(p.w1))}</div><div>2. ${p.s2.replace(p.w2,hw(p.w2))}</div></div>איזה היגד <b>נכון</b>?`,
+ options:shuffle([opt(p.ok,1),...p.bad.map(b=>opt(b))]),explain:p.ex,hint:'נתחי כל פועל בנפרד: זמן, גוף, בניין, שורש – ורק אז השווי. שימי לב אם האות הראשונה (ת / מ / נ) היא תחילית או אות שורש.'}};
+G.mact=i=>{const m=D.action.filter(a=>a.g==='M');const a=m[i%m.length];const others=shuffle(D.action.filter(x=>x.g!=='M')).slice(0,3);
+ return {topic:'binyan',title:'שם פעולה מרובע',stem:'איזה שם פעולה גזור <b>משורש מרובע</b>?',options:shuffle([opt(a.word,1),...others.map(o=>opt(o.word))]),big:true,
+ explain:[a,...others].map(x=>`${hw(x.word)} – ${x.root}${x===a?' (מרובע)':''}`).join('<br>'),hint:'מצאי את השורש של כל שם. בשם מרובע נשארות ארבע אותיות שורש (כמו תִּרְגּוּם: ת-ר-ג-ם).'}};
+G.bpos=i=>{const b=D.bein[i];return {topic:'beinoni',title:'בינוני',stem:`${b.sent.replace(b.word,hw(b.word))}<br>לאיזה <b>חלק דיבר</b> שייכת המילה המודגשת?`,options:['verb','noun','adj'].map(p=>opt(POS[p],p===b.pos)),
+ explain:`${hw(b.word)} היא צורת בינוני (צורת הווה) – ובמשפט הזה היא <b>${POS[b.pos]}</b>. ${b.pos==='verb'?'היא מתארת פעולה שקורית עכשיו (אפשר להעביר את המשפט לעבר).':b.pos==='noun'?'היא שם של מי שעושה את הפעולה ומשמשת כמו שם עצם (נושא או מושא; אפשר להוסיף לה ה הידיעה).':'היא מתארת את שם העצם שלפניה ומתאימה לו במין, במספר וביידוע.'}<div class="tip">הבחנה: <b>פועל</b> – אומר מה קורה (אפשר להחליף בעבר). <b>שם עצם</b> – מישהו/משהו (הַשּׁוֹמֵר, הַמְּנַהֵל). <b>שם תואר</b> – מתאר שם עצם (תַּלְמִיד מְנֻמָּס).</div>`,
+ hint:'נסי להעביר את המשפט לזמן עבר. אם המילה משתנה לפועל עבר והמשפט נשאר הגיוני – זה פועל. אם היא באה אחרי שם עצם ומתארת אותו – שם תואר.'}};
+G.bbin=i=>{const b=D.bein[i];return {topic:'beinoni',title:'בניין הבינוני',stem:`${b.sent.replace(b.word,hw(b.word))}<br>באיזה <b>בניין</b> המילה המודגשת?`,options:BIN_ORDER.map(x=>opt(BIN[x],x===b.b)),chips:true,
+ explain:`${hw(b.word)} – השורש ${b.root}, בניין <b>${BIN[b.b]}</b>.<div class="tip">תבניות הבינוני: פעל – קוֹטֵל (שׁוֹמֵר). נפעל – נִקְטָל (נֶאֱמָן). פיעל – מְקַטֵּל (מְנַהֵל). פועל – מְקֻטָּל (מְסֻדָּר). הפעיל – מַקְטִיל (מַזְכִּיר). הופעל – מֻקְטָל (מֻכָּר). התפעל – מִתְקַטֵּל (מִצְטַיֵּן).</div>`,
+ hint:'הסירי את ה הידיעה (אם יש), והשווי לתבניות הבינוני: קוֹטֵל, נִקְטָל, מְקַטֵּל, מְקֻטָּל, מַקְטִיל, מֻקְטָל, מִתְקַטֵּל.'}};
+// דרכי תצורה
+function wayItems(){const a=[];D.mishkal.forEach(m=>a.push({w:m.word,way:'root',d:`השורש ${m.root} במשקל ${m.m}`}));D.suffix.filter(s=>s.type==='g').forEach(s=>a.push({w:s.word,way:'suf',d:`${s.base} + הצורן ־${s.suf} (${s.mean})`}));D.blends.forEach(b=>a.push({w:b.word,way:'blend',d:`${b.a} + ${b.b}`}));D.acr.forEach(x=>a.push({w:x.word,way:'acr',d:x.full}));D.loans.forEach(l=>a.push({w:l,way:'loan',d:'מילה שנשאלה משפה זרה'}));return a}
+D.ways=wayItems();
+G.way=i=>{const it=D.ways[i];return {topic:'tzura',title:'דרך התצורה',stem:`באיזו דרך נוצרה המילה ${hw(it.w)}?`,options:Object.keys(WAYS).map(k=>opt(WAYS[k],k===it.way)),chips:true,
+ explain:`${hw(it.w)} – <b>${WAYS[it.way]}</b>: ${it.d}.<div class="tip">${WAY_TIP}</div>`,hint:'נסי לפרק את המילה: יש בה שורש בתבנית? מילה שלמה + סיומת? שתי מילים מחוברות? גרשיים? או שהיא נשמעת לועזית?'}};
+G.oddway=i=>{const ways=Object.keys(WAYS);const w1=ways[i%5];const w2=pick(ways.filter(w=>w!==w1));const same=shuffle(D.ways.filter(x=>x.way===w1)).slice(0,3);const odd=pick(D.ways.filter(x=>x.way===w2));
+ return {topic:'tzura',title:'יוצא דופן',stem:'איזו מילה נוצרה <b>בדרך תצורה שונה</b> משלוש האחרות?',options:shuffle([...same.map(x=>opt(x.w)),opt(odd.w,1)]),big:true,
+ explain:[...same,odd].map(x=>`${hw(x.w)} – ${WAYS[x.way]} (${x.d})`).join('<br>'),hint:'קבעי לכל מילה את דרך התצורה שלה, ומצאי את זו שלא מתאימה.'}};
+G.msh=i=>{const m=D.mishkal[i];const others=shuffle(D.mishkalNames.filter(x=>x!==m.m)).slice(0,3);
+ return {topic:'tzura',title:'משקל',stem:`באיזה <b>משקל</b> השם ${hw(m.word)}?`,options:shuffle([opt(m.m,1),...others.map(o=>opt(o))]),big:true,
+ explain:`${hw(m.word)} – השורש ${m.root}. מציבים את אותיות השורש במקום ק-ט-ל ומקבלים את המשקל <b>${m.m}</b>.`,hint:'מצאי את השורש, ואז החליפי את אותיות השורש באותיות ק, ט, ל – ושמרי על התנועות ועל האותיות הנוספות.'}};
+G.nroot=i=>{const m=D.mishkal[i];return {topic:'tzura',title:'שורש של שם',stem:`מהו השורש של השם ${hw(m.word)}?`,options:shuffle([opt(m.root,1),...rootDistractors(m.word,m.root).map(r=>opt(r))]),
+ explain:`${hw(m.word)} – השורש <b>${m.root}</b>, המשקל ${m.m}.`,hint:'הורידי את האותיות של המשקל (מ, ת, ה בסוף, ו...) וחפשי שלוש אותיות שורש. אם חסרה אות – חשבי על פועל מאותו שורש.'}};
+G.suf=i=>{const s=D.suffix[i];const others=shuffle(D.meanings.filter(m=>m!==s.mean)).slice(0,3);
+ return {topic:'tzura',title:'משמעות הצורן',stem:`מה <b>משמעות הצורן הסופי</b> בשם ${hw(s.word)}?`,options:shuffle([opt(s.mean,1),...others.map(o=>opt(o))]),
+ explain:`${hw(s.word)} = ${s.base} + הצורן ־${s.suf} ← <b>${s.mean}</b>.`,hint:'הפרידי בין הבסיס לסיומת. מה הסיומת מוסיפה למשמעות של הבסיס? (קטן? מופשט? מקום? שפה? בעל מקצוע?)'}};
+G.suft=i=>{const s=D.suffix[i];return {topic:'tzura',title:'סוג הצורן',stem:`הסיומת ־${s.suf} במילה ${hw(s.word)} היא:`,options:[opt('צורן גזירה',s.type==='g'),opt('צורן נטייה',s.type==='n')],
+ explain:`${hw(s.word)} = ${s.base} + ־${s.suf}. ${s.type==='g'?'נוצרה <b>מילה חדשה</b> עם משמעות חדשה – לכן זה <b>צורן גזירה</b>.':'לא נוצרה מילה חדשה – רק צורת הרבים של אותה מילה – לכן זה <b>צורן נטייה</b>.'}<div class="tip">צורן גזירה יוצר מילה חדשה (ספר ← ספרון). צורן נטייה משנה רק את הצורה של אותה מילה: מין, מספר, גוף (שמלה ← שמלות).</div>`,hint:'שאלי: האם נוצרה מילה חדשה שתופיע במילון בנפרד, או רק צורה אחרת (למשל רבים) של אותה מילה?'}};
+G.blend=i=>{const b=D.blends[i];const right=`${b.a} + ${b.b}`;const real=new Set(D.blends.map(x=>`${x.a} + ${x.b}`));const outs=new Set();
+ for(const o of shuffle(D.blends.filter(x=>x!==b))){if(outs.size>=3)break;const c=Math.random()<.5?`${b.a} + ${o.b}`:`${o.a} + ${b.b}`;if(c!==right&&!real.has(c))outs.add(c)}
+ return {topic:'tzura',title:'הלחם בסיסים',stem:`מאילו שני בסיסים נוצרה המילה ${hw(b.word)}?`,options:shuffle([opt(right,1),...[...outs].map(o=>opt(o))]),
+ explain:`${hw(b.word)} = ${b.a} + ${b.b} – <b>הלחם בסיסים</b>: שתי מילים שהתחברו למילה אחת (לפעמים חלק מהאותיות נשמטות).`,hint:'חפשי שתי מילים מוכרות שמסתתרות בתוך המילה, ושמשמעותן יחד יוצרת את המשמעות שלה.'}};
+G.acr=i=>{const a=D.acr[i];const others=shuffle(D.acr.filter(x=>x!==a)).slice(0,3);
+ return {topic:'tzura',title:'ראשי תיבות',stem:`מה פירוש ראשי התיבות ${hw(a.word)}?`,options:shuffle([opt(a.full,1),...others.map(o=>opt(o.full))]),
+ explain:`${hw(a.word)} = ${a.full}. בראשי תיבות לוקחים את האות הראשונה של כל מילה (לפעמים יותר) ומסמנים גרשיים לפני האות האחרונה.`,hint:'התאימי כל אות בקיצור למילה שמתחילה בה.'}};
+G.loan=i=>{const l=D.loans[i];const others=shuffle(D.ways.filter(x=>x.way==='root'||x.way==='suf'||x.way==='blend')).slice(0,3);
+ return {topic:'tzura',title:'שאילה מלעז',stem:'איזו מילה <b>שאולה מלעז</b>?',options:shuffle([opt(l,1),...others.map(o=>opt(o.w))]),big:true,
+ explain:`${hw(l)} – מילה שנשאלה משפה זרה. ${others.map(o=>`${hw(o.w)} – ${WAYS[o.way]}`).join(' · ')}`,hint:'איזו מילה לא בנויה משורש עברי, ונשמעת דומה בהרבה שפות?'}};
+// שם המספר
+G.num=i=>{const n=D.nums[i];return {topic:'numbers',title:'שם המספר',stem:`בחרי את הצורה הנכונה:<br><div class="sent">${n.sent.replace('[[]]','<span class="blank">____</span>')}</div>`,options:shuffle([opt(n.ans,1),...n.wrong.map(w=>opt(w))]),big:true,
+ explain:`<div class="sent">${n.sent.replace('[[]]',`<b class="ans">${n.ans}</b>`)}</div><div class="tip">${NUMRULES[n.rule]}</div>`,
+ hint:'(1) קבעי את מין שם העצם לפי היחיד: "חלון אחד" (זכר), "שנה אחת" (נקבה). (2) זכר ← 3–10 עם ה בסוף (שלושה), נקבה ← בלי ה (שלוש). (3) שם עצם מיודע ← סמיכות (שלושת הספרים). (4) שנה, מספור או גיל ← נקבה. תאריך ← זכר.'}};
+G.numw=i=>{const n=D.numw[i];return {topic:'numbers',title:'כתיבה במילים',stem:`איך כותבים במילים את המספר <b dir="ltr">${n.dig}</b>?<br><div class="sent">${n.sent.replace('{{}}',`<b dir="ltr">${n.dig}</b>`)}</div>`,options:shuffle([opt(n.ans,1),...n.wrong.map(w=>opt(w))]),big:true,
+ explain:`<div class="sent">${n.sent.replace('{{}}',`<b class="ans">${n.ans}</b>`)}</div><div class="tip">${NUMRULES[n.rule]}</div>`,hint:'קבעי למה המספר מתייחס ומה מינו. זכרי: אֶלֶף בזכר (שלושת אלפים), מֵאָה בנקבה (שלוש מאות).'}};
+
+const KIND_COUNT={vroot:D.verbs.length,vtype:D.verbs.length,vgiz:D.verbs.length,odd:D.odd.length,combo:D.verbs.length,vbin:D.verbs.length,vact:D.verbs.length,pass:6,abin:D.action.length,pairs:D.pairs.length,mact:6,bpos:D.bein.length,bbin:D.bein.length,way:D.ways.length,oddway:10,msh:D.mishkal.length,nroot:D.mishkal.length,suf:D.suffix.length,suft:D.suffix.length,blend:D.blends.length,acr:D.acr.length,loan:D.loans.length,num:D.nums.length,numw:D.numw.length};
+const KIND_TOPIC={vroot:'gizra',vtype:'gizra',vgiz:'gizra',odd:'gizra',combo:'gizra',vbin:'binyan',vact:'binyan',pass:'binyan',abin:'binyan',pairs:'binyan',mact:'binyan',bpos:'beinoni',bbin:'beinoni',way:'tzura',oddway:'tzura',msh:'tzura',nroot:'tzura',suf:'tzura',suft:'tzura',blend:'tzura',acr:'tzura',loan:'tzura',num:'numbers',numw:'numbers'};
+const KIND_W={vroot:3,vtype:2,vgiz:3,odd:2,combo:2,vbin:3,vact:1,pass:.5,abin:2,pairs:2,mact:.7,bpos:3,bbin:2,way:3,oddway:1.5,msh:2,nroot:1.5,suf:2,suft:.8,blend:1,acr:.8,loan:.8,num:4,numw:1.5};
+const KIND_NAME={vroot:'שורש של פועל',vtype:'הקלדת שורש',vgiz:'זיהוי גזרה',odd:'יוצא דופן בגזרה',combo:'זמן·גוף·בניין·שורש',vbin:'בניין של פועל',vact:'פעיל/סביל',pass:'זוגות פעיל-סביל',abin:'בניין של שם פעולה',pairs:'פעלים דומים',mact:'שם פעולה מרובע',bpos:'בינוני – חלק דיבר',bbin:'בינוני – בניין',way:'דרך תצורה',oddway:'יוצא דופן בתצורה',msh:'משקל',nroot:'שורש של שם',suf:'משמעות צורן',suft:'צורן גזירה/נטייה',blend:'הלחם בסיסים',acr:'ראשי תיבות',loan:'שאילה מלעז',num:'שם המספר במשפט',numw:'מספר במילים'};
+
+function build(id){const [k,i]=id.split(':');const q=G[k](+i);if(!q)return null;q.id=id;q.kind=k;return q}
+
+// ===== ממשק, מצב ושמירה =====
+const KEY='noya-chachla-v1';
+const EXAMS=[{n:'מיני מתכונת',d:'2026-11-26'},{n:'מתכונת',d:'2026-12-24'},{n:'בגרות',d:'2027-01-04'}];
+function fresh(){return {v:1,changes:[],friends:[],hist:[],streak:0,best:0,answered:0,correct:0,topics:{},kinds:{},days:{},collection:[],reported:[],retry:[],tc:{},updatedAt:0}}
+let S=fresh();
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(fresh(),JSON.parse(raw))}catch(e){}
+let syncState='local',AKEY=null,LAYERS={};
+const LAYER_ORDER=['hair_back','shoulder','BASE','BASE_nohair','floral','tan','makeup','lips','hair_front','hoops','nails','vape'];
+function saveLocal(){S.updatedAt=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}scheduleRemote()}
+let remoteT=null;
+const fbRef=()=>window.FB.doc(window.FB.db,'noya',AKEY);
+function scheduleRemote(){if(!AKEY||!window.FB)return;clearTimeout(remoteT);remoteT=setTimeout(pushRemote,1500)}
+async function pushRemote(){try{await window.FB.setDoc(fbRef(),{json:JSON.stringify(S),updatedAt:S.updatedAt},{merge:true});syncState='synced'}catch(e){syncState='error'}renderSync()}
+async function keyOf(code){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('ani-lo-chachla::'+code.trim()));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function withTimeout(p,ms){return Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms))])}
+// כניסה עם קוד: טוען את השכבות ואת ההתקדמות מ-Firestore
+async function enter(key){
+ if(!window.FB)throw new Error('nofb');
+ const FB=window.FB;
+ const snap=await withTimeout(FB.getDoc(FB.doc(FB.db,'noya',key)),15000);
+ if(!snap.exists())return false;
+ const data=snap.data();
+ const names=data.layers||LAYER_ORDER;
+ const docs=await withTimeout(Promise.all(names.map(n=>FB.getDoc(FB.doc(FB.db,'noya',key,'layers',n)))),30000);
+ LAYERS={};docs.forEach((d,i)=>{if(d.exists())LAYERS[names[i]]=d.data()});
+ AKEY=key;try{localStorage.setItem('noya-key',key)}catch(e){}
+ if(data.json&&data.updatedAt>S.updatedAt){S=Object.assign(fresh(),JSON.parse(data.json));try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+ else if(S.updatedAt)scheduleRemote();
+ syncState='synced';return true;
+}
+function logout(){try{localStorage.removeItem('noya-key')}catch(e){}location.reload()}
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+
+// ---------- בחירת שאלה ----------
+let Q=null,answered=false,mode='play',exam=null,lastIds=[];
+const reportedSet=()=>new Set(S.reported.map(r=>r.id));
+function nextId(){
+ const rep=reportedSet();
+ // חזרה על טעויות
+ const due=S.retry.find(r=>r.due<=S.answered&&!rep.has(r.id)&&!lastIds.includes(r.id));
+ if(due&&mode==='play'&&Math.random()<.85){S.retry=S.retry.filter(r=>r!==due);return due.id}
+ // נושא: הכי פחות מתורגל ביחס למשקל
+ let topic;
+ if(mode==='exam'){topic=exam.plan[exam.i]}
+ else{const t=Object.keys(TOPICS).map(k=>({k,v:((S.tc[k]||0)+Math.random()*1.2)/TOPIC_W[k]})).sort((a,b)=>a.v-b.v);topic=t[0].k}
+ S.tc[topic]=(S.tc[topic]||0)+1;
+ const kinds=Object.keys(KIND_TOPIC).filter(k=>KIND_TOPIC[k]===topic);
+ for(let t=0;t<40;t++){
+  let r=Math.random()*kinds.reduce((a,k)=>a+KIND_W[k],0),k=kinds[0];for(const kk of kinds){r-=KIND_W[kk];if(r<=0){k=kk;break}}
+  const id=k+':'+Math.floor(Math.random()*KIND_COUNT[k]);
+  if(rep.has(id)||lastIds.includes(id))continue;
+  if(build(id))return id;
+ }
+ return 'num:0';
+}
+function newQuestion(){
+ let id=nextId(),q=build(id),guard=0;while(!q&&guard++<20){id=nextId();q=build(id)}
+ Q=q;answered=false;lastIds.push(id);if(lastIds.length>25)lastIds.shift();renderQ();
+}
+
+// ---------- מנגנון המשחק ----------
+function onWrong(){
+ S.streak=0;
+ const left=CHANGES.filter(c=>!S.changes.includes(c.id));
+ if(left.length){const c=pick(left);S.changes.push(c.id);S.hist.push({t:'c',id:c.id});return {msg:c.on,kind:'bad'}}
+ const fl=FRIENDS.filter(f=>!S.friends.includes(f.name));
+ if(fl.length){const f=fl[0];S.friends.push(f.name);S.hist.push({t:'f',id:f.name});return {msg:`נויה כבר צ'אחלה לגמרי ואין מה לשנות בה – אז עכשיו גם ${f.name} הופכת לצ'אחלה! 😱`,kind:'bad'}}
+ return {msg:'כל החבורה כבר צ\'אחלות... רק שלוש תשובות נכונות ברצף יצילו אותן!',kind:'bad'};
+}
+function onRight(){
+ S.streak++;S.best=Math.max(S.best,S.streak);
+ if(S.streak>=3&&S.hist.length){const h=S.hist.pop();S.streak=0;
+  if(h.t==='f'){S.friends=S.friends.filter(n=>n!==h.id);return {msg:`3 ברצף! ${h.id} חזרה להיות היא עצמה 🎉`,kind:'good'}}
+  S.changes=S.changes.filter(c=>c!==h.id);const c=CHANGES.find(x=>x.id===h.id);return {msg:`3 ברצף! ${c.off} 🎉`,kind:'good'}}
+ return null;
+}
+function record(ok){
+ S.answered++;if(ok)S.correct++;
+ const t=Q.topic,k=Q.kind;S.topics[t]=S.topics[t]||{a:0,c:0};S.topics[t].a++;if(ok)S.topics[t].c++;
+ S.kinds[k]=S.kinds[k]||{a:0,c:0};S.kinds[k].a++;if(ok)S.kinds[k].c++;
+ const d=today();S.days[d]=S.days[d]||{a:0,c:0};S.days[d].a++;if(ok)S.days[d].c++;
+ if(!ok&&!S.retry.some(r=>r.id===Q.id))S.retry.push({id:Q.id,due:S.answered+5+Math.floor(Math.random()*4)});
+ if(S.retry.length>60)S.retry=S.retry.slice(-60);
+}
+
+// ---------- תצוגה ----------
+const $=s=>document.querySelector(s);
+function avatarHTML(){return LAYER_ORDER.map(n=>{const L=LAYERS[n];return `<img class="ly ly-${n}" alt="" src="${L.src}" style="left:${L.x/12}%;top:${L.y/17.32}%;width:${L.w/12}%">`}).join('')}
+function renderAvatar(){
+ const wrap=$('#avatar');if(!wrap.dataset.built){wrap.innerHTML=avatarHTML();wrap.dataset.built=1}
+ const prev=wrap.dataset.sig;const sig=S.changes.join(',');
+ wrap.className='avatar '+S.changes.map(c=>'c-'+c).join(' ');
+ const stage=$('#stage');stage.style.setProperty('--lvl',S.changes.length/CHANGES.length);
+ stage.classList.toggle('chachla',S.changes.length>0);
+ if(prev!==undefined&&prev!==sig){stage.classList.remove('pop');void stage.offsetWidth;stage.classList.add('pop')}
+ wrap.dataset.sig=sig;
+ const b=$('#bubble');if(S.changes.includes('bubble')){b.textContent=pick(PHRASES);b.hidden=false}else b.hidden=true;
+ const n=S.changes.length;
+ $('#status').innerHTML=n===0?'<b>נויה המקורית</b><span>אין עלייך! ככה ממשיכים 💚</span>':`<b>רמת צ'אחלה ${n}/${CHANGES.length}</b><span>${n<3?'מתחיל להיות מסוכן...':n<6?'זה כבר רציני!':'הצילו!!!'}</span>`;
+ $('#meter').innerHTML=`<i style="width:${n/CHANGES.length*100}%"></i>`;
+ $('#changes').innerHTML=S.changes.map(id=>`<span class="chip bad">${CHANGES.find(c=>c.id===id).name}</span>`).join('');
+ const need=3-S.streak;
+ $('#streak').innerHTML=S.hist.length?`<div class="dots">${[0,1,2].map(i=>`<i class="${i<S.streak?'on':''}"></i>`).join('')}</div><span>עוד <b>${need}</b> ${need===1?'תשובה נכונה':'תשובות נכונות'} ברצף כדי לבטל שינוי</span>`:`<div class="dots ok">${[0,1,2].map(i=>`<i class="${i<Math.min(S.streak,3)?'on':''}"></i>`).join('')}</div><span>רצף: <b>${S.streak}</b> · שיא: <b>${S.best}</b></span>`;
+ $('#friends').innerHTML=FRIENDS.map(f=>`<div class="fr ${S.friends.includes(f.name)?'ch':''}" title="${f.name}">${friendSVG(f,S.friends.includes(f.name))}<span>${f.name}</span></div>`).join('');
+}
+function renderCountdown(){
+ const now=new Date();now.setHours(0,0,0,0);
+ $('#count').innerHTML=EXAMS.map(e=>{const d=new Date(e.d+'T00:00:00');const n=Math.round((d-now)/864e5);if(n<0)return'';return `<span class="cd ${n<=7?'hot':''}">${e.n}: ${n===0?'היום!':n===1?'מחר!':'עוד '+n+' ימים'}</span>`}).join('');
+}
+function renderSync(){const el=$('#sync');if(!el)return;el.textContent=syncState==='synced'?'☁️ ההתקדמות נשמרת בענן ומסונכרנת בין הטלפון למחשב':syncState==='error'?'⚠️ אין כרגע חיבור לענן – ההתקדמות נשמרת במכשיר ותסונכרן כשהחיבור יחזור':'💾 ההתקדמות נשמרת במכשיר הזה'}
+function renderQ(){
+ const box=$('#q');if(!Q){box.innerHTML='';return}
+ const head=mode==='exam'?`<div class="qhead"><span class="tag">${TOPICS[Q.topic]}</span><span class="tag ghost">מבחן: שאלה ${exam.i+1} מתוך ${exam.plan.length}</span></div>`:`<div class="qhead"><span class="tag">${TOPICS[Q.topic]}</span><span class="tag ghost">${Q.title}</span></div>`;
+ let body=`<div class="stem">${Q.stem}</div>`;
+ if(Q.typed) body+=`<form id="tf" class="typed"><input id="ti" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="למשל: כ-ת-ב" dir="rtl"><button class="btn">בדיקה</button></form>`;
+ else body+=`<div class="opts ${Q.chips?'chips':''} ${Q.big?'big':''}">${Q.options.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join('')}</div>`;
+ body+=`<div class="tools"><button class="link" id="hintB">💡 רמז</button><button class="link" id="expB">📖 איך פותרים?</button><button class="link dim" id="repB">🚩 דיווח על טעות בשאלה</button></div><div id="hintBox" class="hint" hidden>${Q.hint}</div><div id="fb"></div>`;
+ box.innerHTML=head+body;box.classList.remove('in');void box.offsetWidth;box.classList.add('in');
+ box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.i));
+ if(Q.typed){$('#tf').onsubmit=e=>{e.preventDefault();answerTyped($('#ti').value)};setTimeout(()=>{if(window.innerWidth>700)$('#ti').focus()},50)}
+ $('#hintB').onclick=()=>{$('#hintBox').hidden=!$('#hintBox').hidden};
+ $('#expB').onclick=()=>showExplain(true);
+ $('#repB').onclick=report;
+}
+function showExplain(open){let e=$('#exp');if(!e){$('#fb').insertAdjacentHTML('beforeend',`<div id="exp" class="explain"><h4>📖 איך פותרים</h4>${Q.explain}</div>`);e=$('#exp')}if(open)e.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function answer(i){
+ if(answered)return;const o=Q.options[i];finish(o.ok,i);
+}
+function answerTyped(val){
+ if(answered)return;const want=letters(Q.typed.root),got=letters(val);if(!got){$('#ti').focus();return}
+ let ok=got===want,note='';
+ if(!ok&&Q.typed.g==='LY'&&got.length===want.length&&got.slice(0,-1)===want.slice(0,-1)&&got.slice(-1)==='ה'){ok=true;note='נכון! רק שימי לב: בפתרונות של משרד החינוך כותבים את השורש עם <b>י</b> בסוף ('+Q.typed.root+').'}
+ finish(ok,null,note,got);
+}
+function finish(ok,i,note,typedVal){
+ answered=true;record(ok);
+ const ev=ok?onRight():onWrong();
+ if(i!==null&&i!==undefined){document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(Q.options[j].ok)b.classList.add('right');else if(j===i)b.classList.add('wrong')})}
+ if(Q.typed){$('#ti').disabled=true;$('#tf button').disabled=true;$('#ti').classList.add(ok?'right':'wrong')}
+ const praise=['יפה מאוד!','מעולה!','בדיוק!','אלופה!','נכון!','כל הכבוד!','תותחית!'];
+ let html=`<div class="verdict ${ok?'ok':'no'}">${ok?'✅ '+pick(praise):'❌ לא נכון'}${!ok&&Q.typed?` – התשובה: <b>${Q.typed.root}</b>`:''}${!ok&&!Q.typed?' – התשובה הנכונה מסומנת בירוק':''}</div>`;
+ if(note)html+=`<div class="note">${note}</div>`;
+ if(ev)html+=`<div class="event ${ev.kind}">${ev.msg}</div>`;
+ if(ok)html+=prizeChoice();
+ html+=`<div class="explain" id="exp"><h4>📖 איך פותרים</h4>${Q.explain}</div>`;
+ html+=`<button class="btn next" id="nextB">${mode==='exam'&&exam.i+1>=exam.plan.length?'לסיכום המבחן':'לשאלה הבאה ←'}</button>`;
+ $('#fb').innerHTML=html;
+ $('#fb').querySelectorAll('.prize').forEach(p=>p.onclick=()=>takePrize(p));
+ $('#nextB').onclick=next;
+ if(mode==='exam'){exam.res.push({topic:Q.topic,ok})}
+ saveLocal();renderAvatar();
+ if(ev)toast(ev.msg,ev.kind);
+ setTimeout(()=>$('#nextB').scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+}
+function next(){if(mode==='exam'){exam.i++;if(exam.i>=exam.plan.length){examSummary();return}}newQuestion();window.scrollTo({top:Math.max(0,$('#q').offsetTop-80),behavior:'smooth'})}
+let curPrizes=[];
+function prizeChoice(){
+ const worlds=shuffle(Object.keys(WORLD_NAMES)).slice(0,3);
+ curPrizes=worlds.map(w=>pick(PRIZES.filter(p=>p.w===w)));
+ return `<div class="prizes"><div class="ptitle">🎁 בחרי פרס:</div><div class="prow">${curPrizes.map((p,i)=>`<button class="prize" data-i="${i}">${prizeSVG(p)}<span>${p.n}</span></button>`).join('')}</div></div>`;
+}
+function takePrize(el){
+ const p=curPrizes[+el.dataset.i];if(el.closest('.prizes').classList.contains('done'))return;
+ S.collection.push({n:p.n,w:p.w,b:p.b,kind:p.kind,at:Date.now()});el.classList.add('taken');el.closest('.prizes').classList.add('done');
+ el.closest('.prizes').querySelector('.ptitle').textContent='✨ נוסף לאוסף שלך: '+p.n;saveLocal();updateNavBadge();
+}
+function report(){
+ if(!Q)return;if(S.reported.some(r=>r.id===Q.id)){toast('השאלה כבר דווחה');return}
+ const txt=strip((Q.stem||'').replace(/<[^>]+>/g,' ')).replace(/\s+/g,' ').trim();
+ S.reported.push({id:Q.id,text:txt,at:Date.now()});saveLocal();toast('תודה! השאלה הוצאה מהמאגר עד שתיבדק 🚩');
+ if(!answered)newQuestion();
+}
+let toastT=null;
+function toast(msg,kind){const t=$('#toast');t.innerHTML=msg;t.className='toast show '+(kind||'');clearTimeout(toastT);toastT=setTimeout(()=>t.className='toast',3200)}
+
+// ---------- מבחן ----------
+function startExam(){
+ const plan=shuffle([...Array(4)].map(()=>'numbers').concat([...Array(5)].map(()=>'gizra'),[...Array(4)].map(()=>'binyan'),[...Array(3)].map(()=>'beinoni'),[...Array(4)].map(()=>'tzura')));
+ exam={plan,i:0,res:[],start:Date.now()};mode='exam';show('play');newQuestion();
+}
+function examSummary(){
+ const ok=exam.res.filter(r=>r.ok).length,n=exam.res.length;const mins=Math.round((Date.now()-exam.start)/60000);
+ const by={};exam.res.forEach(r=>{by[r.topic]=by[r.topic]||{a:0,c:0};by[r.topic].a++;if(r.ok)by[r.topic].c++});
+ $('#q').innerHTML=`<div class="summary"><h3>סיכום מבחן התרגול</h3><div class="big">${Math.round(ok/n*100)}</div><p>${ok} תשובות נכונות מתוך ${n} · ${mins} דקות</p><table>${Object.keys(by).map(t=>`<tr><td>${TOPICS[t]}</td><td>${by[t].c}/${by[t].a}</td></tr>`).join('')}</table><button class="btn" id="backB">חזרה לתרגול</button></div>`;
+ $('#backB').onclick=()=>{mode='play';exam=null;newQuestion()};
+}
+
+// ---------- אוסף ----------
+function renderCollection(){
+ const el=$('#coll');if(!S.collection.length){el.innerHTML='<p class="empty">עדיין אין פרסים. כל תשובה נכונה = פרס לבחירה!</p>';return}
+ const by={};S.collection.forEach(c=>{const k=c.n;by[k]=by[k]||{...c,cnt:0};by[k].cnt++});
+ el.innerHTML=`<p class="muted">${S.collection.length} פרסים נאספו</p><div class="cgrid">${Object.values(by).map(c=>`<div class="citem">${prizeSVG(c)}<span>${c.n}</span>${c.cnt>1?`<b class="cnt">×${c.cnt}</b>`:''}</div>`).join('')}</div>`;
+}
+function updateNavBadge(){const b=$('#collBadge');if(b)b.textContent=S.collection.length||''}
+
+// ---------- מסך הורה ----------
+function renderParent(){
+ const el=$('#par');const pct=(c,a)=>a?Math.round(c/a*100)+'%':'—';
+ const days=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;days.push({k,lab:`${d.getDate()}/${d.getMonth()+1}`,...(S.days[k]||{a:0,c:0})})}
+ const mx=Math.max(1,...days.map(d=>d.a));
+ const kinds=Object.keys(S.kinds).map(k=>({k,...S.kinds[k]})).filter(x=>x.a>=3).sort((a,b)=>a.c/a.a-b.c/b.a);
+ el.innerHTML=`<h3>ניתוח מצב אישי</h3><p class="muted" id="sync"></p>
+ <div class="kpis"><div><b>${S.answered}</b><span>שאלות</span></div><div><b>${pct(S.correct,S.answered)}</b><span>הצלחה</span></div><div><b>${S.best}</b><span>שיא רצף</span></div><div><b>${S.changes.length}/${CHANGES.length}</b><span>שינויים כרגע</span></div></div>
+ <h4>לפי נושא</h4><table class="tbl"><tr><th>נושא</th><th>שאלות</th><th>הצלחה</th><th></th></tr>${Object.keys(TOPICS).map(t=>{const x=S.topics[t]||{a:0,c:0};const p=x.a?x.c/x.a:0;return `<tr><td>${TOPICS[t]}</td><td>${x.a}</td><td>${pct(x.c,x.a)}</td><td><div class="bar"><i style="width:${p*100}%;background:${p>=.8?'#2f9e63':p>=.6?'#e0a526':'#e05656'}"></i></div></td></tr>`}).join('')}</table>
+ <h4>14 הימים האחרונים</h4><div class="days">${days.map(d=>`<div title="${d.a} שאלות, ${d.c} נכונות"><i style="height:${d.a/mx*100}%"></i><span>${d.lab}</span></div>`).join('')}</div>
+ <h4>סוגי השאלות הקשים ביותר</h4>${kinds.length?`<table class="tbl"><tr><th>סוג שאלה</th><th>שאלות</th><th>הצלחה</th></tr>${kinds.slice(0,6).map(k=>`<tr><td>${KIND_NAME[k.k]}</td><td>${k.a}</td><td>${pct(k.c,k.a)}</td></tr>`).join('')}</table>`:'<p class="muted">עוד אין מספיק נתונים (צריך לפחות 3 שאלות מכל סוג).</p>'}
+ <h4>שאלות שדווחו כשגויות (${S.reported.length})</h4>${S.reported.length?`<p class="muted">השאלות האלה לא מוצגות לנויה. אפשר להעביר לי את הרשימה לבדיקה, או להחזיר שאלה למאגר.</p><ul class="rep">${S.reported.map((r,i)=>`<li><span>${r.text}</span><button class="link" data-r="${i}">החזרה למאגר</button></li>`).join('')}</ul>`:'<p class="muted">אין דיווחים.</p>'}
+ <h4>יציאה</h4><p class="muted">מנתק את המכשיר הזה. כדי להיכנס שוב צריך את הקוד.</p><button class="btn ghost" id="logoutB">יציאה מהמכשיר</button>
+ <h4>איפוס</h4><p class="muted">מוחק את כל ההתקדמות, השינויים והאוסף.</p><button class="btn ghost" id="resetB">איפוס התקדמות</button><div id="resetC" hidden class="confirm">בטוח? אי אפשר לבטל את זה. <button class="btn danger" id="resetY">כן, לאפס</button> <button class="btn ghost" id="resetN">ביטול</button></div>`;
+ renderSync();
+ $('#logoutB').onclick=logout;
+ el.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{S.reported.splice(+b.dataset.r,1);saveLocal();renderParent()});
+ $('#resetB').onclick=()=>{$('#resetC').hidden=false};$('#resetN').onclick=()=>{$('#resetC').hidden=true};
+ $('#resetY').onclick=()=>{S=fresh();saveLocal();renderAll();show('parent');toast('ההתקדמות אופסה')};
+}
+
+
+// ---------- הסבר המשחק ----------
+function openGuide(){
+ const g=$('#guide');
+ const fr=FRIENDS.map(f=>friendSVG(f,false)).join('');
+ const frc=FRIENDS.slice(0,2).map(f=>friendSVG(f,true)).join('');
+ g.innerHTML=`<div class="guide" role="dialog" aria-label="איך משחקים">
+ <div class="ghead"><button class="gclose" id="gX" aria-label="סגירה">✕</button><h2>היי נויה! ככה משחקים 👋</h2><p>עונים על שאלות בלשון לקראת המתכונת והבגרות. כל עוד את עונה נכון – את נשארת את. אבל כל טעות... הופכת אותך לאט לאט לצ'אחלה 😱</p></div>
+ <div class="gsteps">
+  <div class="gs"><div class="gi">✏️</div><div><h4>עונים על שאלות</h4><p>גזרות ושורשים, בניינים, בינוני, דרכי תצורה ושם המספר – כמו בבגרות. בכל שאלה יש <b>💡 רמז</b> ו<b>📖 איך פותרים</b>. מותר להשתמש בהם כמה שרוצים, זה לא מוריד שום דבר.</p></div></div>
+  <div class="gs good"><div class="gi">🎁</div><div><h4>תשובה נכונה = פרס</h4><p>אחרי כל תשובה נכונה בוחרים פרס אחד מתוך שלושה: לגו, מארוול, סדרות, Coldplay ו־Arctic Monkeys, סטייק עם שעועית ירוקה או משהו לתלתלים. כל פרס נכנס ל<b>אוסף</b> שלך.</p></div></div>
+  <div class="gs bad"><div class="gi">💋</div><div><h4>טעות = מתחילים להפוך לצ'אחלה</h4><p>כל טעות מוסיפה לך שינוי אחד, בהפתעה: בוטוקס בשפתיים, החלקה לתלתלים, איפור מוגזם, ציפורניים באורך של מטר, וייפ ביד, חולצה פרחונית, דיבור של צ'אחלה, עגילי חישוק ענקיים ושיזוף כתום. אחרי 9 טעויות – צ'אחלה מלאה.</p></div></div>
+  <div class="gs bad"><div class="gi">👯</div><div><h4>ואז מגיע תורן של החברות</h4><p>כשכבר אין מה לשנות בך, כל טעות נוספת הופכת לצ'אחלה את אחת החברות – ליאור, מיי, ליה, יעל והילה, לפי הסדר. כלומר: הטעויות שלך עולות גם להן 😬</p><div class="gfr">${fr}<span class="arr">←</span>${frc}</div></div></div>
+  <div class="gs back"><div class="gi">🔄</div><div><h4>הדרך חזרה: 3 ברצף</h4><p><span class="gdots"><i></i><i></i><i></i></span> שלוש תשובות נכונות ברצף מבטלות שינוי אחד. קודם מצילים את החברות (מי שהפכה אחרונה חוזרת ראשונה), ואחר כך את התלתלים, השפתיים וכל השאר. טעות באמצע – הרצף מתחיל מחדש. הנקודות הירוקות ליד הדמות מראות כמה נשאר.</p></div></div>
+  <div class="gs"><div class="gi">🔁</div><div><h4>טעויות חוזרות</h4><p>שאלה שטעית בה תחזור אלייך אחרי כמה שאלות, כדי שבפעם הבאה זה כבר יהיה שלך.</p></div></div>
+  <div class="gs"><div class="gi">⏱️</div><div><h4>עוד בתפריט למטה</h4><p><b>מבחן</b> – 20 שאלות ברצף וציון בסוף. <b>אוסף</b> – כל הפרסים שצברת. <b>המצב שלי</b> – באילו נושאים את חזקה ומה כדאי עוד לתרגל. נראה לך שיש טעות בשאלה? לחצי <b>🚩</b> והיא יוצאת מהמשחק עד שנבדוק.</p></div></div>
+ </div>
+ <div class="gfoot"><button class="btn" id="gGo">${S.seenGuide?'הבנתי, חוזרים לשחק':'יאללה, מתחילות! 💪'}</button></div></div>`;
+ g.hidden=false;
+ const close=()=>{g.hidden=true;if(!S.seenGuide){S.seenGuide=true;saveLocal()}};
+ $('#gX').onclick=close;$('#gGo').onclick=close;g.onclick=e=>{if(e.target===g)close()};
+}
+
+// ---------- ניווט ----------
+function show(v){
+ document.querySelectorAll('.view').forEach(x=>x.hidden=x.id!=='v-'+v);
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v||(v==='play'&&b.dataset.v==='play')));
+ if(v==='coll')renderCollection();if(v==='parent')renderParent();
+ if(location.hash!=='#'+v&&v!=='play')history.replaceState(null,'','#'+v);if(v==='play'&&location.hash)history.replaceState(null,'',location.pathname+location.search);
+}
+function renderAll(){renderAvatar();renderCountdown();updateNavBadge();if(!Q)newQuestion();else renderQ()}
+function startGame(){
+ document.body.classList.remove('locked');$('#login').hidden=true;
+ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{const v=b.dataset.v;if(v==='exam'){show('exam');return}show(v)});
+ $('#examGo').onclick=startExam;$('#helpB').onclick=openGuide;
+ renderAll();
+ const h=location.hash.slice(1);if(['coll','parent'].includes(h))show(h);else show('play');
+ if(!S.seenGuide)setTimeout(openGuide,400);
+}
+function loginUI(msg){
+ const L=$('#login');L.hidden=false;document.body.classList.add('locked');
+ $('#lmsg').textContent=msg||'';
+ $('#lform').onsubmit=async e=>{e.preventDefault();const code=$('#lcode').value;if(code.trim().length<4){$('#lmsg').textContent='צריך להקליד את הקוד';return}
+  $('#lbtn').disabled=true;$('#lmsg').textContent='בודקת...';
+  try{const ok=await enter(await keyOf(code));if(ok)startGame();else{$('#lmsg').textContent='הקוד לא נכון. נסי שוב.';$('#lbtn').disabled=false}}
+  catch(err){$('#lmsg').textContent='אין חיבור לשרת כרגע. בדקי את האינטרנט ונסי שוב.';$('#lbtn').disabled=false}};
+}
+document.addEventListener('DOMContentLoaded',async()=>{
+ if(location.hash==='#setup'){setupUI();return}
+ let k=null;try{k=localStorage.getItem('noya-key')}catch(e){}
+ if(k){$('#login').hidden=false;$('#lmsg').textContent='טוענת...';$('#lform').hidden=true;
+  try{if(await enter(k)){startGame();return}}catch(e){}
+  $('#lform').hidden=false;
+ }
+ loginUI();
+});
+// ---------- הגדרה ראשונית (פעם אחת): העלאת השכבות ל-Firestore ----------
+function setupUI(){
+ const L=$('#login');L.hidden=false;document.body.classList.add('locked');
+ $('#lbox').innerHTML=`<h2>הגדרה ראשונית</h2><p class="muted">העלאת האיור של נויה לענן. עושים את זה פעם אחת בלבד.</p>
+ <form id="sform" class="sform"><label>קוד כניסה (לפחות 8 תווים)<input id="sc1" type="password" autocomplete="new-password"></label><label>שוב את הקוד, לאימות<input id="sc2" type="password" autocomplete="new-password"></label><label>הקובץ noya-layers.json<input id="sf" type="file" accept=".json,application/json"></label><button class="btn" id="sbtn">העלאה</button></form><p id="smsg" class="lmsg"></p>`;
+ $('#sform').onsubmit=async e=>{e.preventDefault();const c1=$('#sc1').value.trim(),c2=$('#sc2').value.trim(),f=$('#sf').files[0],m=$('#smsg');
+  if(c1.length<8){m.textContent='הקוד צריך להיות באורך 8 תווים לפחות';return}if(c1!==c2){m.textContent='שני הקודים לא זהים';return}if(!f){m.textContent='צריך לבחור את הקובץ';return}
+  if(!window.FB){m.textContent='אין חיבור ל-Firebase';return}
+  $('#sbtn').disabled=true;
+  try{const data=JSON.parse(await f.text());const key=await keyOf(c1);const FB=window.FB;const names=Object.keys(data);let i=0;
+   for(const n of names){m.textContent=`מעלה ${++i} מתוך ${names.length}...`;await FB.setDoc(FB.doc(FB.db,'noya',key,'layers',n),data[n])}
+   await FB.setDoc(FB.doc(FB.db,'noya',key),{layers:names,createdAt:Date.now()},{merge:true});
+   m.innerHTML='✅ הכול עלה! עכשיו אפשר <a href="./">להיכנס למשחק</a> עם הקוד.';
+  }catch(err){m.textContent='משהו נכשל: '+err.message;$('#sbtn').disabled=false}};
+}
+function confirmLeave(){return true}
+
+</script>
+<script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {getFirestore,doc,getDoc,setDoc} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import {firebaseConfig} from './firebase-config.js';
+const app=initializeApp(firebaseConfig);
+window.FB={db:getFirestore(app),doc,getDoc,setDoc};
+</script>
+</body>
+</html>

@@ -36,7 +36,7 @@ const PRIZES=[
  {w:'bands',n:'תקליט ויניל של Arctic Monkeys',b:'ARCTIC MONKEYS',kind:'vinyl'},
  {w:'steak',n:'סטייק עם שעועית ירוקה'},{w:'steak',n:'אנטריקוט מדיום עם שעועית ירוקה'},{w:'steak',n:'סטייק על הגריל של אבא'},
  {w:'friends',n:'ערב כיף עם החברות',kind:'party'},{w:'friends',n:'ללכת לבית של ליאור',kind:'house'},{w:'friends',n:'נסיעה לחולון בסופ״ש',kind:'car'},
- {w:'food',n:'סושי',kind:'sushi'},{w:'food',n:'קפה קר',kind:'coffee'},{w:'food',n:'ליקוק מלואי',kind:'lick'},
+ {w:'food',n:'סושי',kind:'sushi'},{w:'food',n:'קפה קר',kind:'coffee'},{w:'me',n:'ליקוק מלואי 🐶',kind:'lick'},
  {w:'me',n:'ניקוי אוטומטי של החדר',kind:'clean'},{w:'me',n:'ג׳ינס חדש',kind:'jeans'},{w:'me',n:'מחמאה משירי!',kind:'compliment'},
  {w:'curls',n:'קרם לעיצוב תלתלים'},{w:'curls',n:'ג׳ל לתלתלים מושלמים'},{w:'curls',n:'מסכת לחות לתלתלים'},{w:'curls',n:'מפזר חום לפן לתלתלים'}
 ];

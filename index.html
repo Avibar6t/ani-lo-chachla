@@ -1079,18 +1079,17 @@ function prizeSVG(p){
    if(p.kind==='coffee') return `<svg ${v}><defs>${g('k','#a16207','#422006')}</defs>${shadow}<path d="M36,30 L84,30 L78,104 L42,104Z" fill="#fff" opacity=".85" stroke="#d6d3d1" stroke-width="2"/><path d="M40,50 L80,50 L76,102 L44,102Z" fill="url(#${u}k)"/><rect x="48" y="56" width="10" height="10" rx="2" fill="#e0f2fe" opacity=".8" transform="rotate(12 53 61)"/><rect x="62" y="66" width="10" height="10" rx="2" fill="#e0f2fe" opacity=".8" transform="rotate(-10 67 71)"/><path d="M40,42 L80,42" stroke="#fde68a" stroke-width="8"/><rect x="32" y="24" width="56" height="8" rx="3" fill="#e7e5e4"/><path d="M66,8 L62,26" stroke="#ec4899" stroke-width="4" stroke-linecap="round"/></svg>`;
    return `<svg ${v}></svg>`;
   case 'me':
-   if(p.kind==='lick') return `<svg ${v}><defs><radialGradient id="${u}w" cx=".45" cy=".4"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e5e7eb"/></radialGradient></defs>${shadow}
-   <ellipse cx="60" cy="96" rx="30" ry="12" fill="url(#${u}w)"/>
-   <g fill="#1f2937">${[...Array(9)].map((_,i)=>`<ellipse cx="${30+(i%2)*2}" cy="${44+i*5}" rx="9" ry="7"/><ellipse cx="${90-(i%2)*2}" cy="${44+i*5}" rx="9" ry="7"/>`).join('')}</g>
-   <ellipse cx="60" cy="58" rx="28" ry="27" fill="url(#${u}w)"/>
-   <path d="M38,44 C40,30 50,26 60,30 C70,26 80,30 82,44 C76,38 70,38 66,42 L60,36 L54,42 C50,38 44,38 38,44Z" fill="#1f2937"/>
-   <ellipse cx="47" cy="52" rx="9" ry="8" fill="#1f2937" opacity=".9"/>
-   <circle cx="48" cy="53" r="4.2" fill="#0b0b0b"/><circle cx="72" cy="53" r="4.2" fill="#0b0b0b"/><circle cx="49.3" cy="51.6" r="1.4" fill="#fff"/><circle cx="73.3" cy="51.6" r="1.4" fill="#fff"/>
-   <path d="M42,70 C46,82 74,82 78,70 C72,74 48,74 42,70Z" fill="#f3f4f6"/>
-   <ellipse cx="60" cy="63" rx="5.5" ry="4" fill="#111"/><path d="M60,67 L60,71 M54,72 Q60,76 66,72" stroke="#374151" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-   <path d="M56,73 C56,84 64,84 64,73Z" fill="#fb7185"/><path d="M60,74 L60,80" stroke="#e11d48" stroke-width="1"/>
-   <path d="M48,30 q6,-8 12,-2 l-2,6Z" fill="#ec4899"/><circle cx="58" cy="30" r="2.4" fill="#f9a8d4"/>
-   <path d="M96,22 c0,-4 6,-4 6,0 c0,4 -6,8 -6,8 c0,0 -6,-4 -6,-8 c0,-4 6,-4 6,0z M20,26 c0,-3 4.5,-3 4.5,0 c0,3 -4.5,6 -4.5,6 c0,0 -4.5,-3 -4.5,-6 c0,-3 4.5,-3 4.5,0z" fill="#ec4899"/></svg>`;
+   if(p.kind==='lick') return `<svg ${v}><defs><radialGradient id="${u}w" cx=".45" cy=".35"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9dce1"/></radialGradient><radialGradient id="${u}k" cx=".45" cy=".35"><stop offset="0" stop-color="#3a3f47"/><stop offset="1" stop-color="#111318"/></radialGradient></defs>${shadow}
+   <path d="M24,108 C22,84 34,74 60,74 C86,74 98,84 96,108Z" fill="url(#${u}k)"/><path d="M42,108 C40,86 48,78 60,78 C72,78 80,86 78,108Z" fill="url(#${u}w)"/>
+   <g fill="url(#${u}k)">${[...Array(8)].map((_,i)=>`<ellipse cx="${27+(i%2)*2}" cy="${42+i*5}" rx="9" ry="7"/><ellipse cx="${93-(i%2)*2}" cy="${42+i*5}" rx="9" ry="7"/>`).join('')}</g>
+   <ellipse cx="60" cy="52" rx="29" ry="28" fill="url(#${u}k)"/>
+   <path d="M53,24 C56,22 64,22 67,24 L66,40 C72,44 74,52 72,58 L48,58 C46,52 48,44 54,40Z" fill="url(#${u}w)"/>
+   <path d="M44,62 C42,52 52,50 60,52 C68,50 78,52 76,62 C78,74 70,82 60,82 C50,82 42,74 44,62Z" fill="url(#${u}w)"/>
+   <path d="M46,70 q-4,4 -2,8 M74,70 q4,4 2,8 M50,76 q-2,4 0,7 M70,76 q2,4 0,7" stroke="#c7cbd1" stroke-width="1.2" fill="none"/>
+   <circle cx="47" cy="50" r="4.6" fill="#2a1a14"/><circle cx="73" cy="50" r="4.6" fill="#2a1a14"/><circle cx="48.4" cy="48.6" r="1.5" fill="#fff"/><circle cx="74.4" cy="48.6" r="1.5" fill="#fff"/>
+   <ellipse cx="60" cy="62" rx="6" ry="4.4" fill="#0b0b0b"/><ellipse cx="58" cy="60.6" rx="2" ry="1" fill="#fff" opacity=".35"/>
+   <path d="M51,71 Q60,77 69,71 Q66,75 60,75.5 Q54,75 51,71Z" fill="#1f1414"/><path d="M53.5,71.4 L66.5,71.4 L65.5,73.4 L54.5,73.4Z" fill="#fbf3dc"/><path d="M56.5,71.4 v2 M60,71.4 v2 M63.5,71.4 v2" stroke="#d8cfb2" stroke-width=".6"/>
+   <path d="M98,22 c0,-4 6,-4 6,0 c0,4 -6,8 -6,8 c0,0 -6,-4 -6,-8 c0,-4 6,-4 6,0z M18,26 c0,-3 4.5,-3 4.5,0 c0,3 -4.5,6 -4.5,6 c0,0 -4.5,-3 -4.5,-6 c0,-3 4.5,-3 4.5,0z" fill="#ec4899"/></svg>`;
    if(p.kind==='jeans') return `<svg ${v}><defs>${g('j','#3b82f6','#1e3a8a')}</defs>${shadow}<path d="M34,16 L86,16 L90,104 L66,104 L60,46 L54,104 L30,104Z" fill="url(#${u}j)"/><rect x="34" y="16" width="52" height="8" fill="#1e40af"/><path d="M40,24 q8,10 16,0 M64,24 q8,10 16,0" stroke="#fbbf24" stroke-width="1.4" fill="none" stroke-dasharray="2 2"/><circle cx="60" cy="20" r="2" fill="#fbbf24"/></svg>`;
    if(p.kind==='compliment') return `<svg ${v}><defs>${g('m','#fdf2f8','#fbcfe8')}</defs>${shadow}<path d="M14,22 h92 a8,8 0 0 1 8,8 v46 a8,8 0 0 1 -8,8 h-58 l-18,16 v-16 h-16 a8,8 0 0 1 -8,-8 v-46 a8,8 0 0 1 8,-8z" fill="url(#${u}m)" stroke="#ec4899" stroke-width="2.5"/><path d="M60,70 c-18,-12 -22,-20 -16,-26 c5,-5 12,-2 16,4 c4,-6 11,-9 16,-4 c6,6 2,14 -16,26z" fill="#ec4899"/><path d="M28,36 l2,5 5,1 -4,3 1,5 -4,-3 -4,3 1,-5 -4,-3 5,-1z" fill="#facc15"/></svg>`;
    return `<svg ${v}><defs>${g('br','#fcd34d','#b45309')}</defs>${shadow}<rect x="20" y="58" width="80" height="40" rx="6" fill="#e0e7ff"/><rect x="28" y="50" width="30" height="12" rx="3" fill="#a5b4fc"/><path d="M84,14 L70,72" stroke="#92400e" stroke-width="5" stroke-linecap="round"/><path d="M58,70 L82,70 L86,96 L52,96Z" fill="url(#${u}br)"/>${[[30,30],[46,20],[100,40],[22,46]].map(([x,y])=>`<path d="M${x},${y-7} L${x+2},${y-2} L${x+7},${y} L${x+2},${y+2} L${x},${y+7} L${x-2},${y+2} L${x-7},${y} L${x-2},${y-2}Z" fill="#60a5fa"/>`).join('')}</svg>`;

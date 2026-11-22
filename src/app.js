@@ -38,7 +38,7 @@ const POS={verb:'פועל',noun:'שם עצם',adj:'שם תואר'};
 const WAYS={root:'שורש ומשקל',suf:'בסיס וצורן',blend:'הלחם בסיסים',acr:'ראשי תיבות',loan:'שאילה מלעז'};
 const WAY_TIP='חמש דרכי התצורה: <b>שורש ומשקל</b> – אותיות השורש בתבנית קבועה (מִכְתָּב = מִקְטָל). <b>בסיס וצורן</b> – מילה שלמה + סיומת (סִפְרוֹן = סֵפֶר + וֹן). <b>הלחם בסיסים</b> – שתי מילים שהתחברו למילה אחת (רַמְזוֹר = רֶמֶז + אוֹר). <b>ראשי תיבות</b> – האותיות הראשונות של כמה מילים (צה"ל). <b>שאילה מלעז</b> – מילה שנלקחה משפה אחרת (טֶלֶפוֹן).';
 const TOPICS={gizra:'גזרות ושורשים',binyan:'בניינים',beinoni:'בינוני',tzura:'דרכי תצורה',numbers:'שם המספר'};
-const TOPIC_W={gizra:1.5,binyan:1,beinoni:1,tzura:1,numbers:1};
+const TOPIC_W={gizra:1.3,binyan:1.5,beinoni:1.5,tzura:.9,numbers:.9};
 
 // ---------- עזרים ----------
 const strip=s=>s.replace(/[֑-ׇ]/g,'');
@@ -54,9 +54,9 @@ const lines=s=>s.trim().split('\n').filter(Boolean);
 
 // ---------- פירוק הנתונים ----------
 const D={};
-D.verbs=lines(VERBS).map(l=>{const f=l.split('|');return {form:f[0],root:f[1],b:f[2],g:f[3],tense:f[4],person:f[5],note:f[6]||''}});
-D.bein=lines(BEINONI).map(l=>{const f=l.split('|');return {sent:f[0],word:f[1],pos:f[2],b:f[3],root:f[4]}});
-D.action=lines(ACTION_NOUNS).map(l=>{const f=l.split('|');return {word:f[0],root:f[1],b:f[2],g:f[3]}});
+D.rare={};D.verbs=lines(VERBS+'\n'+VERBS_RARE).map(l=>{const f=l.split('|');return {form:f[0],root:f[1],b:f[2],g:f[3],tense:f[4],person:f[5],note:f[6]||''}});
+D.bein=lines(BEINONI+'\n'+BEINONI_RARE).map(l=>{const f=l.split('|');return {sent:f[0],word:f[1],pos:f[2],b:f[3],root:f[4]}});
+D.action=lines(ACTION_NOUNS+'\n'+ACTION_RARE).map(l=>{const f=l.split('|');return {word:f[0],root:f[1],b:f[2],g:f[3]}});
 D.mishkal=lines(MISHKAL).map(l=>{const f=l.split('|');return {word:f[0],root:f[1],m:f[2]}});
 D.suffix=lines(SUFFIX).map(l=>{const f=l.split('|');return {word:f[0],base:f[1],suf:f[2],mean:f[3],type:f[4]}});
 D.blends=lines(BLENDS).map(l=>{const f=l.split('|');return {word:f[0],a:f[1],b:f[2]}});
@@ -66,6 +66,8 @@ D.nums=lines(NUMBERS).map(l=>{const f=l.split('|');return {sent:f[0],ans:f[1],wr
 D.numw=lines(NUMWORDS).map(l=>{const f=l.split('|');return {sent:f[0],dig:f[1],ans:f[2],wrong:f[3].split(';'),rule:f[4]}});
 D.pairs=lines(PAIRS).map(l=>{const f=l.split('|');const st=f[4].split(';;');return {s1:f[0],w1:f[1],s2:f[2],w2:f[3],ok:st[0],bad:st.slice(1),ex:f[5]}});
 D.odd=lines(ODD).map(l=>l.split(',').map(x=>{const [w,r,g]=x.split(':');return {w,r,g}}));
+D.rare.verbs=lines(VERBS).length;D.rare.bein=lines(BEINONI).length;D.rare.action=lines(ACTION_NOUNS).length;
+D.fam=lines(FAMILIES).map(l=>{const [root,rest]=l.split('|');return {root,m:rest.split(',').map(x=>{const [b,w]=x.split(':');return {b,w}})}});
 D.mishkalNames=[...new Set(D.mishkal.map(m=>m.m))];
 D.meanings=[...new Set(D.suffix.map(s=>s.mean))];
 
@@ -178,9 +180,23 @@ G.num=i=>{const n=D.nums[i];return {topic:'numbers',title:'שם המספר',stem
 G.numw=i=>{const n=D.numw[i];return {topic:'numbers',title:'כתיבה במילים',stem:`איך כותבים במילים את המספר <b dir="ltr">${n.dig}</b>?<br><div class="sent">${n.sent.replace('{{}}',`<b dir="ltr">${n.dig}</b>`)}</div>`,options:shuffle([opt(n.ans,1),...n.wrong.map(w=>opt(w))]),big:true,
  explain:`<div class="sent">${n.sent.replace('{{}}',`<b class="ans">${n.ans}</b>`)}</div><div class="tip">${NUMRULES[n.rule]}</div>`,hint:'קבעי למה המספר מתייחס ומה מינו. זכרי: אֶלֶף בזכר (שלושת אלפים), מֵאָה בנקבה (שלוש מאות).'}};
 
-const KIND_COUNT={vroot:D.verbs.length,vtype:D.verbs.length,vgiz:D.verbs.length,odd:D.odd.length,combo:D.verbs.length,vbin:D.verbs.length,vact:D.verbs.length,pass:6,abin:D.action.length,pairs:D.pairs.length,mact:6,bpos:D.bein.length,bbin:D.bein.length,way:D.ways.length,oddway:10,msh:D.mishkal.length,nroot:D.mishkal.length,suf:D.suffix.length,suft:D.suffix.length,blend:D.blends.length,acr:D.acr.length,loan:D.loans.length,num:D.nums.length,numw:D.numw.length};
-const KIND_TOPIC={vroot:'gizra',vtype:'gizra',vgiz:'gizra',odd:'gizra',combo:'gizra',vbin:'binyan',vact:'binyan',pass:'binyan',abin:'binyan',pairs:'binyan',mact:'binyan',bpos:'beinoni',bbin:'beinoni',way:'tzura',oddway:'tzura',msh:'tzura',nroot:'tzura',suf:'tzura',suft:'tzura',blend:'tzura',acr:'tzura',loan:'tzura',num:'numbers',numw:'numbers'};
-const KIND_W={vroot:3,vtype:2,vgiz:3,odd:2,combo:2,vbin:3,vact:1,pass:.5,abin:2,pairs:2,mact:.7,bpos:3,bbin:2,way:3,oddway:1.5,msh:2,nroot:1.5,suf:2,suft:.8,blend:1,acr:.8,loan:.8,num:4,numw:1.5};
-const KIND_NAME={vroot:'שורש של פועל',vtype:'הקלדת שורש',vgiz:'זיהוי גזרה',odd:'יוצא דופן בגזרה',combo:'זמן·גוף·בניין·שורש',vbin:'בניין של פועל',vact:'פעיל/סביל',pass:'זוגות פעיל-סביל',abin:'בניין של שם פעולה',pairs:'פעלים דומים',mact:'שם פעולה מרובע',bpos:'בינוני – חלק דיבר',bbin:'בינוני – בניין',way:'דרך תצורה',oddway:'יוצא דופן בתצורה',msh:'משקל',nroot:'שורש של שם',suf:'משמעות צורן',suft:'צורן גזירה/נטייה',blend:'הלחם בסיסים',acr:'ראשי תיבות',loan:'שאילה מלעז',num:'שם המספר במשפט',numw:'מספר במילים'};
+
+G.afam=i=>{const f=D.fam[i%D.fam.length];const t=f.m[Math.floor(i/D.fam.length)%f.m.length];
+ return {topic:'binyan',title:'שם פעולה לפי בניין',stem:`מהו <b>שם הפעולה</b> מהשורש <b>${f.root}</b> בבניין <b>${BIN[t.b]}</b>?`,options:shuffle(f.m.map(x=>opt(x.w,x===t))),big:true,
+ explain:f.m.map(x=>`${hw(x.w)} – ${BIN[x.b]}${x===t?' ✓':''}`).join('<br>')+`<div class="tip">משקלי שמות הפעולה: פעל – קְטִילָה. נפעל – הִקָּטְלוּת. פיעל – קִטּוּל. הפעיל – הַקְטָלָה. התפעל – הִתְקַטְּלוּת. לפועל ולהופעל אין שם פעולה.</div>`,
+ hint:`זכרי את המשקל של בניין ${BIN[t.b]}: ${{Q:'קְטִילָה',N:'הִקָּטְלוּת',P:'קִטּוּל',H:'הַקְטָלָה',T:'הִתְקַטְּלוּת'}[t.b]}. הציבי בו את אותיות השורש.`}};
+G.abinrev=i=>{const bs=['Q','N','P','H','T'];const b=bs[i%5];const pool=D.action.filter(a=>a.b===b);const a=pickRare(pool,'action');const others=shuffle(bs.filter(x=>x!==b)).slice(0,3).map(x=>pickRare(D.action.filter(y=>y.b===x),'action'));
+ return {topic:'binyan',title:'שם פעולה ובניין',stem:`איזה שם פעולה שייך לבניין <b>${BIN[b]}</b>?`,options:shuffle([opt(a.word,1),...others.map(o=>opt(o.word))]),big:true,
+ explain:[a,...others].map(x=>`${hw(x.word)} – ${x.root}, בניין ${BIN[x.b]}`).join('<br>')+`<div class="tip">פעל – קְטִילָה · נפעל – הִקָּטְלוּת · פיעל – קִטּוּל · הפעיל – הַקְטָלָה (בנפי"ו: הוֹדָעָה, בנעו"י: הֲקָמָה) · התפעל – הִתְקַטְּלוּת</div>`,
+ hint:'זהי את התבנית של כל מילה: הַ־...ָה ← הפעיל, הִתְ־...וּת ← התפעל, הִ־...וּת עם דגש ← נפעל, קִטּוּל ← פיעל, קְטִילָה ← פעל.'}};
+G.aroot=i=>{const a=D.action[i];return {topic:'binyan',title:'שורש של שם פעולה',stem:`מהו השורש של שם הפעולה ${hw(a.word)}?`,options:shuffle([opt(a.root,1),...rootDistractors(a.word,a.root).map(r=>opt(r))]),
+ explain:`${hw(a.word)} – השורש <b>${a.root}</b>, גזרת ${GIZ[a.g]}, שם פעולה של בניין <b>${BIN[a.b]}</b>.<div class="tip"><b>גזרת ${GIZ[a.g]}:</b> ${GIZ_TIP[a.g]}</div>`,
+ hint:'הורידי את אותיות המשקל: הַ־ / הִתְ־ / הִ־ בהתחלה, וּת / ָה בסוף. מה שנשאר – אותיות השורש. אם חסרה אות, חשבי על פועל מאותו שורש.'}};
+function pickRare(pool,kind){const st=D.rare[kind];const r=pool.filter(x=>(kind==='action'?D.action:D.bein).indexOf(x)>=st);return (r.length&&Math.random()<.6)?pick(r):pick(pool)}
+
+const KIND_COUNT={vroot:D.verbs.length,vtype:D.verbs.length,vgiz:D.verbs.length,odd:D.odd.length,combo:D.verbs.length,vbin:D.verbs.length,vact:D.verbs.length,pass:6,abin:D.action.length,pairs:D.pairs.length,mact:6,bpos:D.bein.length,bbin:D.bein.length,way:D.ways.length,oddway:10,msh:D.mishkal.length,nroot:D.mishkal.length,suf:D.suffix.length,suft:D.suffix.length,blend:D.blends.length,acr:D.acr.length,loan:D.loans.length,num:D.nums.length,numw:D.numw.length,afam:D.fam.length*5,abinrev:5,aroot:D.action.length};
+const KIND_TOPIC={vroot:'gizra',vtype:'gizra',vgiz:'gizra',odd:'gizra',combo:'gizra',vbin:'binyan',vact:'binyan',pass:'binyan',abin:'binyan',pairs:'binyan',mact:'binyan',bpos:'beinoni',bbin:'beinoni',way:'tzura',oddway:'tzura',msh:'tzura',nroot:'tzura',suf:'tzura',suft:'tzura',blend:'tzura',acr:'tzura',loan:'tzura',num:'numbers',numw:'numbers',afam:'binyan',abinrev:'binyan',aroot:'binyan'};
+const KIND_W={afam:3,abinrev:2.5,aroot:1.5,vroot:3,vtype:2,vgiz:3,odd:2,combo:2,vbin:3,vact:1,pass:.5,abin:3,pairs:2,mact:.7,bpos:3,bbin:2.5,way:3,oddway:1.5,msh:2,nroot:1.5,suf:2,suft:.8,blend:1,acr:.8,loan:.8,num:4,numw:1.5};
+const KIND_NAME={vroot:'שורש של פועל',vtype:'הקלדת שורש',vgiz:'זיהוי גזרה',odd:'יוצא דופן בגזרה',combo:'זמן·גוף·בניין·שורש',vbin:'בניין של פועל',vact:'פעיל/סביל',pass:'זוגות פעיל-סביל',abin:'בניין של שם פעולה',pairs:'פעלים דומים',mact:'שם פעולה מרובע',bpos:'בינוני – חלק דיבר',bbin:'בינוני – בניין',way:'דרך תצורה',oddway:'יוצא דופן בתצורה',msh:'משקל',nroot:'שורש של שם',suf:'משמעות צורן',suft:'צורן גזירה/נטייה',blend:'הלחם בסיסים',acr:'ראשי תיבות',loan:'שאילה מלעז',num:'שם המספר במשפט',numw:'מספר במילים',afam:'שם פעולה לפי בניין',abinrev:'שם פעולה ובניין',aroot:'שורש של שם פעולה'};
 
 function build(id){const [k,i]=id.split(':');const q=G[k](+i);if(!q)return null;q.id=id;q.kind=k;return q}

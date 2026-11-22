@@ -812,6 +812,116 @@ const ODD = `
 הַזְמָנָה:ז-מ-ן:S,הַצָּלָה:נ-צ-ל:PN,הַגָּעָה:נ-ג-ע:PN,הַכָּרָה:נ-כ-ר:PN
 `;
 
+// ===== מילים פחות מוכרות (לבקשת נויה) – נבחרות בעדיפות =====
+const VERBS_RARE = `
+הִתְעַשֵּׁת|ע-ש-ת|T|S|עבר|נסתר
+הִצְטַדְּקוּ|צ-ד-ק|T|S|עבר|נסתרים|בהתפעל, כשהשורש מתחיל ב־צ – ה־ת מתחלפת איתה במקום והופכת ל־ט (הִתְצַדְּקוּ ← הִצְטַדְּקוּ). ה־ט איננה אות שורש.
+הִשְׁתַּלְּטָה|ש-ל-ט|T|S|עבר|נסתרת|בהתפעל, כשהשורש מתחיל ב־ש – ה־ת מתחלפת איתה במקום (הִתְשַׁלְּטָה ← הִשְׁתַּלְּטָה).
+נִרְתַּעְתִּי|ר-ת-ע|N|S|עבר|מדבר|ה־נ בהתחלה היא תחילית של נפעל. ה־ת כאן היא אות שורש.
+הֻשְׁעָה|ש-ע-י|HU|LY|עבר|נסתר
+הֻקְצְבוּ|ק-צ-ב|HU|S|עבר|נסתרים
+מַפְגִּינִים|פ-ג-ן|H|S|הווה|רבים
+הִתְמַרְמְרָה|מ-ר-מ-ר|T|M|עבר|נסתרת|שורש מרובע עם הכפלה (מ-ר-מ-ר). ה־מ הראשונה היא אות שורש, לא תחילית הווה.
+נִטְמְעוּ|ט-מ-ע|N|S|עבר|נסתרים
+הוֹקִירוּ|י-ק-ר|H|PY|עבר|נסתרים|בהפעיל של נפי"ו ה־י של השורש הופכת ל־ו (הוֹ־).
+נוֹעֲדָה|י-ע-ד|N|PY|עבר|נסתרת|בנפעל של נפי"ו ה־י של השורש הופכת ל־ו (נוֹ־).
+הִתְבּוֹנַנְתְּ|ב-י-ן|T|AY|עבר|נוכחת|בנעו"י, במקום התפעל רגיל מופיעה תבנית "הִתְפּוֹלֵל": האות האחרונה מוכפלת (ב-י-ן ← הִתְבּוֹנֵן). הבניין: התפעל.
+הֵסִיטָה|ס-ו-ט|H|AY|עבר|נסתרת
+מְשׁוֹטֵט|ש-ו-ט|P|AY|הווה|יחיד|תבנית "פּוֹלֵל" של נעו"י (האות האחרונה מוכפלת). הבניין: פיעל.
+נִסְחֲפָה|ס-ח-ף|N|S|עבר|נסתרת
+הִסְתַּפַּקְנוּ|ס-פ-ק|T|S|עבר|מדברים|בהתפעל, כשהשורש מתחיל ב־ס – ה־ת מתחלפת איתה במקום (הִתְסַפַּקְנוּ ← הִסְתַּפַּקְנוּ).
+הִזְדַּעְזַעְנוּ|ז-ע-ז-ע|T|M|עבר|מדברים|שורש מרובע עם הכפלה. ה־ת של התפעל מתחלפת עם ה־ז והופכת ל־ד (הִתְזַעְזַעְנוּ ← הִזְדַּעְזַעְנוּ).
+הִשִּׁיקוּ|נ-ש-ק|H|PN|עבר|נסתרים|נ' השורש נבלעה, והדגש ב־ש מעיד עליה (כמו "הַשָּׁקָה").
+הֻטַּל|נ-ט-ל|HU|PN|עבר|נסתר|נ' השורש נבלעה, והדגש ב־ט מעיד עליה.
+יִטְּשׁוּ|נ-ט-ש|Q|PN|עתיד|נסתרים|נ' השורש נבלעה, והדגש ב־ט מעיד עליה.
+נִכְלְאוּ|כ-ל-א|N|LA|עבר|נסתרים
+הִתְפַּלְּאָה|פ-ל-א|T|LA|עבר|נסתרת
+הֻחְבְּאוּ|ח-ב-א|HU|LA|עבר|נסתרים
+מְכֻנֶּה|כ-נ-י|PU|LY|הווה|יחיד
+הִתְפַּתָּה|פ-ת-י|T|LY|עבר|נסתר
+נִצְפָּה|צ-פ-י|N|LY|עבר|נסתר
+הִפְקִיעוּ|פ-ק-ע|H|S|עבר|נסתרים
+מְתֻעְתָּעִים|ת-ע-ת-ע|PU|M|הווה|רבים|שורש מרובע עם הכפלה (ת-ע-ת-ע). ה־ת הראשונה היא אות שורש.
+יְשַׁקְּמוּ|ש-ק-ם|P|S|עתיד|נסתרים
+מְטֻפָּח|ט-פ-ח|PU|S|הווה|יחיד
+`;
+const BEINONI_RARE = `
+הַקָּהָל הַנִּלְהָב מָחָא כַּפַּיִם.|הַנִּלְהָב|adj|N|ל-ה-ב
+הַמַּפְגִּינִים עָמְדוּ מוּל הַכְּנֶסֶת.|הַמַּפְגִּינִים|noun|H|פ-ג-ן
+הֵם מַפְגִּינִים יֶדַע רַב בַּנּוֹשֵׂא.|מַפְגִּינִים|verb|H|פ-ג-ן
+זֶה הָיָה נְאוּם מַרְשִׁים בִּמְיֻחָד.|מַרְשִׁים|adj|H|ר-ש-ם
+הַמִּתְמַחֶה הֶעֱבִיר אֶת הַתִּיק לַשּׁוֹפֵט.|הַמִּתְמַחֶה|noun|T|מ-ח-י
+הוּא מִתְמַחֶה בִּרְפוּאַת יְלָדִים.|מִתְמַחֶה|verb|T|מ-ח-י
+הַמִּתְנַדְּבִים חִלְּקוּ סַלֵּי מָזוֹן.|הַמִּתְנַדְּבִים|noun|T|נ-ד-ב
+הִיא מִתְנַדֶּבֶת בְּבֵית הַחוֹלִים פַּעַם בְּשָׁבוּעַ.|מִתְנַדֶּבֶת|verb|T|נ-ד-ב
+הַשַּׁחְקָן הַמְיֻמָּן הִבְקִיעַ שְׁלוֹשָׁה שְׁעָרִים.|הַמְיֻמָּן|adj|PU|י-מ-ן
+הַמַּשְׁגִּיחָה בִּקְּשָׁה שֶׁקֶט בָּאוּלָם.|הַמַּשְׁגִּיחָה|noun|H|ש-ג-ח
+הַמַּנְחֶה פָּתַח אֶת הָעֶרֶב.|הַמַּנְחֶה|noun|H|נ-ח-י
+הוּא מַנְחֶה אֶת הַסַּדְנָה לְבַד.|מַנְחֶה|verb|H|נ-ח-י
+הַמְּרַצָּה הִסְבִּירָה אֶת הַתֵּאוֹרְיָה.|הַמְּרַצָּה|noun|P|ר-צ-י
+הִיא מְרַצָּה בָּאוּנִיבֶרְסִיטָה.|מְרַצָּה|verb|P|ר-צ-י
+קִבַּלְנוּ תְּשׁוּבָה מְעֻרְפֶּלֶת.|מְעֻרְפֶּלֶת|adj|PU|ע-ר-פ-ל
+הַתַּלְמִידִים הַנִּדְהָמִים לֹא הֶאֱמִינוּ לַתּוֹצָאוֹת.|הַנִּדְהָמִים|adj|N|ד-ה-ם
+הַמַּשְׁקִיעִים חִכּוּ לַדּוֹחַ הַשְּׁנָתִי.|הַמַּשְׁקִיעִים|noun|H|ש-ק-ע
+הַמְּדִינָה מַשְׁקִיעָה בְּחִנּוּךְ.|מַשְׁקִיעָה|verb|H|ש-ק-ע
+זֶה הָיָה נִצָּחוֹן מֻבְהָק.|מֻבְהָק|adj|HU|ב-ה-ק
+הַמְּפַקֵּחַ בָּדַק אֶת הַבְּנִיָּה.|הַמְּפַקֵּחַ|noun|P|פ-ק-ח
+הַחֶבְרָה מְפַקַּחַת עַל הָעֲבוֹדוֹת.|מְפַקַּחַת|verb|P|פ-ק-ח
+זוֹ הָיְתָה הַחְלָטָה נִמְהֶרֶת.|נִמְהֶרֶת|adj|N|מ-ה-ר
+הַמַּאֲזִינִים הִתְקַשְּׁרוּ לַתָּכְנִית.|הַמַּאֲזִינִים|noun|H|א-ז-ן
+אֲנִי מַאֲזִין לְפּוֹדְקַאסְט כָּל בֹּקֶר.|מַאֲזִין|verb|H|א-ז-ן
+הוּא בָּנָה מַחְשֵׁב מְשֻׁכְלָל.|מְשֻׁכְלָל|adj|PU|ש-כ-ל-ל
+הַנִּבְחָנִים הִתְבַּקְּשׁוּ לְכַבּוֹת אֶת הַטֶּלֶפוֹנִים.|הַנִּבְחָנִים|noun|N|ב-ח-ן
+`;
+const ACTION_RARE = `
+הַפְגָּנָה|פ-ג-ן|H|S
+הַרְתָּעָה|ר-ת-ע|H|S
+הַקְצָבָה|ק-צ-ב|H|S
+הַטְמָעָה|ט-מ-ע|H|S
+הַבְחָנָה|ב-ח-ן|H|S
+הוֹקָרָה|י-ק-ר|H|PY
+הֲטָסָה|ט-ו-ס|H|AY
+הַשְׁעָיָה|ש-ע-י|H|LY
+הַשָּׁקָה|נ-ש-ק|H|PN
+הִמָּנְעוּת|מ-נ-ע|N|S
+הִלָּחֲמוּת|ל-ח-ם|N|S
+הִקָּלְטוּת|ק-ל-ט|N|S
+הִשָּׁנוּת|ש-נ-י|N|LY
+שִׁקּוּם|ש-ק-ם|P|S
+טִפּוּחַ|ט-פ-ח|P|S
+עִבּוּד|ע-ב-ד|P|S
+שִׁכְנוּעַ|ש-כ-נ-ע|P|M
+תִּכְנוּן|ת-כ-נ-ן|P|M
+שִׁעְבּוּד|ש-ע-ב-ד|P|M
+עִרְפּוּל|ע-ר-פ-ל|P|M
+הִשְׁתַּלְמוּת|ש-ל-ם|T|S
+הִסְתַּגְּלוּת|ס-ג-ל|T|S
+הִצְטַבְּרוּת|צ-ב-ר|T|S
+הִתְבַּגְּרוּת|ב-ג-ר|T|S
+הִתְעַלְּמוּת|ע-ל-ם|T|S
+הִתְנַדְּבוּת|נ-ד-ב|T|PN
+הִתְבּוֹנְנוּת|ב-י-ן|T|AY
+הִזְדַּעְזְעוּת|ז-ע-ז-ע|T|M
+נְטִישָׁה|נ-ט-ש|Q|PN
+שְׁקִיעָה|ש-ק-ע|Q|S
+דְּחִיָּה|ד-ח-י|Q|LY
+טְבִילָה|ט-ב-ל|Q|S
+`;
+// ===== משפחות שמות פעולה: אותו שורש בבניינים שונים
+const FAMILIES = `
+כ-נ-ס|Q:כְּנִיסָה,N:הִכָּנְסוּת,P:כִּנּוּס,H:הַכְנָסָה,T:הִתְכַּנְּסוּת
+פ-ת-ח|Q:פְּתִיחָה,N:הִפָּתְחוּת,P:פִּתּוּחַ,T:הִתְפַּתְּחוּת
+ק-ש-ר|Q:קְשִׁירָה,N:הִקָּשְׁרוּת,P:קִשּׁוּר,T:הִתְקַשְּׁרוּת
+ש-מ-ר|Q:שְׁמִירָה,N:הִשָּׁמְרוּת,P:שִׁמּוּר,T:הִשְׁתַּמְּרוּת
+ל-ב-ש|Q:לְבִישָׁה,H:הַלְבָּשָׁה,T:הִתְלַבְּשׁוּת
+ג-ד-ל|Q:גְּדִילָה,P:גִּדּוּל,H:הַגְדָּלָה
+ש-ב-ר|Q:שְׁבִירָה,N:הִשָּׁבְרוּת,H:הַשְׁבָּרָה
+ר-ג-ש|P:רִגּוּשׁ,H:הַרְגָּשָׁה,T:הִתְרַגְּשׁוּת
+ח-ז-ר|Q:חֲזָרָה,P:חִזּוּר,H:הַחְזָרָה
+ס-פ-ר|Q:סְפִירָה,P:סִפּוּר,T:הִסְתַּפְּרוּת
+ש-ל-ם|P:שִׁלּוּם,H:הַשְׁלָמָה,T:הִשְׁתַּלְמוּת
+`;
+
 // ===== ציורים וקטוריים: נויה, החברות והפרסים =====
 function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
 
@@ -849,9 +959,12 @@ const PRIZES=[
  {w:'bands',n:'כרטיס להופעה של Coldplay',b:'COLDPLAY',kind:'ticket'},{w:'bands',n:'כרטיס להופעה של Arctic Monkeys',b:'ARCTIC MONKEYS',kind:'ticket'},
  {w:'bands',n:'תקליט ויניל של Arctic Monkeys',b:'ARCTIC MONKEYS',kind:'vinyl'},
  {w:'steak',n:'סטייק עם שעועית ירוקה'},{w:'steak',n:'אנטריקוט מדיום עם שעועית ירוקה'},{w:'steak',n:'סטייק על הגריל של אבא'},
+ {w:'friends',n:'ערב כיף עם החברות',kind:'party'},{w:'friends',n:'ללכת לבית של ליאור',kind:'house'},{w:'friends',n:'נסיעה לחולון בסופ״ש',kind:'car'},
+ {w:'food',n:'סושי',kind:'sushi'},{w:'food',n:'קפה קר',kind:'coffee'},{w:'food',n:'ליקוק מלואי',kind:'lick'},
+ {w:'me',n:'ניקוי אוטומטי של החדר',kind:'clean'},{w:'me',n:'ג׳ינס חדש',kind:'jeans'},{w:'me',n:'מחמאה משירי!',kind:'compliment'},
  {w:'curls',n:'קרם לעיצוב תלתלים'},{w:'curls',n:'ג׳ל לתלתלים מושלמים'},{w:'curls',n:'מסכת לחות לתלתלים'},{w:'curls',n:'מפזר חום לפן לתלתלים'}
 ];
-const WORLD_NAMES={lego:'לגו',marvel:'מארוול',series:'סדרות',bands:'להקות',steak:'סטייק',curls:'תלתלים'};
+const WORLD_NAMES={lego:'לגו',marvel:'מארוול',series:'סדרות',bands:'להקות',steak:'סטייק',curls:'תלתלים',friends:'חברות',food:'אוכל',me:'פינוקים'};
 
 
 // ===== איורים מלוטשים: חברות ופרסים =====
@@ -957,6 +1070,18 @@ function prizeSVG(p){
    if(p.kind==='ticket') return `<svg ${v}><defs>${p.b==='COLDPLAY'?g('t','#fbbf24','#ea580c',1,1):g('t','#334155','#020617',1,1)}</defs>${shadow}<g transform="rotate(6 60 60)"><path d="M8,36 h104 v12 a6,6 0 0 0 0,12 v14 h-104 v-14 a6,6 0 0 0 0,-12z" fill="url(#${u}t)"/><line x1="88" y1="38" x2="88" y2="72" stroke="#fff" stroke-dasharray="3 3" opacity=".7"/>${bandText(p.b,48,57,10)}<text x="48" y="${p.b.includes(' ')?74:68}" font-size="7.5" text-anchor="middle" fill="#fff" opacity=".9" font-family="Rubik,sans-serif">LIVE · כרטיס להופעה</text><text x="100" y="58" font-size="9" text-anchor="middle" fill="#fff" font-family="Rubik,sans-serif" transform="rotate(90 100 58)">ADMIT 1</text></g></svg>`;
    return `<svg ${v}><defs>${p.b==='COLDPLAY'?g('p','#38bdf8','#6d28d9',.4,1):g('p','#1f2937','#000000',.4,1)}</defs>${shadow}<rect x="24" y="8" width="72" height="96" rx="3" fill="url(#${u}p)"/>${[...Array(18)].map((_,i)=>`<circle cx="${30+((i*37)%60)}" cy="${14+((i*23)%52)}" r="${.8+(i%3)*.6}" fill="#fff" opacity="${.5+(i%3)*.2}"/>`).join('')}<path d="M34,58 L86,58" stroke="#fff" stroke-width="1" opacity=".4"/>${bandText(p.b,60,80,11)}<rect x="24" y="8" width="72" height="96" rx="3" fill="none" stroke="#fff" stroke-width="1.5" opacity=".25"/></svg>`;
   case 'steak': return `<svg ${v}><defs><radialGradient id="${u}pl"><stop offset=".7" stop-color="#ffffff"/><stop offset="1" stop-color="#d1d5db"/></radialGradient><radialGradient id="${u}m" cx=".4" cy=".4"><stop offset="0" stop-color="#9a3412"/><stop offset="1" stop-color="#431407"/></radialGradient>${g('gb','#4ade80','#15803d')}</defs>${shadow}<ellipse cx="60" cy="66" rx="54" ry="36" fill="url(#${u}pl)"/><ellipse cx="60" cy="66" rx="42" ry="27" fill="none" stroke="#e5e7eb" stroke-width="1.5"/><path d="M26,62 C24,44 50,38 64,46 C80,54 78,76 60,80 C42,84 28,76 26,62Z" fill="url(#${u}m)"/><path d="M34,54 L62,74 M42,48 L70,66 M32,64 L52,78" stroke="#1c0a03" stroke-width="3" stroke-linecap="round" opacity=".7"/><path d="M30,58 C34,50 46,46 54,48" stroke="#fdba74" stroke-width="2" fill="none" opacity=".6"/>${[0,1,2,3,4,5].map(i=>`<rect x="${70+i*2}" y="${50+i*4.5}" width="30" height="4.5" rx="2.2" transform="rotate(-24 ${85+i*2} ${52+i*4.5})" fill="url(#${u}gb)"/>`).join('')}</svg>`;
+  case 'friends':
+   if(p.kind==='house') return `<svg ${v}><defs>${g('w','#fde68a','#f59e0b')}${g('r','#f87171','#b91c1c')}</defs>${shadow}<path d="M24,58 L60,28 L96,58 L96,100 L24,100Z" fill="url(#${u}w)"/><path d="M16,60 L60,22 L104,60 L96,66 L60,36 L24,66Z" fill="url(#${u}r)"/><rect x="52" y="72" width="18" height="28" rx="3" fill="#7c2d12"/><circle cx="66" cy="87" r="1.6" fill="#fde68a"/><rect x="30" y="68" width="16" height="14" rx="2" fill="#bae6fd" stroke="#fff" stroke-width="2"/><rect x="76" y="68" width="14" height="14" rx="2" fill="#bae6fd" stroke="#fff" stroke-width="2"/><path d="M84,34 c0,-4 6,-4 6,0 c0,4 -6,8 -6,8 c0,0 -6,-4 -6,-8 c0,-4 6,-4 6,0z" fill="#ec4899"/></svg>`;
+   if(p.kind==='car') return `<svg ${v}><defs>${g('c','#60a5fa','#1d4ed8')}</defs>${shadow}<path d="M14,80 L18,62 C20,56 26,54 32,54 L44,40 C48,36 52,34 58,34 L78,34 C84,34 88,36 92,42 L100,54 C106,56 108,60 108,66 L108,80Z" fill="url(#${u}c)"/><path d="M48,52 L58,40 L74,40 L74,52Z M80,52 L80,40 L86,40 L94,52Z" fill="#dbeafe"/><circle cx="36" cy="82" r="11" fill="#1f2937"/><circle cx="36" cy="82" r="4.5" fill="#d1d5db"/><circle cx="88" cy="82" r="11" fill="#1f2937"/><circle cx="88" cy="82" r="4.5" fill="#d1d5db"/><rect x="40" y="18" width="40" height="13" rx="3" fill="#16a34a"/><text x="60" y="28" font-size="8" text-anchor="middle" fill="#fff" font-weight="800" font-family="Rubik,sans-serif">חולון ←</text></svg>`;
+   return `<svg ${v}><defs>${g('a','#f9a8d4','#db2777')}${g('b','#c4b5fd','#7c3aed')}${g('c','#fdba74','#ea580c')}</defs>${shadow}${[[38,'a'],[60,'b'],[82,'c']].map(([x,k],i)=>`<circle cx="${x}" cy="${46+(i===1?-6:0)}" r="13" fill="#f2c9a6"/><path d="M${x-14},${46+(i===1?-6:0)} C${x-14},${30+(i===1?-6:0)} ${x+14},${30+(i===1?-6:0)} ${x+14},${46+(i===1?-6:0)} C${x+10},${38+(i===1?-6:0)} ${x-10},${38+(i===1?-6:0)} ${x-14},${46+(i===1?-6:0)}Z" fill="#3b2416"/><path d="M${x-16},100 C${x-16},58 ${x+16},58 ${x+16},100Z" fill="url(#${u}${k})"/><path d="M${x-4},${50+(i===1?-6:0)} q4,4 8,0" stroke="#9b4b46" stroke-width="1.6" fill="none"/>`).join('')}<path d="M18,22 l3,6 6,1 -5,4 1,6 -5,-3 -5,3 1,-6 -5,-4 6,-1z M100,18 l2,4 4,1 -3,3 1,4 -4,-2 -4,2 1,-4 -3,-3 4,-1z" fill="#facc15"/></svg>`;
+  case 'food':
+   if(p.kind==='sushi') return `<svg ${v}><defs>${g('s','#fb923c','#ea580c')}</defs>${shadow}<rect x="14" y="70" width="92" height="22" rx="6" fill="#1f2937"/>${[30,60,90].map((x,i)=>`<circle cx="${x}" cy="62" r="15" fill="#111827"/><circle cx="${x}" cy="62" r="11.5" fill="#fff"/><circle cx="${x}" cy="62" r="5.5" fill="${['#f97316','#22c55e','#ef4444'][i]}"/>`).join('')}<path d="M70,20 L104,48 M76,18 L108,44" stroke="#a16207" stroke-width="3" stroke-linecap="round"/></svg>`;
+   if(p.kind==='coffee') return `<svg ${v}><defs>${g('k','#a16207','#422006')}</defs>${shadow}<path d="M36,30 L84,30 L78,104 L42,104Z" fill="#fff" opacity=".85" stroke="#d6d3d1" stroke-width="2"/><path d="M40,50 L80,50 L76,102 L44,102Z" fill="url(#${u}k)"/><rect x="48" y="56" width="10" height="10" rx="2" fill="#e0f2fe" opacity=".8" transform="rotate(12 53 61)"/><rect x="62" y="66" width="10" height="10" rx="2" fill="#e0f2fe" opacity=".8" transform="rotate(-10 67 71)"/><path d="M40,42 L80,42" stroke="#fde68a" stroke-width="8"/><rect x="32" y="24" width="56" height="8" rx="3" fill="#e7e5e4"/><path d="M66,8 L62,26" stroke="#ec4899" stroke-width="4" stroke-linecap="round"/></svg>`;
+   return `<svg ${v}><defs>${g('l','#f472b6','#a855f7',1,1)}</defs>${shadow}<rect x="57" y="62" width="6" height="44" rx="3" fill="#e7e5e4"/><circle cx="60" cy="42" r="28" fill="url(#${u}l)"/><path d="M60,42 m0,-20 a20,20 0 1 1 -14,6 a14,14 0 1 1 10,-4 a8,8 0 1 1 -6,2" stroke="#fff" stroke-width="4" fill="none" opacity=".8"/><path d="M48,64 q12,8 24,0" stroke="#fda4af" stroke-width="3" fill="none"/></svg>`;
+  case 'me':
+   if(p.kind==='jeans') return `<svg ${v}><defs>${g('j','#3b82f6','#1e3a8a')}</defs>${shadow}<path d="M34,16 L86,16 L90,104 L66,104 L60,46 L54,104 L30,104Z" fill="url(#${u}j)"/><rect x="34" y="16" width="52" height="8" fill="#1e40af"/><path d="M40,24 q8,10 16,0 M64,24 q8,10 16,0" stroke="#fbbf24" stroke-width="1.4" fill="none" stroke-dasharray="2 2"/><circle cx="60" cy="20" r="2" fill="#fbbf24"/></svg>`;
+   if(p.kind==='compliment') return `<svg ${v}><defs>${g('m','#fdf2f8','#fbcfe8')}</defs>${shadow}<path d="M14,22 h92 a8,8 0 0 1 8,8 v46 a8,8 0 0 1 -8,8 h-58 l-18,16 v-16 h-16 a8,8 0 0 1 -8,-8 v-46 a8,8 0 0 1 8,-8z" fill="url(#${u}m)" stroke="#ec4899" stroke-width="2.5"/><path d="M60,70 c-18,-12 -22,-20 -16,-26 c5,-5 12,-2 16,4 c4,-6 11,-9 16,-4 c6,6 2,14 -16,26z" fill="#ec4899"/><path d="M28,36 l2,5 5,1 -4,3 1,5 -4,-3 -4,3 1,-5 -4,-3 5,-1z" fill="#facc15"/></svg>`;
+   return `<svg ${v}><defs>${g('br','#fcd34d','#b45309')}</defs>${shadow}<rect x="20" y="58" width="80" height="40" rx="6" fill="#e0e7ff"/><rect x="28" y="50" width="30" height="12" rx="3" fill="#a5b4fc"/><path d="M84,14 L70,72" stroke="#92400e" stroke-width="5" stroke-linecap="round"/><path d="M58,70 L82,70 L86,96 L52,96Z" fill="url(#${u}br)"/>${[[30,30],[46,20],[100,40],[22,46]].map(([x,y])=>`<path d="M${x},${y-7} L${x+2},${y-2} L${x+7},${y} L${x+2},${y+2} L${x},${y+7} L${x-2},${y+2} L${x-7},${y} L${x-2},${y-2}Z" fill="#60a5fa"/>`).join('')}</svg>`;
   case 'curls': return `<svg ${v}><defs>${g('b','#fbcfe8','#ec4899',1,0)}${g('c','#a78bfa','#6d28d9')}</defs>${shadow}<rect x="36" y="30" width="48" height="76" rx="14" fill="url(#${u}b)"/><rect x="46" y="12" width="28" height="22" rx="5" fill="url(#${u}c)"/><rect x="42" y="50" width="36" height="34" rx="6" fill="#fff" opacity=".95"/><path d="M48,74 q5,-12 10,0 q5,12 10,0" stroke="#7c3aed" stroke-width="2.6" fill="none" stroke-linecap="round"/><text x="60" y="63" font-size="8" text-anchor="middle" fill="#6d28d9" font-weight="800" font-family="Rubik,sans-serif">CURLS</text><rect x="40" y="34" width="6" height="66" rx="3" fill="#fff" opacity=".35"/></svg>`;
  }
 }
@@ -1001,7 +1126,7 @@ const POS={verb:'פועל',noun:'שם עצם',adj:'שם תואר'};
 const WAYS={root:'שורש ומשקל',suf:'בסיס וצורן',blend:'הלחם בסיסים',acr:'ראשי תיבות',loan:'שאילה מלעז'};
 const WAY_TIP='חמש דרכי התצורה: <b>שורש ומשקל</b> – אותיות השורש בתבנית קבועה (מִכְתָּב = מִקְטָל). <b>בסיס וצורן</b> – מילה שלמה + סיומת (סִפְרוֹן = סֵפֶר + וֹן). <b>הלחם בסיסים</b> – שתי מילים שהתחברו למילה אחת (רַמְזוֹר = רֶמֶז + אוֹר). <b>ראשי תיבות</b> – האותיות הראשונות של כמה מילים (צה"ל). <b>שאילה מלעז</b> – מילה שנלקחה משפה אחרת (טֶלֶפוֹן).';
 const TOPICS={gizra:'גזרות ושורשים',binyan:'בניינים',beinoni:'בינוני',tzura:'דרכי תצורה',numbers:'שם המספר'};
-const TOPIC_W={gizra:1.5,binyan:1,beinoni:1,tzura:1,numbers:1};
+const TOPIC_W={gizra:1.3,binyan:1.5,beinoni:1.5,tzura:.9,numbers:.9};
 
 // ---------- עזרים ----------
 const strip=s=>s.replace(/[֑-ׇ]/g,'');
@@ -1017,9 +1142,9 @@ const lines=s=>s.trim().split('\n').filter(Boolean);
 
 // ---------- פירוק הנתונים ----------
 const D={};
-D.verbs=lines(VERBS).map(l=>{const f=l.split('|');return {form:f[0],root:f[1],b:f[2],g:f[3],tense:f[4],person:f[5],note:f[6]||''}});
-D.bein=lines(BEINONI).map(l=>{const f=l.split('|');return {sent:f[0],word:f[1],pos:f[2],b:f[3],root:f[4]}});
-D.action=lines(ACTION_NOUNS).map(l=>{const f=l.split('|');return {word:f[0],root:f[1],b:f[2],g:f[3]}});
+D.rare={};D.verbs=lines(VERBS+'\n'+VERBS_RARE).map(l=>{const f=l.split('|');return {form:f[0],root:f[1],b:f[2],g:f[3],tense:f[4],person:f[5],note:f[6]||''}});
+D.bein=lines(BEINONI+'\n'+BEINONI_RARE).map(l=>{const f=l.split('|');return {sent:f[0],word:f[1],pos:f[2],b:f[3],root:f[4]}});
+D.action=lines(ACTION_NOUNS+'\n'+ACTION_RARE).map(l=>{const f=l.split('|');return {word:f[0],root:f[1],b:f[2],g:f[3]}});
 D.mishkal=lines(MISHKAL).map(l=>{const f=l.split('|');return {word:f[0],root:f[1],m:f[2]}});
 D.suffix=lines(SUFFIX).map(l=>{const f=l.split('|');return {word:f[0],base:f[1],suf:f[2],mean:f[3],type:f[4]}});
 D.blends=lines(BLENDS).map(l=>{const f=l.split('|');return {word:f[0],a:f[1],b:f[2]}});
@@ -1029,6 +1154,8 @@ D.nums=lines(NUMBERS).map(l=>{const f=l.split('|');return {sent:f[0],ans:f[1],wr
 D.numw=lines(NUMWORDS).map(l=>{const f=l.split('|');return {sent:f[0],dig:f[1],ans:f[2],wrong:f[3].split(';'),rule:f[4]}});
 D.pairs=lines(PAIRS).map(l=>{const f=l.split('|');const st=f[4].split(';;');return {s1:f[0],w1:f[1],s2:f[2],w2:f[3],ok:st[0],bad:st.slice(1),ex:f[5]}});
 D.odd=lines(ODD).map(l=>l.split(',').map(x=>{const [w,r,g]=x.split(':');return {w,r,g}}));
+D.rare.verbs=lines(VERBS).length;D.rare.bein=lines(BEINONI).length;D.rare.action=lines(ACTION_NOUNS).length;
+D.fam=lines(FAMILIES).map(l=>{const [root,rest]=l.split('|');return {root,m:rest.split(',').map(x=>{const [b,w]=x.split(':');return {b,w}})}});
 D.mishkalNames=[...new Set(D.mishkal.map(m=>m.m))];
 D.meanings=[...new Set(D.suffix.map(s=>s.mean))];
 
@@ -1141,10 +1268,24 @@ G.num=i=>{const n=D.nums[i];return {topic:'numbers',title:'שם המספר',stem
 G.numw=i=>{const n=D.numw[i];return {topic:'numbers',title:'כתיבה במילים',stem:`איך כותבים במילים את המספר <b dir="ltr">${n.dig}</b>?<br><div class="sent">${n.sent.replace('{{}}',`<b dir="ltr">${n.dig}</b>`)}</div>`,options:shuffle([opt(n.ans,1),...n.wrong.map(w=>opt(w))]),big:true,
  explain:`<div class="sent">${n.sent.replace('{{}}',`<b class="ans">${n.ans}</b>`)}</div><div class="tip">${NUMRULES[n.rule]}</div>`,hint:'קבעי למה המספר מתייחס ומה מינו. זכרי: אֶלֶף בזכר (שלושת אלפים), מֵאָה בנקבה (שלוש מאות).'}};
 
-const KIND_COUNT={vroot:D.verbs.length,vtype:D.verbs.length,vgiz:D.verbs.length,odd:D.odd.length,combo:D.verbs.length,vbin:D.verbs.length,vact:D.verbs.length,pass:6,abin:D.action.length,pairs:D.pairs.length,mact:6,bpos:D.bein.length,bbin:D.bein.length,way:D.ways.length,oddway:10,msh:D.mishkal.length,nroot:D.mishkal.length,suf:D.suffix.length,suft:D.suffix.length,blend:D.blends.length,acr:D.acr.length,loan:D.loans.length,num:D.nums.length,numw:D.numw.length};
-const KIND_TOPIC={vroot:'gizra',vtype:'gizra',vgiz:'gizra',odd:'gizra',combo:'gizra',vbin:'binyan',vact:'binyan',pass:'binyan',abin:'binyan',pairs:'binyan',mact:'binyan',bpos:'beinoni',bbin:'beinoni',way:'tzura',oddway:'tzura',msh:'tzura',nroot:'tzura',suf:'tzura',suft:'tzura',blend:'tzura',acr:'tzura',loan:'tzura',num:'numbers',numw:'numbers'};
-const KIND_W={vroot:3,vtype:2,vgiz:3,odd:2,combo:2,vbin:3,vact:1,pass:.5,abin:2,pairs:2,mact:.7,bpos:3,bbin:2,way:3,oddway:1.5,msh:2,nroot:1.5,suf:2,suft:.8,blend:1,acr:.8,loan:.8,num:4,numw:1.5};
-const KIND_NAME={vroot:'שורש של פועל',vtype:'הקלדת שורש',vgiz:'זיהוי גזרה',odd:'יוצא דופן בגזרה',combo:'זמן·גוף·בניין·שורש',vbin:'בניין של פועל',vact:'פעיל/סביל',pass:'זוגות פעיל-סביל',abin:'בניין של שם פעולה',pairs:'פעלים דומים',mact:'שם פעולה מרובע',bpos:'בינוני – חלק דיבר',bbin:'בינוני – בניין',way:'דרך תצורה',oddway:'יוצא דופן בתצורה',msh:'משקל',nroot:'שורש של שם',suf:'משמעות צורן',suft:'צורן גזירה/נטייה',blend:'הלחם בסיסים',acr:'ראשי תיבות',loan:'שאילה מלעז',num:'שם המספר במשפט',numw:'מספר במילים'};
+
+G.afam=i=>{const f=D.fam[i%D.fam.length];const t=f.m[Math.floor(i/D.fam.length)%f.m.length];
+ return {topic:'binyan',title:'שם פעולה לפי בניין',stem:`מהו <b>שם הפעולה</b> מהשורש <b>${f.root}</b> בבניין <b>${BIN[t.b]}</b>?`,options:shuffle(f.m.map(x=>opt(x.w,x===t))),big:true,
+ explain:f.m.map(x=>`${hw(x.w)} – ${BIN[x.b]}${x===t?' ✓':''}`).join('<br>')+`<div class="tip">משקלי שמות הפעולה: פעל – קְטִילָה. נפעל – הִקָּטְלוּת. פיעל – קִטּוּל. הפעיל – הַקְטָלָה. התפעל – הִתְקַטְּלוּת. לפועל ולהופעל אין שם פעולה.</div>`,
+ hint:`זכרי את המשקל של בניין ${BIN[t.b]}: ${{Q:'קְטִילָה',N:'הִקָּטְלוּת',P:'קִטּוּל',H:'הַקְטָלָה',T:'הִתְקַטְּלוּת'}[t.b]}. הציבי בו את אותיות השורש.`}};
+G.abinrev=i=>{const bs=['Q','N','P','H','T'];const b=bs[i%5];const pool=D.action.filter(a=>a.b===b);const a=pickRare(pool,'action');const others=shuffle(bs.filter(x=>x!==b)).slice(0,3).map(x=>pickRare(D.action.filter(y=>y.b===x),'action'));
+ return {topic:'binyan',title:'שם פעולה ובניין',stem:`איזה שם פעולה שייך לבניין <b>${BIN[b]}</b>?`,options:shuffle([opt(a.word,1),...others.map(o=>opt(o.word))]),big:true,
+ explain:[a,...others].map(x=>`${hw(x.word)} – ${x.root}, בניין ${BIN[x.b]}`).join('<br>')+`<div class="tip">פעל – קְטִילָה · נפעל – הִקָּטְלוּת · פיעל – קִטּוּל · הפעיל – הַקְטָלָה (בנפי"ו: הוֹדָעָה, בנעו"י: הֲקָמָה) · התפעל – הִתְקַטְּלוּת</div>`,
+ hint:'זהי את התבנית של כל מילה: הַ־...ָה ← הפעיל, הִתְ־...וּת ← התפעל, הִ־...וּת עם דגש ← נפעל, קִטּוּל ← פיעל, קְטִילָה ← פעל.'}};
+G.aroot=i=>{const a=D.action[i];return {topic:'binyan',title:'שורש של שם פעולה',stem:`מהו השורש של שם הפעולה ${hw(a.word)}?`,options:shuffle([opt(a.root,1),...rootDistractors(a.word,a.root).map(r=>opt(r))]),
+ explain:`${hw(a.word)} – השורש <b>${a.root}</b>, גזרת ${GIZ[a.g]}, שם פעולה של בניין <b>${BIN[a.b]}</b>.<div class="tip"><b>גזרת ${GIZ[a.g]}:</b> ${GIZ_TIP[a.g]}</div>`,
+ hint:'הורידי את אותיות המשקל: הַ־ / הִתְ־ / הִ־ בהתחלה, וּת / ָה בסוף. מה שנשאר – אותיות השורש. אם חסרה אות, חשבי על פועל מאותו שורש.'}};
+function pickRare(pool,kind){const st=D.rare[kind];const r=pool.filter(x=>(kind==='action'?D.action:D.bein).indexOf(x)>=st);return (r.length&&Math.random()<.6)?pick(r):pick(pool)}
+
+const KIND_COUNT={vroot:D.verbs.length,vtype:D.verbs.length,vgiz:D.verbs.length,odd:D.odd.length,combo:D.verbs.length,vbin:D.verbs.length,vact:D.verbs.length,pass:6,abin:D.action.length,pairs:D.pairs.length,mact:6,bpos:D.bein.length,bbin:D.bein.length,way:D.ways.length,oddway:10,msh:D.mishkal.length,nroot:D.mishkal.length,suf:D.suffix.length,suft:D.suffix.length,blend:D.blends.length,acr:D.acr.length,loan:D.loans.length,num:D.nums.length,numw:D.numw.length,afam:D.fam.length*5,abinrev:5,aroot:D.action.length};
+const KIND_TOPIC={vroot:'gizra',vtype:'gizra',vgiz:'gizra',odd:'gizra',combo:'gizra',vbin:'binyan',vact:'binyan',pass:'binyan',abin:'binyan',pairs:'binyan',mact:'binyan',bpos:'beinoni',bbin:'beinoni',way:'tzura',oddway:'tzura',msh:'tzura',nroot:'tzura',suf:'tzura',suft:'tzura',blend:'tzura',acr:'tzura',loan:'tzura',num:'numbers',numw:'numbers',afam:'binyan',abinrev:'binyan',aroot:'binyan'};
+const KIND_W={afam:3,abinrev:2.5,aroot:1.5,vroot:3,vtype:2,vgiz:3,odd:2,combo:2,vbin:3,vact:1,pass:.5,abin:3,pairs:2,mact:.7,bpos:3,bbin:2.5,way:3,oddway:1.5,msh:2,nroot:1.5,suf:2,suft:.8,blend:1,acr:.8,loan:.8,num:4,numw:1.5};
+const KIND_NAME={vroot:'שורש של פועל',vtype:'הקלדת שורש',vgiz:'זיהוי גזרה',odd:'יוצא דופן בגזרה',combo:'זמן·גוף·בניין·שורש',vbin:'בניין של פועל',vact:'פעיל/סביל',pass:'זוגות פעיל-סביל',abin:'בניין של שם פעולה',pairs:'פעלים דומים',mact:'שם פעולה מרובע',bpos:'בינוני – חלק דיבר',bbin:'בינוני – בניין',way:'דרך תצורה',oddway:'יוצא דופן בתצורה',msh:'משקל',nroot:'שורש של שם',suf:'משמעות צורן',suft:'צורן גזירה/נטייה',blend:'הלחם בסיסים',acr:'ראשי תיבות',loan:'שאילה מלעז',num:'שם המספר במשפט',numw:'מספר במילים',afam:'שם פעולה לפי בניין',abinrev:'שם פעולה ובניין',aroot:'שורש של שם פעולה'};
 
 function build(id){const [k,i]=id.split(':');const q=G[k](+i);if(!q)return null;q.id=id;q.kind=k;return q}
 
@@ -1197,7 +1338,9 @@ function nextId(){
  const kinds=Object.keys(KIND_TOPIC).filter(k=>KIND_TOPIC[k]===topic);
  for(let t=0;t<40;t++){
   let r=Math.random()*kinds.reduce((a,k)=>a+KIND_W[k],0),k=kinds[0];for(const kk of kinds){r-=KIND_W[kk];if(r<=0){k=kk;break}}
-  const id=k+':'+Math.floor(Math.random()*KIND_COUNT[k]);
+  const RK={vroot:'verbs',vtype:'verbs',vgiz:'verbs',combo:'verbs',vbin:'verbs',vact:'verbs',bpos:'bein',bbin:'bein',abin:'action',aroot:'action'}[k];
+  const n=KIND_COUNT[k];const idx=(RK&&Math.random()<.6)?D.rare[RK]+Math.floor(Math.random()*(n-D.rare[RK])):Math.floor(Math.random()*n);
+  const id=k+':'+idx;
   if(rep.has(id)||lastIds.includes(id))continue;
   if(build(id))return id;
  }

@@ -47,7 +47,9 @@ function nextId(){
  const kinds=Object.keys(KIND_TOPIC).filter(k=>KIND_TOPIC[k]===topic);
  for(let t=0;t<40;t++){
   let r=Math.random()*kinds.reduce((a,k)=>a+KIND_W[k],0),k=kinds[0];for(const kk of kinds){r-=KIND_W[kk];if(r<=0){k=kk;break}}
-  const id=k+':'+Math.floor(Math.random()*KIND_COUNT[k]);
+  const RK={vroot:'verbs',vtype:'verbs',vgiz:'verbs',combo:'verbs',vbin:'verbs',vact:'verbs',bpos:'bein',bbin:'bein',abin:'action',aroot:'action'}[k];
+  const n=KIND_COUNT[k];const idx=(RK&&Math.random()<.6)?D.rare[RK]+Math.floor(Math.random()*(n-D.rare[RK])):Math.floor(Math.random()*n);
+  const id=k+':'+idx;
   if(rep.has(id)||lastIds.includes(id))continue;
   if(build(id))return id;
  }
